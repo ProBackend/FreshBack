@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const url = "mongodb://localhost/warehousee";
+const url = "mongodb://localhost/FreshBack";
 
 mongoose
     .connect(url, {
