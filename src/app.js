@@ -21,11 +21,11 @@ app.use(morgan("dev"));
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 const storage = multer.diskStorage({
-    destination: path.join(__dirname, "public/uploads"),
-    filename: (req, file, cb, filename) => {
-        console.log(file);
-        cb(null, uuidv4() + path.extname(file.originalname));
-    },
+  destination: path.join(__dirname, "public/uploads"),
+  filename: (req, file, cb, filename) => {
+    console.log(file);
+    cb(null, uuidv4() + path.extname(file.originalname));
+  },
 });
 app.use(multer({ storage }).single("image"));
 
@@ -39,5 +39,5 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // start
 app.listen(3000, () => {
-    console.log(`Server on port ${app.get("port")}`);
+  console.log(`Server on port ${app.get("port")}`);
 });

@@ -1,5 +1,6 @@
 const { Schema, model } = require("mongoose");
 const Menuschema = new Schema({
+<<<<<<< HEAD
     nombre: {
         type: String,
         required: true,
@@ -28,6 +29,20 @@ const Menuschema = new Schema({
     size: {
         type: Number,
     },
+=======
+  nombre: {
+    type: String,
+    required: true,
+  },
+  ingredientes: {
+    type: String,
+    required: true,
+  },
+  precio: {
+    type: String,
+    required: true,
+  }
+>>>>>>> 7a2530435634365a5572fa95bff263008c0015c0
 });
 
 module.exports = model("Menu", Menuschema);
