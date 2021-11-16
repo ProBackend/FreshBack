@@ -4,7 +4,7 @@ const router = express.Router();
 
 /* GET home page. */
 router.get('/registro', function(req, res) {
-    res.send("Holaaa")
+    res.render("Loging")
 });
 
 
