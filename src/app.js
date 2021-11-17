@@ -1,7 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
 const multer = require("multer");
-const cors = require("cors");
 const { v4: uuidv4 } = require("uuid");
 
 const path = require("path");
