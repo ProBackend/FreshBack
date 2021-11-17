@@ -34,6 +34,7 @@ app.use(require("./routes/index"));
 
 // Middleware 
 app.use(express.static(path.join(__dirname, "public")));
+app.use('/public', express.static('public'));
 
 // start
 app.listen(3000, () => {

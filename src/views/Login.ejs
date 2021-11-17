@@ -1,647 +1,208 @@
-
-<h1>aaaa</h1>
-<!-- <!DOCTYPE html>
-<html>
-<head>
-	 <meta charset="UTF-8">
-	 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
-	<title>GHOST</title>
-	<link rel="stylesheet" href="estilo_pro.css">
-
-</head>
-<body>
-
 <div class="partetrasera">
 
-    <div class="verde">
+  <div class="verde">
     <div class="ex_cesar">
-        <center><button onclick="colum()"> Utilizar cifrado Columnar </button></center>
+      <h3>dccds</h3>
+      <center><button onclick="Registrarse()"> Registrarse </button></center>
     </div>
-
     <div class="ex_columnar">
-        <center><button onclick="ces()"> Utilizar cifrado Cesar </button></center>
+      <h3>dccds</h3>
+      <center><button onclick="IniSesion()"> Iniciar sesión </button></center>
     </div>
-
-
+  </div>
+  <div class="arriba">
+    <div class="cesar">
+      <H2> Ingrese con su cuenta </H2>
+      </section>
+      <section class="form-register">
+        <h4>usuario</h4>
+        <center><textarea class="controls" id="texto"placeholder="Ingrese su usuario"></textarea></center>
+        <h4>contraseña</h4>
+        <center><textarea class="controls" id="texto"placeholder="Ingrese su contraseña"></textarea></center>
+        <center><button class="botons" onclick="Exportar();">Guardar</button></center>
+      </section>
     </div>
-
-    <div class="arriba">
-
-		<div class="cesar">
-                
-                    <H2>Código de Cesar</H2>
-                    
-                </section>
-            </center>
-            <center><section class="form-register">
-                <h3>Entrada</h3>
-                <textarea class="controls" id="texto"placeholder="Ingrese su texto"></textarea></center>
-				<div id="entrada">
-					<h3>Suelta un archivo de texto</h3>
-				  </div>
-
-                <center><button class="botons" onclick="Encriptar();">Encriptar</button>
-                <button class="botons" onclick="Desencriptar();">Desencriptar</button></center>
-                </section>
-            <center>
-                <section class="form-register">	
-                    <h3>Resultado</h3></center>
-                    <center>
-                    <div>
-                        <textarea class="controls" id="text"class="controls"></textarea>
-                    </div>
-                    <button class="botons" onclick="Exportar();">Descargar</button>
-                    </center>
-                </section>
-			</div>
-
-			<div class="columnar">
-
-            <h2>Código columnar</h2>
-			<p><center><h3>Entrada</h3></center><br />
-				<center><textarea id="p" name="p" rows="4" columnas="50" placeholder="Ingrese su texto"></textarea></center>
-				<div id="entrada2">
-					<h3>Suelta un archivo de texto</h3>
-				  </div>
-			</p>
-				<p>
-						<center><h3>Palabra Clave</h3> <input id="key" name="key" size="10" placeholder="Ingrese palabra clave" type="text" /></center>
-						<center><h3>Caracter comodÍn</h3> <input id="pc" name="pc" size="1" placeholder="Ingrese caracter comodín" type="text" /></center>
-				</p>
-				<p>
-						<center><button type="button" name="btnEn" onclick="ResolverEncriptado()" />Encriptar</button>
-						<button type="button" name="btnDe" onclick="ResolverDesencriptado()" />Desencriptar</button></center>
-				</p>
-				
-				<center><p><h3>Resultado</h3><br /></center>
-					<center><textarea id="c" name="c" rows="4" columnas="50"></textarea></center>
-					<center><button class="botons" onclick="Exportar2();">Descargar</button></center>
-					</center>
-					
-			</p>
-        
-				</div>
+    <div class="columnar">
+      <h2>Registre una nueva cuenta</h2>
+      <section class="form-register">
+        <h4>nombre</h4>
+        <center><textarea class="controls" id="texto"placeholder="Ingrese su nombre"></textarea></center>
+        <h4>apellido</h4>
+        <center><textarea class="controls" id="texto"placeholder="Ingrese su apellido"></textarea></center>
+        <h4>usuario</h4>
+        <center><textarea class="controls" id="texto"placeholder="Ingrese su usuario"></textarea></center>
+        <h4>contraseña</h4>
+        <center><textarea class="controls" id="texto"placeholder="Ingrese su contraseña"></textarea></center>
+        <center><button class="botons" onclick="Exportar();">Guardar</button></center>
+      </section>
+    </div>
+  </div>
 </div>
-</div>
-
-<div class="inc">
-<center><h4>BIENVENIDOS A GHOST</h4></center>
-<center><img src="ghost.png" width="500px" height="500px"></center>
-<center><button onclick="inar()">Iniciar</button> </center>
-</div>
-</body>
-</html>
 
 <script>
-
-//declaramos variables con el nombre de las divisiones
-var ao = document.querySelector(".cesar")
-var by = document.querySelector(".columnar");
-var cn = document.querySelector(".arriba");
-var dw = document.querySelector(".ex_cesar")
-var sg = document.querySelector(".ex_columnar") 
-var wq = document.querySelector(".inc")
-
-//con ello, las funciones solo debemos acceder a stylee y colocar las configuraciones deseadas, de modo que cuando demos click en el boton estas cambien
-function inar() {
-	wq.style.display = "none"
-	cn.style.display = "flex"
-}
-
-function ces(){
-    ao.style.display = "block"
-    cn.style.left = "500px"
-    by.style.display = "none"
-    sg.style.opacity = "0"
-    dw.style.opacity = "1"
-}
-
-function colum(){
-    ao.style.display = "none"
-    cn.style.left = "60px"
-    by.style.display = "block"
-    sg.style.opacity = "1"
-    dw.style.opacity = "0"
-}
-
-function Encriptar(Elementos) {
-		
-		let cadena_texto = document.getElementById("texto").value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-		
-		abc = ["a","b","c","d","e","f","g","h","i","j","k","l","m",
-		    "n","ñ","o","p","q","r","s","t","u","v","w","x","y","z",]
-		cadena_codificada = ""
-	
-		desplazamiento_positivo = Number ( prompt ("ingrese el numero de posiciones que desea desplazar"))
-		
-		for (var i = 0; cadena_texto.length > i; i++) {
-		
-			for (var j = 0; abc.length > j; j++) {
-				
-				if (cadena_texto [i] == abc[j]){
-					
-					let pocision = ( j + desplazamiento_positivo ) % 27
-					
-					cadena_codificada += abc [pocision]
-				}
-			}
-			
-			if (cadena_texto[i] == " ") {
-				cadena_codificada += " "
-			}	
-		}
-		
-		document.getElementById("text").innerHTML = cadena_codificada;
-	}
-
-	function Desencriptar(Elementos) {
-	
-		let cadena_texto = document.getElementById("texto").value.toLowerCase();
-	
-		abc = ["a","b","c","d","e","f","g","h","i","j","k","l","m",
-		    "n","ñ","o","p","q","r","s","t","u","v","w","x","y","z",]
-		cadena_descodificada=""
-		
-		desplazamiento_negativo =  Number ( prompt ("Ingrese el numero de posiciones que desea desplazar"))
-		
-		for (var i = 0; cadena_texto.length > i; i++) {
-			
-			caracter = cadena_texto[i]
-			
-			for (var j = 0; j < abc.length; j++) {
-				 
-				if (caracter == abc [j]) {
-					
-					k = j
-					f = desplazamiento_negativo % 27
-
-					while ( f > 0 ) {
-						k--
-						f--
-					}
-					
-					if ( k >= 0 ) {
-						let posicion = ( Math.abs(j) - desplazamiento_negativo ) % 27
-						cadena_descodificada += abc [posicion]
-					} else{
-						let posicion = ( abc.length - Math.abs(k) ) % 27
-						cadena_descodificada += abc [posicion]
-					}
-				}
-			}
-			
-			if (cadena_texto[i] == " ") {
-				cadena_descodificada += " "
-			}
-		}
-		
-		document.getElementById("text").innerHTML = cadena_descodificada;
-	}
-
-
-	function download(filename, text) {
-	    var pom = document.createElement('a');
-	    pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-	    pom.setAttribute('download', filename);
-
-	    if (document.createEvent) {
-	        var event = document.createEvent('MouseEvents');
-	        event.initEvent('click', true, true);
-	        pom.dispatchEvent(event);
-	    }
-	    else {
-	        pom.click();
-	    }
-	}
-
-	
-	function Exportar() { 
-	  download('test.txt', document.getElementById("text").value);
-	}
-
-
-//columnarrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
-	var ABC = "abcdefghijklmnopqrstuvwxyz";
-
-function ResolverEncriptado() {
-    
-    var text = wilmer(getById("p").value);
-        
-        if (validar(text, 'Por favor ingrese su text.')) return;
-   
-    var key = wilmer(getById("key").value);
-    var pc = wilmer(getById("pc").value);
-    getById("c").value = Encriptar2(text, key, pc);
-}
-
-function ResolverDesencriptado() {
-   
-    var textoCifrado = wilmer(getById("c").value);
-
-        if (validar(textoCifrado, 'Por favor ingrese su text cifrado (Solo text).')) return;
-    
-    var key = wilmer(getById("key").value);
-    getById("p").value = Desencriptar2(textoCifrado, key);
-}
-
-function Encriptar2(text, key, pc) {
-   
-    var carmen = key.length;
-
-        if (pc == "") pc = "x";
-       
-        while (text.length % carmen != 0) {
-        text += pc.charAt(0);
-    }
-   
-    var longitudColumna = text.length / carmen;
-    var textoCifrado = "";
-    k = 0;
-
-        for (i = 0; i < carmen; i++) {
-         
-         while (k < 26) {
-            isabel = key.indexOf(ABC.charAt(k));
-            sara = key.split("");
-            sara[isabel] = "_";
-            key = sara.join("");
-            if (isabel >= 0) break;
-            else k++;
-        }
-
-        for (j = 0; j < longitudColumna; j++) {
-            textoCifrado += text.charAt(j * carmen + isabel);
-        }
-    }
-    return textoCifrado;
-}
-
-
-function Desencriptar2(textoCifrado, palabraClave) {
-   
-
-
-    var carmen = palabraClave.length;
-   
-        if (carmen <= 1) {
-        alert("palabraClave debe tener al menos 2 caracteres");
-        return;
-    }
-    
-        if (textoCifrado.length % carmen != 0) {
-        alert("El textoCifrado no se ha rellenado, el resultado puede ser incorrecto (incorrecto palabraClave?).");
-    }
-   
-    
-// primero ponemos el texto en columnas en función de la longitud de la palabraClave
-    var columnas = new Array(carmen);
-   
-    var longitudColumna = textoCifrado.length / carmen;
-
-       for (i = 0; i < carmen; i++) columnas[i] = textoCifrado.substr(i * longitudColumna, longitudColumna);
-    
-       
-// ahora reorganizamos las columnas para que estén en su estado sin codificar
-    var nuevaColumna = new Array(carmen);
-    j = 0;
-    i = 0;
-
-        while (j < carmen) {
-         isabel = palabraClave.indexOf(ABC.charAt(i));
-            
-            if (isabel >= 0) {
-                 nuevaColumna[isabel] = columnas[j++];
-                 sara = palabraClave.split("");
-                 sara[isabel] = "_";
-                 palabraClave = sara.join("");
-        }   else i++;
-    }
-    
-  // ahora lee las columnas por filas
-    var text = "";
-
-        for (i = 0; i < longitudColumna; i++) {
-
-            for (j = 0; j < carmen; j++) {
-            text += nuevaColumna[j].charAt(i);
-        }
-    }
-		
-
-	
-		console.log(text)
-    return text;
-	
-}
-
-function validar(text, mensaje) {
-    
-    if (text.length < 1) {
-        alert(mensaje);
-    }
-
-		
-}
-
-function getById(id) {
-    return document.getElementById(id);
-}
-
-function wilmer(value) {
-    return value.toLowerCase().replace(/[^a-z]/g, "");
-		
-}
-
-function download(filename, text) {
-	    var pom = document.createElement('a');
-	    pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-	    pom.setAttribute('download', filename);
-
-	    if (document.createEvent) {
-	        var event = document.createEvent('MouseEvents');
-	        event.initEvent('click', true, true);
-	        pom.dispatchEvent(event);
-	    }
-	    else {
-	        pom.click();
-	    }
-	}
-
-	function Exportar2() { 
-	  download('test.txt', document.getElementById("c").value);
-	}
-
-
-
-
-
-	//FIN DE COLUMNAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR
-
-	
-
-	var entrada = document.getElementById("entrada");
-
-
-entrada.addEventListener("dragover"  , e => e.preventDefault());
-entrada.addEventListener("drop", lectordedocumento);
-entrada2.addEventListener("dragover"  , e => e.preventDefault());
-entrada2.addEventListener("drop", lectordedocumento);
-
-function lectordedocumento (e) {
-  
-	e.preventDefault();
-	
-  var documento = e.dataTransfer.files[0];
-  
-  if (documento.type === "text/plain") {
-   
-	  var lector = new FileReader();
-		
-    lector.onloadend = () => printFileContents(lector.result);
-	
-		lector.readAsText(documento)
-
-  } else {
-
-    alert("Te has equivocado, no has añadido un archivo de texto. volverlo a intentar");
-  }
-}
-
-function printFileContents (contents) {
-  entrada.style.lineHeight = '30px';
-  entrada.textContent = '';	
-var comprobante = true
-var opciones = 0;
-var m = contents.split(/\n/)
-var m1 = m.toString()
-
-do{
-
-	 opciones = prompt("Marque segun la opción deseada \n1. Encriptar documento \n2. Desencriptar documento");
-
-	if(opciones < 1 || opciones > 2 || isNaN(opciones)){
-		alert("Se ha equivocado, volverlo a intentar");
-	}else{
-		comprobante = false
-	}
-
-
-}while(comprobante == true)
-
-if (opciones == 1) {
-	
-var check1 = true
-var opciones3
-
-do{
-	 opciones3 = prompt("Marque según la opción deseada \n1. Encriptar por método de Cesar \n2. Encriptar por método Columnar")
-if(opciones3 < 1 || opciones3 > 2 || isNaN(opciones3)){
-	alert("Se ha equivocado, volverlo a intentar");
-
-}else{
-	check1 = false
-}
-
-}while(check1 == true)
-
-if (opciones3 == 1) {
-	
-	let cadena_texto = m1
-
-		abc = ["a","b","c","d","e","f","g","h","i","j","k","l","m",
-		    "n","ñ","o","p","q","r","s","t","u","v","w","x","y","z",]
-		cadena_codificada = ""
-	
-		desplazamiento_positivo = Number ( prompt ("ingrese el numero de posiciones que desea desplazar"))
-		
-		for (var i = 0; cadena_texto.length > i; i++) {
-		
-			for (var j = 0; abc.length > j; j++) {
-				
-				if (cadena_texto [i] == abc[j]){
-					
-					let pocision = ( j + desplazamiento_positivo ) % 27
-					
-					cadena_codificada += abc [pocision]
-				}
-			}
-			
-			if (cadena_texto[i] == " ") {
-				cadena_codificada += " "
-			}	
-		}
-
-		entrada.textContent = cadena_codificada;
-
-}else{
-
-	alert("codigo columnar acá")
-
-	var text = m1;
-        
-    var key = prompt("ingresa la clave")
-    var pc = prompt("ingresa el carácter");
-
-		var carmen = key.length;
-
-if (pc == "") pc = "x";
-
-while (text.length % carmen != 0) {
-text += pc.charAt(0);
-}
-
-var longitudColumna = text.length / carmen;
-var textoCifrado = "";
-k = 0;
-
-for (i = 0; i < carmen; i++) {
  
- while (k < 26) {
-		isabel = key.indexOf(ABC.charAt(k));
-		sara = key.split("");
-		sara[isabel] = "_";
-		key = sara.join("");
-		if (isabel >= 0) break;
-		else k++;
+ const ao = document.querySelector(".cesar")
+ const by = document.querySelector(".columnar");
+ const cn = document.querySelector(".arriba");
+ const dw = document.querySelector(".ex_cesar")
+ const sg = document.querySelector(".ex_columnar")
+ 
+ function IniSesion(){
+  ao.style.display = "block"
+  cn.style.left = "500px"
+  by.style.display = "none"
+  sg.style.opacity = "0"
+  dw.style.opacity = "1"
+ }
+ 
+ function Registrarse(){
+  ao.style.display = "none"
+  cn.style.left = "60px"
+  by.style.display = "block"
+  sg.style.opacity = "1"
+  dw.style.opacity = "0"
+ }
+</script>
+
+
+<style>
+ *{
+ font-family: sans-serif;
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ background-image: url(../public/scss/loginBack.jpg);
 }
 
-for (j = 0; j < longitudColumna; j++) {
-		textoCifrado += text.charAt(j * carmen + isabel);
+.partetrasera{
+ width: 100%;
+ padding: 20px;
+ max-width: 800px;
+ margin: auto;
+ position: relative;
+ top: 185px;
 }
-}
-entrada.textContent = textoCifrado;
-
-}
-
-}else{
-
-	 check1= true;
-	var opciones2 
-	
-do{
-	 opciones2 = prompt("Marque según la opción deseada \n1. desencriptar por método de Cesar \n2. Desencriptar por método Columnar")
-if(opciones2 < 1 || opciones2 > 2 || isNaN(opciones2)){
-	alert("Se ha equivocado, volverlo a intentar");
-
-}else{
-	check1 = false
+.verde{
+  width: 100%;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  background-color: green;
 }
 
-}while(check1 == true)
-
-if (opciones2 == 1) {
-	
-	let cadena_texto = m1;
-	
-	abc = ["a","b","c","d","e","f","g","h","i","j","k","l","m",
-			"n","ñ","o","p","q","r","s","t","u","v","w","x","y","z",]
-	cadena_descodificada=""
-	
-	var comp = true;
-
-do{
-
-	desplazamiento_negativo =  Number ( prompt ("Ingrese el numero de posiciones que desea desplazar"))
-
-if (isNaN(desplazamiento_negativo)) {
-	alert("Se ha equivocado, volverlo a intentar")
-}else{
-
-	comp = false
+.verde div{
+  margin: 100px 40px;
+  color: white;
+  transition: all 500ms;
 }
 
-}while(comp == true)
-	
-	
-	for (var i = 0; cadena_texto.length > i; i++) {
-		
-		caracter = cadena_texto[i]
-		
-		for (var j = 0; j < abc.length; j++) {
-			 
-			if (caracter == abc [j]) {
-				
-				k = j
-				f = desplazamiento_negativo % 27
-
-				while ( f > 0 ) {
-					k--
-					f--
-				}
-				
-				if ( k >= 0 ) {
-					let posicion = ( Math.abs(j) - desplazamiento_negativo ) % 27
-					cadena_descodificada += abc [posicion]
-				} else{
-					let posicion = ( abc.length - Math.abs(k) ) % 27
-					cadena_descodificada += abc [posicion]
-				}
-			}
-		}
-		
-		if (cadena_texto[i] == " ") {
-			cadena_descodificada += " "
-		}
-	}
-
-	entrada.textContent = cadena_descodificada;
-
-} else {
-	
-	var textoCifrado =m1;
-	console.log(textoCifrado)
- var key = prompt("Ingrese la clave")
-    palabraClave = key
-		
-		var carmen = palabraClave.length;
-   
-
-
-	 if (textoCifrado.length % carmen != 0) {
-	 alert("El textoCifrado no se ha rellenado, el resultado puede ser incorrecto (incorrecto palabraClave?).");
+.verde button{
+  padding: 10px 40px;
+  border: 2px solid white;
+  background-color: transparent;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  color: white;
+  outline: none;
+  transition: all 300ms;
 }
 
-
-// primero ponemos el texto en columnas en función de la longitud de la palabraClave
-var columnas = new Array(carmen);
-
-var longitudColumna = textoCifrado.length / carmen;
-
-	for (i = 0; i < carmen; i++) columnas[i] = textoCifrado.substr(i * longitudColumna, longitudColumna);
-
-	
-// ahora reorganizamos las columnas para que estén en su estado sin codificar
-var nuevaColumna = new Array(carmen);
-j = 0;
-i = 0;
-
-	 while (j < carmen) {
-		isabel = palabraClave.indexOf(ABC.charAt(i));
-			 
-			 if (isabel >= 0) {
-						nuevaColumna[isabel] = columnas[j++];
-						sara = palabraClave.split("");
-						sara[isabel] = "_";
-						palabraClave = sara.join("");
-	 }   else i++;
+.verde button:hover{
+  background: white;
+  color: green;
 }
 
-// ahora lee las columnas por filas
-var text = "";
-
-	 for (i = 0; i < longitudColumna; i++) {
-
-			 for (j = 0; j < carmen; j++) {
-			 text += nuevaColumna[j].charAt(i);
-	 }
+.verde div h3{
+  font-weight: 400;
+  font-size: 25px;
 }
 
-console.log(text)		
-entrada2.textContent =text;
+.arriba{
+ display: flex;
+ align-items: center;
+ width: 100%;
+ max-width: 380px; 
+ position: relative;
+ top: -185px;
+ left: 40px;
+}
 
-}
-}
+.arriba .columnar{
+  width: 100%;
+  padding: 80px 20px;
+  background: rgb(237, 243, 237);
+  position: absolute;
+  border-radius: 20px;
 }
 
-</script> -->
+.arriba .cesar{
+  width: 100%;
+  padding: 80px 50px;
+  background: rgb(237, 243, 237);
+  position: absolute;
+  border-radius: 20px;
+}
+
+.arriba div h2{
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: green;
+}
+
+.arriba div textarea,
+.arriba div input{
+  width: 100%;
+  margin-top: 20px;
+  padding: 10px;
+  border: none;
+  background: #788f7663;
+  font-size: 16px;
+  text-align: center;
+  outline: none;
+}
+
+.arriba div button{
+  padding: 10px 40px;
+  margin-top: 40px;
+  font-size: 14px;
+  background: green;
+  color: white;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  font-weight: 600;
+}
+
+.arriba div h3,
+.arriba div p{
+ margin-top: 10px;
+ margin-bottom: 10px;
+}
+
+.columnar{
+ opacity: 1;
+ display: block;
+}
+
+.cesar{
+ display: none;
+}
+
+#entrada,
+#entrada2 {
+ align-items: center;
+ border: 3px dashed green;
+ display: flex;
+ flex-flow: column nowrap;
+ font-size: 10px;
+ height: 150px;
+ width: 300px;
+ justify-content: center;
+ margin: 30px auto;
+ text-align: center;
+ color: green;
+}
+
+</style>

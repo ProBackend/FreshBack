@@ -3,8 +3,7 @@ const router = express.Router();
 
 /* GET home page. */
 router.get('/registro', function(req, res) {
-    res.render("Loging")
-  res.render("productos")
+    res.render("login")
 });
 
 module.exports = router;
