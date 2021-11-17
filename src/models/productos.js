@@ -10,7 +10,7 @@ const Productoschema = new Schema({
     },
 
     precio: {
-        type: String,
+        type: Number,
         required: true,
     },
     filename: {

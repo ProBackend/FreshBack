@@ -10,11 +10,11 @@ const Pr_diaschema = new Schema({
     },
     //precio regular
     precio_r: {
-        type: String,
+        type: Number,
         required: true,
     },
     oferta: {
-        type: String,
+        type: Number,
         required: true,
     },
     filename: {

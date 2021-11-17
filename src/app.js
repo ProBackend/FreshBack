@@ -4,7 +4,6 @@ const multer = require("multer");
 const cors = require("cors");
 const { v4: uuidv4 } = require("uuid");
 
-
 const path = require("path");
 
 // inicialización
@@ -12,8 +11,9 @@ const app = express();
 require("./connection");
 
 // Ajustes
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.use(express.json())
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
 app.set("port", process.env.PORT || 3000);
 
 // middlewares
@@ -32,7 +32,7 @@ app.use(multer({ storage }).single("image"));
 // rutas
 app.use(require("./routes/index"));
 
-// Middleware 
+// Middleware
 app.use(express.static(path.join(__dirname, "public")));
 
 // start
