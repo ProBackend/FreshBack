@@ -8,30 +8,8 @@ const Productoschema = new Schema({
     type: String,
     required: true,
   },
-
-<<<<<<< HEAD
-    precio: {
-        type: Number,
-        required: true,
-    },
-    filename: {
-        type: String,
-    },
-    path: {
-        type: String,
-    },
-    originalname: {
-        type: String,
-    },
-    mimetype: {
-        type: String,
-    },
-    size: {
-        type: Number,
-    },
-=======
   precio: {
-    type: String,
+    type: Number,
     required: true,
   },
   filename: {
@@ -48,8 +26,7 @@ const Productoschema = new Schema({
   },
   size: {
     type: Number,
-  },
->>>>>>> 0b1901cf0490336d540b373349b1cbb771795bfb
+  }
 });
 
 module.exports = model("Producto", Productoschema);
