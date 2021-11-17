@@ -6,4 +6,8 @@ router.get('/registro', function(req, res) {
   res.render("productos")
 });
 
+router.get('/AcercadeNosotros', function(req, res) {
+  res.render('informacion')
+})
+
 module.exports = router;

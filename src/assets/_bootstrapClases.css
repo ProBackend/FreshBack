@@ -1,0 +1,19 @@
+nav.navbar {
+  background-color: #afaf91c2;
+  border-radius: 0.25rem;
+}
+ul.navbar-nav {
+  flex-direction: row;
+}
+li.nav-item {
+  margin: .5rem;
+}
+.container {
+  color: #AFAF91;
+  background-color: #553f25c2;
+  border-radius: 0.25rem;
+}
+.btn-outline-success {
+  color: #362B12;
+  border-color: #362B12;
+}
