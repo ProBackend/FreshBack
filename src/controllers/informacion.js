@@ -1,13 +1,23 @@
+require('../connection')
 const Informacion = require("../models/infor")
 
-module.exports.guardar = async(req, res) => {
+class info{
+  constructor(req) {}
+  async guardar (req) {
     const info = new Informacion({
-        nombre: 'pedro',
-        apellido: 'salinas',
-        direccion: 'av los callaos',
-        descripcion: 'Chef',
-        telefono: '04123366548'
+      nombre: 'pedro',
+      apellido: 'salinas',
+      direccion: 'av los callaos',
+      descripcion: 'Chef',
+      telefono: '04123366548'
     });
     await info.save();
-    res.send("Guardado")
+    return info;
+  }
+  async buscar (req) {
+    const info = await Informacion.find({});
+    return info;
+  }
 }
+
+module.exports = info;

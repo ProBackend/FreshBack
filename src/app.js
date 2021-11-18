@@ -8,10 +8,17 @@ const path = require("path");
 const app = express();
 require("./connection");
 
+
 // Ajustes
+app.use(express.json());
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+app.set("port", process.env.PORT || 3000);
+
 // middlewares
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
+const storage = multer.diskStorage({
     destination: path.join(__dirname, "public/uploads"),
     filename: (req, file, cb, filename) => {
         console.log(file);

@@ -1,4 +1,6 @@
 const { Schema, model } = require("mongoose");
+const bcrypt = require('bcryptjs');
+
 const Gerenteschema = new Schema({
   nombre: {
     type: String,
@@ -23,5 +25,10 @@ const Gerenteschema = new Schema({
     required: true,
   }
 });
+
+Gerenteschema.methods.encryptClave = async (clave) => {
+  const salt = await bcrypt.genSalt(10);
+  return bcrypt.hash(clave, salt);
+};
 
 module.exports = model("Gerente", Gerenteschema);
