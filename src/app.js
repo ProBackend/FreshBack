@@ -38,12 +38,11 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// rutas
-app.use(require("./routes/index"));
-
-// Middleware
 app.use(express.static(path.join(__dirname, "/public")));
 app.use('/public', express.static('public'));
+
+// rutas
+app.use(require("./routes/index"));
 
 // start
 app.listen(3000, () => {

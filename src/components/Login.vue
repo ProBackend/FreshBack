@@ -74,7 +74,7 @@ export default {
       const ao = document.querySelector(".iniSes")
       const by = document.querySelector(".regis");
       const cn = document.querySelector(".arriba");
-      
+
       if (num) {
         ao.style.display = "block"
         cn.style.left = "410px"
@@ -98,7 +98,7 @@ export default {
           'Accept': 'application/json',
           'Content-type': 'application/json'
         }
-      })      
+      })
       .then(res => res.json())
       .then(data => this.mensaje = data.status)
 
@@ -108,11 +108,10 @@ export default {
     },
     registrarse() {
       const emailVa = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
-
       if (!this.registro.nombre || !this.registro.apellido || !this.registro.correo ||!this.registro.user ||!this.registro.password) {
         console.log('Recuerda rellenar todos los campos')
         return
-      } 
+      }
       if (!emailVa.test(this.registro.correo)) {
         console.log('Recuerda ingresar un correo electrónico válido')
         return
@@ -120,7 +119,6 @@ export default {
 
       this.registro.nombre = this.capitalizar(this.registro.nombre);
       this.registro.apellido = this.capitalizar(this.registro.apellido);
-      
       fetch('/Login/Registrarse', {
         method: 'POST',
         body: JSON.stringify(this.registro),

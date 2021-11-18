@@ -5,7 +5,7 @@
       <a class="navbar-brand">Somos un restaurante</a>
         <ul class="navbar-nav">
           <li
-            class="nav-item col-3"
+            class="nav-item"
             v-for="enlace in enlaces"
           >
             <a class="nav-link" href="#">{{ enlace.nombre }}</a>
@@ -36,6 +36,6 @@ export default {
         }
       ]
     }
-  },
+  }
 }
 </script>
