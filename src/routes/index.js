@@ -7,9 +7,6 @@ const Clientes = require('../models/cliente.js');
 const Passport = require("passport");
 
 /* GET home page. */
-router.get("/:Productos", Prdt.save);
-
-/* GET home page. */
 router.get('/Login', async (req, res) => {
   res.render('Login')
 });
@@ -46,8 +43,8 @@ router.post('/Login/Iniciar_sesion', Passport.authenticate('local', {
   failureFlash: true
 }));
 
-// router.get("/:productos", Prdt.save);
 //Poductos
+router.get("/:productos", Prdt.save);
 router.post("/productos", Prdt.guardar);
 router.get("/productos/mostrar", Prdt.mostrar);
 router.get("/productos/editar/:id", Prdt.edit);
