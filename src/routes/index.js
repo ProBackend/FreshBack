@@ -5,9 +5,9 @@ const Menu = require("../controllers/menu_dia")
 const Login = require("../controllers/Login")
 
 /* GET home page. */
-// router.get('/Login', function(req, res) {
-//     res.render("login")
-// });
+router.get('/Login', function(req, res) {
+    res.render("login")
+});
 router.post('/Login', Login.guardar);
 
 router.get("/:productos", Prdt.save);
