@@ -3,6 +3,7 @@ const router = express.Router();
 const Prdt = require("../controllers/Producto");
 const Menu = require("../controllers/menu_dia");
 const Clientes = require('../models/cliente.js');
+const Passport = require("passport");
 
 /* GET home page. */
 router.get('/Login', async (req, res) => {
@@ -12,15 +13,36 @@ router.get('/Clientes', async (req, res) => {
     const cliente = await Clientes.find();
     res.json(cliente);
 });
-router.post('/Login', async (req, res) => {
+router.post('/Login/Registrarse', async (req, res) => {
+  const Email = await Clientes.findOne({correo: req.body.correo})
+  const User = await Clientes.findOne({user: req.body.user})
+
+  if (Email) {
+    res.json({
+      status: 'El correo ya está en uso'
+    })
+    res.redirect('/Login')
+  }
+  if (User) {
+    res.json({
+      status: 'El user ya está en uso'
+    })
+    res.redirect('/Login')
+  }
   const cliente = new Clientes(req.body);
   await cliente.save();
   res.json({
     status: 'Te has registrado correctamente'
   })
+  res.redirect('/Clientes')
 });
+router.post('/Login/Iniciar_sesion', Passport.authenticate('local', {
+  successRedirect: '/AcercadeNosotros',
+  failureRedirect: '/Login',
+  failureFlash: true
+}));
 
-router.get("/:productos", Prdt.save);
+// router.get("/:productos", Prdt.save);
 //Poductos
 router.post("/productos", Prdt.guardar);
 

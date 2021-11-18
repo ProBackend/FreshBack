@@ -19,7 +19,7 @@
           </div>
           <div class="arriba">
               <div class="iniSes">
-              <form @submit.prevent="iniciarSesion()">
+              <form>
                   <h2>Iniciar sesión</h2>
                   <label for="userIngre">Usuario</label>
                   <input type="text" v-model="usuario.user" id="userIngre" placeholder="Usuario" name="usuario">
@@ -29,7 +29,7 @@
               </form>
               </div>
               <div class="regis">
-              <form action="/Login" method="post">
+              <form>
                   <h2>Registrarse</h2>
                   <label for="nombreRegis">Nombre</label>
                   <input type="text" v-model="registro.nombre" id="nombreRegis" placeholder="Nombre" name="nombre">
@@ -66,9 +66,6 @@ export default {
         correo: '',
         password: ''
       },
-      dismissSecs: 5,
-      dismissCountDown: 0,
-      alertTipo: '',
       mensaje: ''
     }
   },
@@ -89,7 +86,25 @@ export default {
       }
     },
     iniciarSesion() {
-      console.log(this.usuario)
+      if (!this.usuario.user ||!this.usuario.password) {
+        console.log('Recuerda rellenar todos los campos')
+        return
+      };
+
+      fetch('/Login/Iniciar_sesion', {
+        method: 'POST',
+        body: JSON.stringify(this.usuario),
+        headers: {
+          'Accept': 'application/json',
+          'Content-type': 'application/json'
+        }
+      })      
+      .then(res => res.json())
+      .then(data => this.mensaje = data.status)
+
+      setTimeout(() => {
+        this.mensaje = ''
+      }, 8000);
     },
     registrarse() {
       const emailVa = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
@@ -106,7 +121,7 @@ export default {
       this.registro.nombre = this.capitalizar(this.registro.nombre);
       this.registro.apellido = this.capitalizar(this.registro.apellido);
       
-      fetch('/Login', {
+      fetch('/Login/Registrarse', {
         method: 'POST',
         body: JSON.stringify(this.registro),
         headers: {
@@ -120,7 +135,6 @@ export default {
       setTimeout(() => {
         this.mensaje = ''
       }, 8000);
-
     },
     capitalizar(string) {
       if (string) {
