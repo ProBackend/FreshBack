@@ -8,7 +8,11 @@ const Login = require("../controllers/Login")
 router.get('/Login', function(req, res) {
     res.render("login")
 });
-router.post('/Login', Login.guardar);
+router.post('/Login', function(req, res) {
+    console.log('aaa')
+    console.log(req.body)
+    res.send('co;oooo')
+});
 
 router.get("/:productos", Prdt.save);
 //Poductos
