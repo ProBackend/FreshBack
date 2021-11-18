@@ -1,23 +1,35 @@
 *{
-font-family: sans-serif;
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-text-decoration: none;
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
 }
 
 body{
-background-image: url(/css/loginBack.jpg);
-background-size: cover;
-background-repeat: no-repeat;
-background-position: fixed;
+  background-image: url(/css/loginBack.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: fixed;
+}
+
+.mensaje {
+  background-color: #788f76;
+  display: flex;
+  position: relative;
+  top: 20px;
+  padding: 20px 50px;
+  margin: auto;
+  justify-content: center;
+  width: 100%;
+  color: #553F25;
+  font-weight: bold;
 }
 
 main{
   width: 100%;
   padding: 20px;
   margin: auto;
-  margin-top: 100px;
 }
 
 .todo{
@@ -25,6 +37,7 @@ main{
   max-width: 800px;
   margin: auto;
   position: relative;
+  margin-top: 100px;
 }
 
 .parteTrasera{
