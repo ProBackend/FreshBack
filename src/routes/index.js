@@ -7,7 +7,7 @@ const Clientes = require('../models/cliente.js');
 const Passport = require("passport");
 
 /* GET home page. */
-router.get("/:productos", Prdt.save);
+router.get("/:Productos", Prdt.save);
 
 /* GET home page. */
 router.get('/Login', async (req, res) => {
