@@ -33,18 +33,12 @@ class adminis{
       };
     };
     const decodificado = jwt.verify(token, config.secret);
-    // return {auth: true, token: decodificado};
-
     const admibus = await Gerente.findById(decodificado.id, { clave: 0 });
     if (!admibus) {
       return ({auth: false, message: 'No se encontró el usuario'});
     };
     return ({auth: true, admibus})
   }
-
-  /*
-
-  */
 }
 
 module.exports = adminis;
