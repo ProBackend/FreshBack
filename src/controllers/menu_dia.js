@@ -1,12 +1,4 @@
-const Producto = require("../models/productos");
-
-module.exports.save = (req, res) => {
-
-    const url = req.params.productos
-    res.render("productos", { url })
-
-}
-
+const Menu_dia = require("../models/menu_dia");
 
 module.exports.guardar = async(req, res) => {
     const { nombre, ingredientes, precio } = req.body;
@@ -15,7 +7,7 @@ module.exports.guardar = async(req, res) => {
         return res.send("Ingrese la información correctamente")
     }
 
-    const producto = new Producto({
+    const Menu = new Menu_dia({
         nombre: nombre,
         ingredientes: ingredientes,
         precio: precio,
@@ -26,7 +18,7 @@ module.exports.guardar = async(req, res) => {
         size: req.file.size
     })
 
-    await producto.save()
+    await Menu.save()
 
     return res.send("Guardado con exito")
 };
@@ -34,7 +26,7 @@ module.exports.guardar = async(req, res) => {
 module.exports.mostrar = async(req, res) => {
 
 
-    const mostrart = await Producto.find();
+    const mostrart = await Menu.find();
     res.render("pmostrar", { mostrart });
 
 
@@ -42,7 +34,7 @@ module.exports.mostrar = async(req, res) => {
 
 module.exports.edit = async(req, res) => {
     const id = req.params.id
-    const mostrar_id = await Producto.findById(id)
+    const mostrar_id = await Menu.findById(id)
     if (id == null) {
         res.send("No existe ese código");
         res.end();
@@ -54,7 +46,7 @@ module.exports.edit = async(req, res) => {
 module.exports.editar = async(req, res) => {
     const valor = req.params.id;
 
-    await Producto.updateOne({ id: valor }, {
+    await Menu.updateOne({ id: valor }, {
         nombre: req.body.nombre,
         ingredientes: req.body.ingredientes,
         precio: req.body.precio,
@@ -69,6 +61,6 @@ module.exports.editar = async(req, res) => {
 
 module.exports.delete = async(req, res) => {
     const codigon = req.params.id;
-    await Producto.deleteOne({ id: codigon });
+    await Menu.deleteOne({ id: codigon });
     return res.send("Se ha eliminado");
 }
