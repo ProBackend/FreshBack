@@ -1,6 +1,9 @@
 <template>
 <section>
   <div class="d-flex justify-content-center">
+    <div>
+      <button type="button" :class="['btn', token ? 'btn-outline-success' : 'btn btn-outline-secondary']">Agregar contacto</button>
+    </div>
     <div class="card cards mx-3" style="width: 18rem;" v-for="contacto in contactos">
       <div class="card-body">
         <h5 class="card-title">{{ contacto.nombre }} {{ contacto.apellido }}</h5>
@@ -16,11 +19,9 @@
 <script>
 export default {
   name: 'Nosotros',
-  components: {
-    Informacion
-  },
   data() {
     return {
+      token: false,
       contactos: [
         {
           nombre: 'pedro',
