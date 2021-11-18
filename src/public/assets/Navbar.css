@@ -1,0 +1,11 @@
+/* Barra de navegadion */
+nav.navbar {
+  background-color: #D5C6A6;
+  border-radius: 0.25rem;
+}
+.navbar-nav {
+  flex-direction: row;
+}
+.nav-item {
+  margin: .5rem;
+}
