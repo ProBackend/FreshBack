@@ -3,8 +3,6 @@ const morgan = require("morgan");
 const multer = require("multer");
 const cors = require("cors");
 const { v4: uuidv4 } = require("uuid");
-
-
 const path = require("path");
 
 // inicialización
@@ -30,12 +28,11 @@ const storage = multer.diskStorage({
 });
 app.use(multer({ storage }).single("image"));
 
-// rutas
-app.use(require("./routes/index"));
-
-// Middleware
 app.use(express.static(path.join(__dirname, "/public")));
 app.use('/public', express.static('public'));
+
+// rutas
+app.use(require("./routes/index"));
 
 // start
 app.listen(3000, () => {

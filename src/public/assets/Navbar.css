@@ -1,11 +1,11 @@
 /* Barra de navegadion */
 nav.navbar {
-  background-color: #afaf91c2;
+  background-color: #D5C6A6;
   border-radius: 0.25rem;
 }
-ul.navbar-nav {
+.navbar-nav {
   flex-direction: row;
 }
-li.nav-item {
+.nav-item {
   margin: .5rem;
 }
