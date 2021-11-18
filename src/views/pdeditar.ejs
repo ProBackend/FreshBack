@@ -22,7 +22,7 @@
                     </div>
                     <div class="card-body ">
                         <div class="input-group mb-3">
-                            <form action="/productodia/editar/<%=mostrar_id.id %>" method="post" enctype="multipart/form-data">
+                            <form action="/<%=p %>/editar/<%=mostrar_id.id %>" method="post" enctype="multipart/form-data">
                                 <div class="input-group mb-3">
                                     <div class="custom-file">
                                         <input type="file" name="image" class="custom-file-input" id="inputGroupFile02" value="<%=mostrar_id.originalname %>">
@@ -37,11 +37,9 @@
                                     <input type="text" name="ingredientes" placeholder="Ingredientes" class="form-control" value="<%=mostrar_id.ingredientes %>">
                                 </div>
                                 <div class="form-group">
-                                    <input type="number" name="precio_r" placeholder="Precio regular" class="form-control" value="<%=mostrar_id.precio_r %>">
+                                    <input type="number" name="precio" placeholder="Precio" class="form-control" value="<%=mostrar_id.precio %>">
                                 </div>
-                                <div class="form-group">
-                                    <input type="number" name="oferta" placeholder="Oferta" class="form-control" value="<%=mostrar_id.oferta %>">
-                                </div>
+
                                 <button class="btn btn-success btn-block">
                                     Editar
                                 </button>

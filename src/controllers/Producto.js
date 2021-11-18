@@ -3,7 +3,12 @@ const Producto = require("../models/productos");
 module.exports.save = (req, res) => {
 
     const url = req.params.productos
-    res.render("productos", { url })
+    if (url == "productodia") {
+        res.render("productodia", { url })
+    } else {
+        res.render("productos", { url })
+    }
+
 
 }
 
@@ -32,38 +37,46 @@ module.exports.guardar = async(req, res) => {
 };
 
 module.exports.mostrar = async(req, res) => {
-
-
+    const p = "productos"
     const mostrart = await Producto.find();
-    res.render("pmostrar", { mostrart });
+    res.render("pmostrar", { mostrart, p });
 
 
 }
 
 module.exports.edit = async(req, res) => {
+    const p = "productos"
     const id = req.params.id
     const mostrar_id = await Producto.findById(id)
     if (id == null) {
         res.send("No existe ese código");
         res.end();
     } else {
-        res.render("peditar", { mostrar_id })
+        res.render("peditar", { mostrar_id, p })
     }
 }
 
 module.exports.editar = async(req, res) => {
     const valor = req.params.id;
+    if (req.file) {
+        await Producto.updateOne({ id: valor }, {
+            nombre: req.body.nombre,
+            ingredientes: req.body.ingredientes,
+            precio: req.body.precio,
+            filename: req.file.filename,
+            path: "/uploads/" + req.file.filename,
+            orinalname: req.file.originalname,
+            mimetype: req.file.mimetype,
+            size: req.file.size
+        })
+    } else {
+        await Producto.updateOne({ id: valor }, {
+            nombre: req.body.nombre,
+            ingredientes: req.body.ingredientes,
+            precio: req.body.precio
+        })
+    }
 
-    await Producto.updateOne({ id: valor }, {
-        nombre: req.body.nombre,
-        ingredientes: req.body.ingredientes,
-        precio: req.body.precio,
-        filename: req.file.filename,
-        path: "/uploads/" + req.file.filename,
-        orinalname: req.file.originalname,
-        mimetype: req.file.mimetype,
-        size: req.file.size
-    })
     return res.send("Se ha editado correctamente");
 }
 
