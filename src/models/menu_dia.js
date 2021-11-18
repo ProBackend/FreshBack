@@ -9,7 +9,7 @@ const Menuschema = new Schema({
     required: true,
   },
   precio: {
-    type: String,
+    type: Number,
     required: true,
   },
   filename: {

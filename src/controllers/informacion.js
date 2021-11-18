@@ -1,21 +1,11 @@
-// pueden comentar las cosas de mongodb y ver que si funciona el paso de informacion por el objeto info
-/*
-require('../connection')
-const Informacion = require("../models/infor")
-*/
+const Infor = require("../models/infor")
+
 class info{
   constructor(req) {}
-  /*async guardad(req, res) {
-    const info = new Informacion({
-      nombre: 'pedro',
-      apellido: 'salinas',
-      direccion: 'av los callaos',
-      descripcion: 'Chef',
-      telefono: '04123366548'
-    });
-    await info.save();
-    console.log("Guardado")
-  }*/
+  async consultar() {
+    const consulta = await Infor.find()
+    return consulta
+  }
   pruebassa(token) {
     if(token){
       token = false
@@ -24,6 +14,17 @@ class info{
     }
     console.log('asdasdasAAA')
     return token
+  }
+  async guardar(req, res) {
+    const info = new Infor({
+      nombre: 'pedro',
+      apellido: 'salinas',
+      direccion: 'av los callaos',
+      descripcion: 'Chef',
+      telefono: '04123366548'
+    });
+    await info.save();
+    console.log("Guardado")
   }
 }
 

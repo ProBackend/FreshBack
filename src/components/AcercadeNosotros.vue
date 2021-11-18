@@ -5,14 +5,12 @@
       <button
         type="button"
         :class="['btn', token ? 'btn-outline-success' : 'btn btn-outline-secondary']"
-        @click="pruebas()"
       >
         token
       </button>
       <button
         type="button"
         :class="['btn', token ? 'btn-outline-warning' : 'btn btn-outline-danger']"
-        @click="guardar()"
       >
         Agregar contacto
       </button>
@@ -30,48 +28,22 @@
 </template>
 
 <script>
-import info from "../controllers/informacion";
 export default {
   name: 'Nosotros',
-  components: {
-    info
-  },
   data() {
     return {
-      informacion: new info,
       token: true,
-      contactos: [
-        /*{
-          nombre: 'pedro',
-          apellido: 'salinas',
-          direccion: 'av los callaos',
-          descripcion: 'Chef',
-          telefono: '04123366548'
-        },
-        {
-          nombre: 'MANOlOOooOo',
-          apellido: 'Sanchez',
-          direccion: 'av Chayanne',
-          descripcion: 'gerente',
-          telefono: '04123366548'
-        },
-        {
-          nombre: 'Juan',
-          apellido: 'Escobar',
-          direccion: 'Residencia ausilio',
-          descripcion: '',
-          telefono: '04123366548'
-        }*/
-      ]
+      contactos: [],
     }
   },
+  created(){
+    this.buscar()
+  },
   methods: {
-    async guardar(){
-      await this.informacion.guardad()
-    },
-    pruebas(){
-      this.token = this.informacion.pruebassa(this.token)
-      console.log(this.token)
+    buscar(){
+      fetch('/AcercadeNosotros/consulta')
+        .then(res => res.json())
+        .then(data => this.contactos= data)
     }
   }
 }
