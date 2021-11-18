@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 require('../connection')
 
-const Informacion = require('../models/informacion')
+const inf = require("../controllers/informacion")
 
 /* GET home page. */
 router.get('/registro', function(req, res) {
@@ -10,34 +10,14 @@ router.get('/registro', function(req, res) {
 });
 
 router.get('/AcercadeNosotros', function(req, res) {
-  res.render('AcercadeNosotros')
+    res.render('AcercadeNosotros')
 })
 
 router.get('/empleados', (req, res) => {
-  res.json(Informacion.find())
+    res.json(Informacion.find())
 });
 
-/*
-const var1  = {
-  nombre: 'pedro',
-  apellido: 'salinas',
-  direccion: 'av los callaos',
-  descripcion: 'Chef',
-  telefono: '04123366548'
-}
-*/
+router.get("/prueba", inf.guardar)
 
-crearinfon();
-
-async function crearinfon() {
-  const info = new Informacion ({
-    nombre: 'pedro',
-    apellido: 'salinas',
-    direccion: 'av los callaos',
-    descripcion: 'Chef',
-    telefono: '04123366548'
-  });
-  await info.save();
-}
 
 module.exports = router;
