@@ -2,7 +2,20 @@
 <section>
   <div class="d-flex justify-content-center">
     <div>
-      <button type="button" :class="['btn', token ? 'btn-outline-success' : 'btn btn-outline-secondary']">Agregar contacto</button>
+      <button
+        type="button"
+        :class="['btn', token ? 'btn-outline-success' : 'btn btn-outline-secondary']"
+        @click="pruebas()"
+      >
+        token
+      </button>
+      <button
+        type="button"
+        :class="['btn', token ? 'btn-outline-warning' : 'btn btn-outline-danger']"
+        @click="guardar()"
+      >
+        Agregar contacto
+      </button>
     </div>
     <div class="card cards mx-3" style="width: 18rem;" v-for="contacto in contactos">
       <div class="card-body">
@@ -17,13 +30,18 @@
 </template>
 
 <script>
+import info from "../controllers/informacion";
 export default {
   name: 'Nosotros',
+  components: {
+    info
+  },
   data() {
     return {
-      token: false,
+      informacion: new info,
+      token: true,
       contactos: [
-        {
+        /*{
           nombre: 'pedro',
           apellido: 'salinas',
           direccion: 'av los callaos',
@@ -43,8 +61,17 @@ export default {
           direccion: 'Residencia ausilio',
           descripcion: '',
           telefono: '04123366548'
-        }
+        }*/
       ]
+    }
+  },
+  methods: {
+    async guardar(){
+      await this.informacion.guardad()
+    },
+    pruebas(){
+      this.token = this.informacion.pruebassa(this.token)
+      console.log(this.token)
     }
   }
 }

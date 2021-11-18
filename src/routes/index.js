@@ -1,23 +1,17 @@
 const express = require("express");
 const router = express.Router();
-require('../connection')
 
-const inf = require("../controllers/informacion")
+const info = require("../controllers/informacion")
+let informacion = new info
 
 /* GET home page. */
 router.get('/registro', function(req, res) {
-    res.render("login")
+  res.render("login")
 });
 
 router.get('/AcercadeNosotros', function(req, res) {
-    res.render('AcercadeNosotros')
+  //informacion.guardad(req, res)
+  res.render('AcercadeNosotros')
 })
-
-router.get('/empleados', (req, res) => {
-    res.json(Informacion.find())
-});
-
-router.get("/prueba", inf.guardar)
-
 
 module.exports = router;

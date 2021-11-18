@@ -8,3 +8,5 @@ mongoose
   })
   .then(() => console.log("Database connected"))
   .catch((err) => console.log(err));
+
+module.exports = mongoose
