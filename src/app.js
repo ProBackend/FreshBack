@@ -1,7 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
 const multer = require("multer");
-const cors = require("cors");
 const { v4: uuidv4 } = require("uuid");
 
 
@@ -19,7 +18,6 @@ app.set("port", process.env.PORT || 3000);
 
 // middlewares
 app.use(morgan("dev"));
-app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 const storage = multer.diskStorage({
   destination: path.join(__dirname, "public/uploads"),
