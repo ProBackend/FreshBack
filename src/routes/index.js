@@ -30,4 +30,8 @@ router.get("/productos/delete/:id", Prdt.delete);
 router.post("/menu", Menu.guardar);
 //router.get("/menu/mostrar", Menu.mostrar);
 
+router.get('/AcercadeNosotros', function(req, res) {
+  res.render('AcercadeNosotros')
+})
+
 module.exports = router;
