@@ -1,53 +1,53 @@
 <template>
-  <body>
-    <div class="mensaje" v-if="mensaje">
-      {{mensaje}}
-    </div>
-    <main>
-      <div class="todo">
-        <div class="parteTrasera">
-          <div class="registro">
-            <h3>¿Ya tienes una cuenta?</h3>
-            <p>Inicia sesión para hacer un pedido</p>
-            <button id="btn_iniSe" @click="cambiarVista()">Iniciar sesión</button>
-          </div>
-          <div class="iniciaSesion">
-            <h3>¿Aún no tienes una cuenta?</h3>
-            <p>Registrate para hacer un pedido</p>
-            <button id="btn_iniSe" @click="cambiarVista(1)">Registrarse</button>
-          </div>
-        </div>
-        <div class="arriba">
-          <div class="iniSes">
-            <form>
-              <h2>Iniciar sesión</h2>
-              <label for="userIngre">Usuario</label>
-              <input type="text" v-model="usuario.user" id="userIngre" placeholder="Usuario" name="usuario">
-              <label for="contraIngre">Contraseña</label>
-              <input type="password" v-model="usuario.password" id="contraIngre" placeholder="Contraseña" name="contraseña">
-              <button type="button" @click="iniciarSesion()" class="d-flex justify-content-center">Iniciar</button>
-            </form>
-          </div>
-          <div class="regis">
-            <form>
-              <h2>Registrarse</h2>
-              <label for="nombreRegis">Nombre</label>
-              <input type="text" v-model="registro.nombre" id="nombreRegis" placeholder="Nombre" name="nombre">
-              <label for="apellidoRegis">Apellido</label>
-              <input type="text" v-model="registro.apellido" id="apellidoRegis" placeholder="Apellido" name="apellido">
-              <label for="correoRegis">Correo</label>
-              <input type="email" v-model="registro.correo" id="correoRegis" placeholder="Correo electrónico" name="correo" required>
-              <label for="userRegis">Usuario</label>
-              <input type="text" v-model="registro.user" id="userRegis" placeholder="Usuario" name="usuario">
-              <label for="contraRegis">Contraseña</label>
-              <input type="password" v-model="registro.password" id="contraRegis" placeholder="Contraseña" name="contraseña">
-              <button type="button" @click="registrarse()" class="d-flex justify-content-center">Crear cuenta</button>
-            </form>
-          </div>
-        </div>
+    <body>
+      <div class="mensaje" v-if="mensaje">
+        {{mensaje}}
       </div>
-    </main>
-  </body>
+      <main>
+          <div class="todo">
+          <div class="parteTrasera">
+              <div class="registro">
+              <h3>¿Ya tienes una cuenta?</h3>
+              <p>Inicia sesión para hacer un pedido</p>
+              <button id="btn_iniSe" @click="cambiarVista()">Iniciar sesión</button>
+              </div>
+              <div class="iniciaSesion">
+              <h3>¿Aún no tienes una cuenta?</h3>
+              <p>Registrate para hacer un pedido</p>
+              <button id="btn_iniSe" @click="cambiarVista(1)">Registrarse</button>
+              </div>
+          </div>
+          <div class="arriba">
+              <div class="iniSes">
+              <form>
+                  <h2>Iniciar sesión</h2>
+                  <label for="userIngre">Usuario</label>
+                  <input type="text" v-model="usuario.user" id="userIngre" placeholder="Usuario" name="usuario">
+                  <label for="contraIngre">Contraseña</label>
+                  <input type="password" v-model="usuario.password" id="contraIngre" placeholder="Contraseña" name="contraseña">
+                  <button type="button" @click="iniciarSesion()" class="d-flex justify-content-center">Iniciar</button>
+              </form>
+              </div>
+              <div class="regis">
+              <form>
+                  <h2>Registrarse</h2>
+                  <label for="nombreRegis">Nombre</label>
+                  <input type="text" v-model="registro.nombre" id="nombreRegis" placeholder="Nombre" name="nombre">
+                  <label for="apellidoRegis">Apellido</label>
+                  <input type="text" v-model="registro.apellido" id="apellidoRegis" placeholder="Apellido" name="apellido">
+                  <label for="correoRegis">Correo</label>
+                  <input type="email" v-model="registro.correo" id="correoRegis" placeholder="Correo electrónico" name="correo" required>
+                  <label for="userRegis">Usuario</label>
+                  <input type="text" v-model="registro.user" id="userRegis" placeholder="Usuario" name="usuario">
+                  <label for="contraRegis">Contraseña</label>
+                  <input type="password" v-model="registro.password" id="contraRegis" placeholder="Contraseña" name="contraseña">
+                  <button type="button" @click="registrarse()" class="d-flex justify-content-center">Crear cuenta</button>
+              </form>
+              </div>
+          </div>
+          </div>  
+      </main>
+    </body>
 </template>
 
 <script>
@@ -74,6 +74,7 @@ export default {
       const ao = document.querySelector(".iniSes")
       const by = document.querySelector(".regis");
       const cn = document.querySelector(".arriba");
+
       if (num) {
         ao.style.display = "block"
         cn.style.left = "410px"
