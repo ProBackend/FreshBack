@@ -2,15 +2,13 @@ const express = require("express");
 const router = express.Router();
 const Prdt = require("../controllers/Producto")
 const Menu = require("../controllers/menu_dia")
+const Login = require("../controllers/Login")
 
 /* GET home page. */
-router.get('/Login', function(req, res) {
-    res.render("login")
-});
-router.post('/Login', function(req, res) {
-    console.log(req)
-    res.send('eviado')
-});
+// router.get('/Login', function(req, res) {
+//     res.render("login")
+// });
+router.post('/Login', Login.guardar);
 
 router.get("/:productos", Prdt.save);
 //Poductos
