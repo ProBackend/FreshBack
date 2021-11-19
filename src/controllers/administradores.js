@@ -24,7 +24,6 @@ class adminis{
   }
 
   async accesa (h) {
-    console.log(h)
     const token = h
     if (!token) {
       return {
@@ -38,6 +37,26 @@ class adminis{
       return ({auth: false, message: 'No se encontró el usuario'});
     };
     return ({auth: true, admibus})
+  }
+  async entrar (s) {
+    const h = await Gerente.findOne({usuario: s.usuario});
+    if (!h) {
+      return {
+        auth: false,
+        message: 'No existe este usuario'
+      };
+    };
+    const clavetemp = await h.encryptClave(s.clave);
+    if (clavetemp !== h.clave) {
+      return {
+        auth: false,
+        message: 'Usuario o contrseña incorrecta'
+      };
+    }
+    const token = jwt.sign({id: h._id}, config.secret, {
+      expiresIn: 60 * 60 * 12
+    });
+    return ({auth: true, token});
   }
 }
 

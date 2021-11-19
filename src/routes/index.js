@@ -25,7 +25,6 @@ router.get("/productos/editar/:id", Prdt.edit);
 router.post("/productos/editar/:id", Prdt.editar);
 
 router.get("/productos/delete/:id", Prdt.delete);
-
 //Menu del día
 router.post("/menu", Menu.guardar);
 
@@ -62,7 +61,7 @@ router.get("/prueba", async (req, res) => {
   };
 });
 
-router.get('/ver/admin', async (req, res) => {
+router.get('/gerente/me', async (req, res) => {
   try {
     const r = await administradores.accesa(req.header('x-access-token'));
     res.json(r);
@@ -72,7 +71,7 @@ router.get('/ver/admin', async (req, res) => {
   };
 });
 
-router.post('/nuevo/admin', async (req, res) => {
+router.post('/gerente/register', async (req, res) => {
   try {
     const { nombre, apellido, usuario, clave, contacto } = req.body
     const r = await administradores.guardar(nombre, apellido, usuario, clave, contacto);
@@ -83,16 +82,16 @@ router.post('/nuevo/admin', async (req, res) => {
   };
 });
 
-router.post("/administrador/:id", async (req, res) => {
+router.post('/gerente/login', async (req, res) => {
   try {
-    let r = req.params.id;
-    const t = await administradores.tokener(r);
-    let auth = true;
-    res.send(t);
+    const { usuario, clave } = req.body
+    const r = await administradores.entrar(usuario, clave);
+    res.json(r);
   } catch (err) {
     console.log(err);
-    res.status(401).send(err);
-  }
+    res.status(500).send(err);
+  };
 });
+
 
 module.exports = router;
