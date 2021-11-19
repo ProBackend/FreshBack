@@ -2,21 +2,14 @@ const express = require("express");
 const router = express.Router();
 require('../connection');
 const Prdt = require("../controllers/Producto");
+const Clientes = require('../models/cliente.js');
+const Passport = require("passport");
 const Menu = require("../controllers/menu_dia");
 const info = require("../controllers/informacion");
 const admin = require('../controllers/administradores');
-const Prdt = require("../controllers/Producto");
-const Menu = require("../controllers/menu_dia");
-const Clientes = require('../models/cliente.js');
-const Passport = require("passport");
 
 let informacion = new info;
 let administradores = new admin;
-
-
-
-
-// GET home page. 
 
 /* GET home page. */
 router.get('/Login', async (req, res) => {
@@ -71,8 +64,6 @@ router.post("/menu", Menu.guardar);
 router.get('/AcercadeNosotros', function(req, res) {
     res.render('AcercadeNosotros')
 })
-
-
 
 router.get('/empleados', async (req, res) => {
   try {
