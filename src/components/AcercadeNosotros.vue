@@ -15,7 +15,7 @@
         Agregar contacto
       </button>
     </div>
-    <div class="card cards mx-3" style="width: 18rem;" v-for="contacto in contactos">
+    <div class="card cards mx-3" style="width: 18rem;" v-for="contacto in contactos" :key="contacto.nombre">
       <div class="card-body">
         <h5 class="card-title">{{ contacto.nombre }} {{ contacto.apellido }}</h5>
         <h6 class="card-subtitle mb-2 text-muted">{{ contacto.direccion }}</h6>
