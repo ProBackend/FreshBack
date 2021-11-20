@@ -6,15 +6,15 @@
       <main>
           <div class="todo">
           <div class="parteTrasera">
-              <div class="registro">
-              <h3>¿Ya tienes una cuenta?</h3>
-              <p>Inicia sesión para hacer un pedido</p>
-              <button id="btn_iniSe" @click="cambiarVista()">Iniciar sesión</button>
-              </div>
               <div class="iniciaSesion">
               <h3>¿Aún no tienes una cuenta?</h3>
               <p>Registrate para hacer un pedido</p>
-              <button id="btn_iniSe" @click="cambiarVista(1)">Registrarse</button>
+              <button id="btn_iniSe" @click="cambiarVista()">Registrarse</button>
+              </div>
+              <div class="registro">
+              <h3>¿Ya tienes una cuenta?</h3>
+              <p>Inicia sesión para hacer un pedido</p>
+              <button id="btn_iniSe" @click="cambiarVista(1)">Iniciar sesión</button>
               </div>
           </div>
           <div class="arriba">
