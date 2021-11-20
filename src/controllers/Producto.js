@@ -99,3 +99,5 @@ class pro{
 //   await Producto.deleteOne({ id: codigon });
 //   return res.send("Se ha eliminado");
 // }
+
+module.exports = pro

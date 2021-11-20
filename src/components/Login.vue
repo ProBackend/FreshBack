@@ -52,7 +52,7 @@
 
 <script>
 
-import { capitalizarPalabras } from './funciones/capitalizarLetra'
+// import { capitalizarPalabras } from './funciones/capitalizarLetra'
 
 export default {
   name: 'Login',

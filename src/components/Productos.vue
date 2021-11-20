@@ -9,26 +9,25 @@
           <a href="#">Menúa del día</a>
         </div>
       </div>
-      <div class="row" v-for="p in productos" :key="p.nombre">
+      <div class="card" v-for="p in productos" :key="p.nombre">
         <div class="card-columns">
           {{p}}
             <div class="card animated fadeInDown">
-              <img src="<%= mostrart.path %>" class="card-img-top" alt="<%= mostrart.filename %>">
+              <img :src="p.path" class="card-img-top" :alt="p.filename">
               <div class="card-body">
                 <h5 class="card-title">
-                  %= mostrart.nombre %>
+                  {{p.nombre}}
                 </h5>
                 <p class="card-text">
-                  %= mostrart.ingredientes %>
+                  {{p.ingredientes}}
                 </p>
                 <p class="card-text">
-                  %= mostrart.precio %>
+                  {{p.precio}}
                 </p>
                 <a href="/<%=p %>/delete/<%= mostrart.id%>" class="btn btn-danger btn-block">Delete</a>
                 <a href="/<%=p %>/editar/<%= mostrart.id%>" class="btn btn-primary">Editar</a>
               </div>
             </div>
-          % }) %>
         </div>
       </div>
     </div>
