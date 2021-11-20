@@ -3,7 +3,7 @@
     <div class="card-header">
       Agregar Producto
     </div>
-    <div class="card-body">
+    <div class="card-body" style="background: #e6d3c5">
       <input type="file" name="image" class="custom-file-input" id="inputGroupFile02">
       <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">
         Elige una imagen
