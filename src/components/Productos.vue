@@ -1,17 +1,38 @@
 <template>
   <body>
-    <div class="d-flex">
+    <div class="agg-button">
       <button
         type="button"
         class="agg-pro"
-        @click="modal = !modal"
+        @click="modal = !modal; proRe = !proRe"
       >
         Agregar producto regular
       </button>
     </div>
+    <div class="agg-button">
+      <button
+        type="button"
+        class="agg-pro"
+        @click="modal = !modal; proDia = !proDia"
+      >
+        Agregar producto del día
+      </button>
+    </div>
+    <div class="agg-button">
+      <button
+        type="button"
+        class="agg-pro"
+        @click="modal = !modal; menuDia = !menuDia"
+      >
+        Agregar menú del día
+      </button>
+    </div>
     <ModalProducto
+      :ProductoRe= proRe
+      :ProductoDia = proDia
+      :MenuDia = menuDia
       :mostrarmodal="modal"
-      @cerrar="mostrar= false, Escontacto=false, Esgerente=false"
+      @cerrar="mostrar= false; proRe = false; proDia = false"
     />
     <div class="container">
       <div class="card" style="width: 20rem" v-for="p in productos" :key="p.nombre">
@@ -46,7 +67,10 @@ export default {
     return {
       // token: true,
       productos: [],
-      modal: false
+      modal: false,
+      proRe: false,
+      proDia: false,
+      menuDia: false
     }
   },
   created(){

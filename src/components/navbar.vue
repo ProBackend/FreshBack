@@ -1,23 +1,21 @@
 <template>
-  <header class="m-4">
-  <nav class="navbar navbar-expand-lg navbar-light">
+  <nav class="navbar navbar-expand-lg m-4 p-3">
     <div class="container-fluid">
-      <a class="navbar-brand">Somos un restaurante</a>
+      <h1 class="h1-tittle">Somos un restaurante</h1>
         <ul class="navbar-nav">
           <li
-            class="nav-item col-3"
+            class="nav-item"
             v-for="enlace in enlaces"
           >
-            <a class="nav-link" href="#">{{ enlace.nombre }}</a>
+            <a class="p-texto mb-0" href="#">{{ enlace.nombre }}</a>
           </li>
         </ul>
         <form class="d-flex">
-          <button class="btn btn-outline-success" type="submit">Iniciar sesión</button>
-          <button class="btn" type="submit">Registrarse</button>
+          <button class="btn-primario mx-2" type="submit">Iniciar sesión</button>
+          <button class="btn-secundario mx-2" type="submit">Registrarse</button>
         </form>
     </div>
   </nav>
-</header>
 </template>
 
 <script>
@@ -36,6 +34,6 @@ export default {
         }
       ]
     }
-  },
+  }
 }
 </script>

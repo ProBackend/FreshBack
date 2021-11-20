@@ -8,7 +8,6 @@ const Menuschema = new Schema({
         type: String,
         required: true,
     },
-
     precio: {
         type: Number,
         required: true,
