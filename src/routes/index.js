@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const Producto = require("../controllers/Producto");
 const Menu = require("../controllers/menu_dia");
 const Pr_dia = require("../controllers/Pr_dia");
 const Clientes = require('../models/cliente.js');
 const Passport = require("passport");
 
+const pro = require("../controllers/Producto");
+let Producto = new pro
 /* GET home page. */
 router.get('/Login', async (req, res) => {
   res.render('Login')
