@@ -8,9 +8,14 @@ let administradores = new admin;
 
 // GET home page. 
 const Prdt = require("../controllers/Producto");
-const Menu = require("../controllers/menu_dia");
 const Clientes = require('../models/cliente.js');
 const Passport = require("passport");
+const Menu = require("../controllers/menu_dia");
+const info = require("../controllers/informacion");
+const admin = require('../controllers/administradores');
+
+let informacion = new info;
+let administradores = new admin;
 
 const info = require("../controllers/informacion")
 let informacion = new info
@@ -56,16 +61,12 @@ router.post('/Login/Iniciar_sesion', Passport.authenticate('local', {
   failureFlash: true
 }));
 
-// router.get("/:productos", Prdt.save);
 //Poductos
+// router.get("/:productos", Prdt.save);
 router.post("/productos", Prdt.guardar);
-
 router.get("/productos/mostrar", Prdt.mostrar);
-
 router.get("/productos/editar/:id", Prdt.edit);
-
 router.post("/productos/editar/:id", Prdt.editar);
-
 router.get("/productos/delete/:id", Prdt.delete);
 //Menu del día
 router.post("/menu", Menu.guardar);
