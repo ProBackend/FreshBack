@@ -8,7 +8,6 @@ const Productoschema = new Schema({
         type: String,
         required: true,
     },
-
     precio: {
         type: Number,
         required: true,

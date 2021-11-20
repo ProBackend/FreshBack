@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Prdt = require("../controllers/Producto");
+const Producto = require("../controllers/Producto");
 const Menu = require("../controllers/menu_dia");
 const Pr_dia = require("../controllers/Pr_dia");
 const Clientes = require('../models/cliente.js');
@@ -51,7 +51,7 @@ router.get('/Productos/consulta', async function(req, res) {
 })
 
 //Poductos
-// router.get("/:productos", Prdt.save);
+// router.get("/:productos", Producto.save);
 // router.post("/productos", Prdt.guardar);
 // router.get("/productos/mostrar", Prdt.mostrar);
 // router.get("/productos/editar/:id", Prdt.edit);
