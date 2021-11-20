@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const Prdt = require("../controllers/Producto");
+const Producto = require("../controllers/Producto");
 const Menu = require("../controllers/menu_dia");
+const Pr_dia = require("../controllers/Pr_dia");
 const Clientes = require('../models/cliente.js');
 const Passport = require("passport");
 
@@ -42,24 +43,37 @@ router.post('/Login/Iniciar_sesion', Passport.authenticate('local', {
   failureFlash: true
 }));
 
-// router.get("/:productos", Prdt.save);
+router.get('/Productos', function(req, res) {
+  res.render('Inventario')
+})
+router.get('/Productos/consulta', async function(req, res) {
+  res.json(await Producto.consultar())
+})
+
 //Poductos
-router.post("/productos", Prdt.guardar);
-
-router.get("/productos/mostrar", Prdt.mostrar);
-
-router.get("/productos/editar/:id", Prdt.edit);
-
-router.post("/productos/editar/:id", Prdt.editar);
-
-router.get("/productos/delete/:id", Prdt.delete);
+// router.get("/:productos", Producto.save);
+// router.post("/productos", Prdt.guardar);
+// router.get("/productos/mostrar", Prdt.mostrar);
+// router.get("/productos/editar/:id", Prdt.edit);
+// router.post("/productos/editar/:id", Prdt.editar);
+// router.get("/productos/delete/:id", Prdt.delete);
 
 //Menu del día
-router.post("/menu", Menu.guardar);
-//router.get("/menu/mostrar", Menu.mostrar);
+// router.post("/menu", Menu.guardar);
+// router.get("/menu/mostrar", Menu.mostrar);
+// router.get("/menu/editar/:id", Menu.edit);
+// router.post("/menu/editarm/:id", Menu.editar);
+// router.get("/menu/delete/:id", Menu.delete);
 
-router.get('/AcercadeNosotros', function(req, res) {
-  res.render('AcercadeNosotros')
-})
+//Producto del día
+// router.post("/productodia", Pr_dia.guardar);
+// router.get("/productodia/mostrar", Pr_dia.mostrar);
+// router.get("/productodia/editar/:id", Pr_dia.edit);
+// router.post("/productodia/editar/:id", Pr_dia.editar);
+// router.get("/productodia/delete/:id", Pr_dia.delete);
+
+// router.get('/AcercadeNosotros', function(req, res) {
+//   res.render('AcercadeNosotros')
+// })
 
 module.exports = router;

@@ -1,16 +1,17 @@
-const Menu_dia = require("../models/menu_dia");
+const Pr_dia = require("../models/producto_dia");
 
 module.exports.guardar = async(req, res) => {
-    const { nombre, ingredientes, precio } = req.body;
+    const { nombre, ingredientes, precio_r, oferta } = req.body;
 
-    if (!nombre || !ingredientes || !precio || !req.file) {
+    if (!nombre || !ingredientes || !precio_r || !oferta || !req.file) {
         return res.send("Ingrese la información correctamente")
     }
 
-    const menu_dia = new Menu_dia({
+    const productodia = new Pr_dia({
         nombre: nombre,
         ingredientes: ingredientes,
-        precio: precio,
+        precio_r: precio_r,
+        oferta: oferta,
         filename: req.file.filename,
         path: "/uploads/" + req.file.filename,
         orinalname: req.file.originalname,
@@ -18,42 +19,39 @@ module.exports.guardar = async(req, res) => {
         size: req.file.size
     })
 
-    await menu_dia.save()
+    await productodia.save()
 
     return res.send("Guardado con exito")
 };
 
 module.exports.mostrar = async(req, res) => {
 
-    const p = "menu"
-
-    const mostrart = await Menu_dia.find();
-
-    res.render("pmostrar", { mostrart, p });
+    const mostrart = await Pr_dia.find();
+    res.render("pdmostrar", { mostrart });
 
 
 }
 
 module.exports.edit = async(req, res) => {
-    const p = "menu"
+
     const id = req.params.id
-    const mostrar_id = await Menu_dia.findById(id)
+    const mostrar_id = await Pr_dia.findById(id)
     if (id == null) {
         res.send("No existe ese código");
         res.end();
     } else {
-
-        res.render("peditar", { mostrar_id, p })
+        res.render("peditar", { mostrar_id })
     }
 }
 
 module.exports.editar = async(req, res) => {
     const valor = req.params.id;
     if (req.file) {
-        await Menu_dia.updateOne({ id: valor }, {
+        await Pr_dia.updateOne({ id: valor }, {
             nombre: req.body.nombre,
             ingredientes: req.body.ingredientes,
-            precio: req.body.precio,
+            precio_r: req.body.precio_r,
+            oferta: req.body.oferta,
             filename: req.file.filename,
             path: "/uploads/" + req.file.filename,
             orinalname: req.file.originalname,
@@ -61,10 +59,11 @@ module.exports.editar = async(req, res) => {
             size: req.file.size
         })
     } else {
-        await Menu_dia.updateOne({ id: valor }, {
+        await Pr_dia.updateOne({ id: valor }, {
             nombre: req.body.nombre,
             ingredientes: req.body.ingredientes,
-            precio: req.body.precio
+            precio_r: req.body.precio_r,
+            oferta: req.body.oferta
         })
     }
 
@@ -73,6 +72,6 @@ module.exports.editar = async(req, res) => {
 
 module.exports.delete = async(req, res) => {
     const codigon = req.params.id;
-    await Menu_dia.deleteOne({ id: codigon });
+    await Pr_dia.deleteOne({ id: codigon });
     return res.send("Se ha eliminado");
 }
