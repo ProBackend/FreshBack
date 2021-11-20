@@ -50,6 +50,9 @@ router.get('/Productos', function(req, res) {
 router.get('/Productos/consulta', async function(req, res) {
   res.json(await Producto.consultar())
 })
+router.post('/Productos/guardar', async function(req, res) {
+  res.json(await Producto.guardar())
+})
 
 //Poductos
 // router.get("/:productos", Producto.save);
