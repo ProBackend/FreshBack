@@ -1,25 +1,64 @@
 <template>
-  <table class="container">
-  <tr>
-    <td>Contactos</td>
-    <td>Un gerente</td>
-    <td>Dos gerente</td>
-    <td>Tres gerente</td>
-  </tr>
-  <tr>
-    <td>Direcciones</td>
-    <td>Aquí</td>
-    <td>Allá</td>
-    <td>Más allá</td>
-  </tr>
-</table>
+  <section>
+      <div class="d-flex justify-content-center">
+        <button
+          type="button"
+          class="btn-terciario mx-4 mb-4"
+          @click="mostrar = !mostrar, Escontacto = true"
+        >
+          Agregar contacto
+        </button>
+        <button
+          type="button"
+          class="btn-terciario mx-4 mb-4"
+          @click="mostrar = !mostrar, Esgerente = true"
+        >
+          Agregar gerente
+        </button>
+      </div>
+      <div class="d-flex justify-content-around">
+        <div class="cards mx-3" style="width: 18rem;" v-for="contacto in contactos">
+          <div class="card-body">
+            <h5 class="card-title">{{ contacto.nombre }} {{ contacto.apellido }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ contacto.direccion }}</h6>
+            <p class="card-text">{{ contacto.descripcion }}</p>
+            <a href="#" class="card-link">{{ contacto.telefono }}</a>
+          </div>
+        </div>
+      </div>
+    <ModalGC
+      :esContacto="Escontacto"
+      :esGerente="Esgerente"
+      :mostrarmodal="mostrar"
+      @cerrar="mostrar= false, Escontacto=false, Esgerente=false"
+    />
+  </section>
 </template>
 
 <script>
+import ModalGC from "./ModalGC.vue";
 export default {
   name: 'Nosotros',
-  data() {
-    return
+  components: {
+    ModalGC
   },
+  data() {
+    return {
+      Escontacto: false,
+      Esgerente: false,
+      mostrar: false,
+      contactos: [],
+    }
+  },
+  created(){
+    this.buscar()
+  },
+  methods: {
+    buscar(){
+      fetch('/AcercadeNosotros/consulta')
+        .then(res => res.json())
+        .then(data => this.contactos= data)
+    }
+  }
 }
 </script>

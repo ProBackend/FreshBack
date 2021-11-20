@@ -1,0 +1,45 @@
+.modal.fade.show {
+  display: block;
+}
+
+.modal-dialog {
+  position: relative !important;
+  width: auto;
+  margin: 0.5rem;
+}
+
+.modal-content {
+  background-color: #e6d3c5 !important;
+}
+
+.modal-header {
+  border-bottom: 0 !important;
+}
+
+.btn-primario-modal {
+  padding: 10px 40px;
+  border: 2px solid #937563;
+  background-color: transparent;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #937563;
+  outline: none;
+  transition: all 300ms;
+}
+
+.btn-primario-modal:hover{
+  background: #937563;
+  color: #e6d3c5;
+}
+
+.btn-secundario-modal {
+  padding: 10px 40px;
+  border: none;
+  font-size: 14px;
+  background: #e6d3c5;
+  color: #937563;
+  cursor: pointer;
+  outline: none;
+}
+
