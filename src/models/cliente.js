@@ -8,18 +8,19 @@ const Clienteschema = new Schema({
     type: String,
     required: true,
   },
-  usuario: {
+  user: {
     type: String,
     unique: true,
     required: true,
   },
-  clave: {
+  password: {
     type: String,
     required: true,
   },
-  contacto: {
+  correo: {
     type: String,
     required: true,
+    sparce: true
   }
 });
 

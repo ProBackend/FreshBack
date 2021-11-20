@@ -2,7 +2,18 @@
 <section>
   <div class="d-flex justify-content-center">
     <div>
-      <button type="button" :class="['btn', token ? 'btn-outline-success' : 'btn btn-outline-secondary']">Agregar contacto</button>
+      <button
+        type="button"
+        :class="['btn', token ? 'btn-outline-success' : 'btn btn-outline-secondary']"
+      >
+        token
+      </button>
+      <button
+        type="button"
+        :class="['btn', token ? 'btn-outline-warning' : 'btn btn-outline-danger']"
+      >
+        Agregar contacto
+      </button>
     </div>
     <div class="card cards mx-3" style="width: 18rem;" v-for="contacto in contactos">
       <div class="card-body">
@@ -21,30 +32,18 @@ export default {
   name: 'Nosotros',
   data() {
     return {
-      token: false,
-      contactos: [
-        {
-          nombre: 'pedro',
-          apellido: 'salinas',
-          direccion: 'av los callaos',
-          descripcion: 'Chef',
-          telefono: '04123366548'
-        },
-        {
-          nombre: 'MANOlOOooOo',
-          apellido: 'Sanchez',
-          direccion: 'av Chayanne',
-          descripcion: 'gerente',
-          telefono: '04123366548'
-        },
-        {
-          nombre: 'Juan',
-          apellido: 'Escobar',
-          direccion: 'Residencia ausilio',
-          descripcion: '',
-          telefono: '04123366548'
-        }
-      ]
+      token: true,
+      contactos: [],
+    }
+  },
+  created(){
+    this.buscar()
+  },
+  methods: {
+    buscar(){
+      fetch('/AcercadeNosotros/consulta')
+        .then(res => res.json())
+        .then(data => this.contactos= data)
     }
   }
 }

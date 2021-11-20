@@ -1,10 +1,22 @@
-require('../connection')
-const Informacion = require("../models/infor")
+const Infor = require("../models/infor")
 
 class info{
   constructor(req) {}
-  async guardar (req) {
-    const info = new Informacion({
+  async consultar() {
+    const consulta = await Infor.find()
+    return consulta
+  }
+  pruebassa(token) {
+    if(token){
+      token = false
+    } else{
+      token = true;
+    }
+    console.log('asdasdasAAA')
+    return token
+  }
+  async guardar(req, res) {
+    const info = new Infor({
       nombre: 'pedro',
       apellido: 'salinas',
       direccion: 'av los callaos',
