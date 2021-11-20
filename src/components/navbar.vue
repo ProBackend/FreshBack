@@ -6,6 +6,7 @@
           <li
             class="nav-item"
             v-for="enlace in enlaces"
+            :key="enlace.id"
           >
             <a class="p-texto mb-0" href="#">{{ enlace.nombre }}</a>
           </li>
