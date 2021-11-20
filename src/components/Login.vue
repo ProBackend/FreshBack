@@ -1,58 +1,139 @@
 <template>
-    <body>
-      <div class="mensaje" v-if="mensaje">
-        {{mensaje}}
+  <section>
+    <div class="contenedor">
+      <div class="parteTrasera">
+        <div>
+          <h3>¿Aún no tienes una cuenta?</h3>
+          <p>Registrate para hacer un pedido</p>
+          <button
+            id="btn_iniSe"
+            class="btn-primario"
+            @click="nuevo = false"
+          >
+            Registrarse
+          </button>
+        </div>
+        <div>
+          <h3>¿Ya tienes una cuenta?</h3>
+          <p>Inicia sesión para hacer un pedido</p>
+          <button
+            id="btn_iniSe"
+            class="btn-primario"
+            @click="nuevo= true"
+          >
+            Iniciar sesión
+          </button>
+        </div>
       </div>
-      <main>
-          <div class="todo">
-          <div class="parteTrasera">
-              <div class="registro">
-              <h3>¿Ya tienes una cuenta?</h3>
-              <p>Inicia sesión para hacer un pedido</p>
-              <button id="btn_iniSe" @click="cambiarVista()">Iniciar sesión</button>
-              </div>
-              <div class="iniciaSesion">
-              <h3>¿Aún no tienes una cuenta?</h3>
-              <p>Registrate para hacer un pedido</p>
-              <button id="btn_iniSe" @click="cambiarVista(1)">Registrarse</button>
-              </div>
-          </div>
-          <div class="arriba">
-              <div class="iniSes">
-              <form>
-                  <h2>Iniciar sesión</h2>
-                  <label for="userIngre">Usuario</label>
-                  <input type="text" v-model="usuario.user" id="userIngre" placeholder="Usuario" name="usuario">
-                  <label for="contraIngre">Contraseña</label>
-                  <input type="password" v-model="usuario.password" id="contraIngre" placeholder="Contraseña" name="contraseña">
-                  <button type="button" @click="iniciarSesion()" class="d-flex justify-content-center">Iniciar</button>
-              </form>
-              </div>
-              <div class="regis">
-              <form>
-                  <h2>Registrarse</h2>
-                  <label for="nombreRegis">Nombre</label>
-                  <input type="text" v-model="registro.nombre" id="nombreRegis" placeholder="Nombre" name="nombre">
-                  <label for="apellidoRegis">Apellido</label>
-                  <input type="text" v-model="registro.apellido" id="apellidoRegis" placeholder="Apellido" name="apellido">
-                  <label for="correoRegis">Correo</label>
-                  <input type="email" v-model="registro.correo" id="correoRegis" placeholder="Correo electrónico" name="correo" required>
-                  <label for="userRegis">Usuario</label>
-                  <input type="text" v-model="registro.user" id="userRegis" placeholder="Usuario" name="usuario">
-                  <label for="contraRegis">Contraseña</label>
-                  <input type="password" v-model="registro.password" id="contraRegis" placeholder="Contraseña" name="contraseña">
-                  <button type="button" @click="registrarse()" class="d-flex justify-content-center">Crear cuenta</button>
-              </form>
-              </div>
-          </div>
-          </div>  
-      </main>
-    </body>
+      <div class="parteDelantera">
+        <div v-if="nuevo" class="Nuevo">
+          <form>
+            <h2 class="h2-tittle">Iniciar sesión</h2>
+            <label for="userIngre" class="input-label">Usuario</label>
+            <input
+              type="text"
+              id="userIngre"
+              placeholder="Usuario"
+              name="usuario"
+              class="input"
+              v-model="usuario.user"
+            >
+            <label for="contraIngre" class="input-label">Contraseña</label>
+            <input
+              type="password"
+              id="contraIngre"
+              placeholder="Contraseña"
+              name="contraseña"
+              class="input"
+              v-model="usuario.password"
+            >
+            <div class="d-flex justify-content-center">
+              <button
+                type="button"
+                @click="iniciarSesion()"
+                class="btn-secundario mt-4">Iniciar
+              </button>
+            </div>
+          </form>
+        </div>
+        <div v-else class="Registro">
+          <form>
+            <h2 class="h2-tittle">Registrarse</h2>
+            <label for="nombreRegis" class="input-label">Nombre</label>
+            <input
+              type="text"
+              id="nombreRegis"
+              placeholder="Nombre"
+              name="nombre"
+              class="input"
+              v-model="registro.nombre"
+            >
+            <label for="apellidoRegis" class="input-label">Apellido</label>
+            <input
+              type="text"
+              id="apellidoRegis"
+              placeholder="Apellido"
+              name="apellido"
+              class="input"
+              v-model="registro.apellido"
+            >
+            <label for="correoRegis" class="input-label">Correo</label>
+            <input
+              type="email"
+              id="correoRegis"
+              placeholder="Correo electrónico"
+              name="correo"
+              required
+              class="input"
+              v-model="registro.correo"
+            >
+            <label for="userRegis" class="input-label">Usuario</label>
+            <input
+              type="text"
+              id="userRegis"
+              placeholder="Usuario"
+              name="usuario"
+              class="input"
+              v-model="registro.user"
+            >
+            <label for="contraRegis" class="input-label">Contraseña</label>
+            <input
+              type="password"
+              id="contraRegis"
+              placeholder="Contraseña"
+              name="contraseña"
+              class="input"
+              v-model="registro.password"
+            >
+            <div class="d-flex justify-content-center">
+              <button
+                type="button"
+                class="btn-secundario mt-4"
+                @click="registrarse()"
+              >
+                Crear cuenta
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <Alertamensaje
+      @limpio="this.mensaje"
+      :mensaje="this.mensaje"
+    />
+  </section>
 </template>
 
 <script>
+import Alertamensaje from './Alertamensaje.vue';
+import { capitalizar } from "../controllers/funcionesGenerales";
 export default {
   name: 'Login',
+  components: {
+    Alertamensaje,
+    capitalizar
+  },
   data(){
     return {
       usuario: {
@@ -66,28 +147,14 @@ export default {
         correo: '',
         password: ''
       },
-      mensaje: ''
+      mensaje: '',
+      nuevo: false
     }
   },
   methods: {
-    cambiarVista(num) {
-      const ao = document.querySelector(".iniSes")
-      const by = document.querySelector(".regis");
-      const cn = document.querySelector(".arriba");
-
-      if (num) {
-        ao.style.display = "block"
-        cn.style.left = "410px"
-        by.style.display = "none"
-      } else {
-        ao.style.display = "none"
-        cn.style.left = "10px"
-        by.style.display = "block"
-      }
-    },
     iniciarSesion() {
       if (!this.usuario.user ||!this.usuario.password) {
-        console.log('Recuerda rellenar todos los campos')
+        this.mensaje = 'Recuerda rellenar todos los campos'
         return
       };
 
@@ -101,24 +168,20 @@ export default {
       })
       .then(res => res.json())
       .then(data => this.mensaje = data.status)
-
-      setTimeout(() => {
-        this.mensaje = ''
-      }, 8000);
     },
     registrarse() {
       const emailVa = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
       if (!this.registro.nombre || !this.registro.apellido || !this.registro.correo ||!this.registro.user ||!this.registro.password) {
-        console.log('Recuerda rellenar todos los campos')
+        this.mensaje = 'Recuerda rellenar todos los campos'
         return
       }
       if (!emailVa.test(this.registro.correo)) {
-        console.log('Recuerda ingresar un correo electrónico válido')
+        this.mensaje = 'Recuerda ingresar un correo electrónico válido'
         return
       }
 
-      this.registro.nombre = this.capitalizar(this.registro.nombre);
-      this.registro.apellido = this.capitalizar(this.registro.apellido);
+      this.registro.nombre = capitalizar(this.registro.nombre);
+      this.registro.apellido = capitalizar(this.registro.apellido);
       fetch('/Login/Registrarse', {
         method: 'POST',
         body: JSON.stringify(this.registro),
@@ -129,21 +192,6 @@ export default {
       })
       .then(res => res.json())
       .then(data => this.mensaje = data.status)
-
-      setTimeout(() => {
-        this.mensaje = ''
-      }, 8000);
-    },
-    capitalizar(string) {
-      if (string) {
-        const textotoLowerCase = string.toLowerCase();
-        const textoCapitalize = textotoLowerCase.replace(/(^\w|\s\w)/g, (m) =>
-        m.toUpperCase(),
-        );
-        const textoSinEspacios = textoCapitalize.trim().replace(/\s+/g, ' ');
-        string = textoSinEspacios;
-        return string;
-      }
     }
   }
 }
