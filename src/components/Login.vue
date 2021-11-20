@@ -51,6 +51,9 @@
 </template>
 
 <script>
+
+import { capitalizarPalabras } from './funciones/capitalizarLetra'
+
 export default {
   name: 'Login',
   data(){
@@ -118,8 +121,9 @@ export default {
         return
       }
 
-      this.registro.nombre = this.capitalizar(this.registro.nombre);
-      this.registro.apellido = this.capitalizar(this.registro.apellido);
+      this.registro.nombre = capitalizarPalabras(this.registro.nombre);
+      this.registro.apellido = capitalizarPalabras(this.registro.apellido);
+      console.log(this.registro)
       
       fetch('/Login/Registrarse', {
         method: 'POST',
@@ -135,17 +139,6 @@ export default {
       setTimeout(() => {
         this.mensaje = ''
       }, 8000);
-    },
-    capitalizar(string) {
-      if (string) {
-        const textotoLowerCase = string.toLowerCase();
-        const textoCapitalize = textotoLowerCase.replace(/(^\w|\s\w)/g, (m) =>
-        m.toUpperCase(),
-        );
-        const textoSinEspacios = textoCapitalize.trim().replace(/\s+/g, ' ');
-        string = textoSinEspacios;
-        return string;
-      }
     }
   }
 }
