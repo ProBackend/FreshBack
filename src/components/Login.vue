@@ -123,7 +123,6 @@ export default {
 
       this.registro.nombre = capitalizarPalabras(this.registro.nombre);
       this.registro.apellido = capitalizarPalabras(this.registro.apellido);
-      console.log(this.registro)
       
       fetch('/Login/Registrarse', {
         method: 'POST',
