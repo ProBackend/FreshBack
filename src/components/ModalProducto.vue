@@ -1,5 +1,5 @@
 <template>
-  <div class="card" v-if="modal" style="width: 40rem;">
+  <div class="card" v-if="mostrarmodal" style="width: 40rem;">
     <div class="card-header">
       Agregar Producto
     </div>
@@ -32,3 +32,25 @@
     </div>
   </div> 
 </template>
+
+<script>
+export default {
+  name: 'modalPro',
+  props: {
+    mostrarmodal:{
+      tyoe: Boolean,
+      required: true,
+    },
+    esContacto:{
+      tyoe: Boolean,
+    }
+  },
+  data() {
+    return {
+      mostrarmodal: false
+    }
+  },
+  methods: {
+  }
+}
+</script>
