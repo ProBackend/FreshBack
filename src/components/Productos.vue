@@ -1,14 +1,19 @@
 <template>
   <body>
     <div class="container">
-      <div class="dropdown">
-        <button class="dropbtn">Agregar</button>
-        <div class="dropdown-content">
-          <a :href="modalPro">Productos Regulares</a>
-          <a href="#">Productos del día</a>
-          <a href="#">Menúa del día</a>
-        </div>
+      <div class="d-flex">
+        <button
+          type="button"
+          class="agg-pro"
+          @click="modal = !modal"
+        >
+          Agregar producto regular
+        </button>
       </div>
+      <ModalProducto
+        :mostrarmodal="modal"
+        @cerrar="mostrar= false, Escontacto=false, Esgerente=false"
+      />
       <div class="card" style="width: 20rem" v-for="p in productos" :key="p.nombre">
         <img :src="p.path" class="card-img-top" :alt="p.filename">
         <div class="card-body text-center">
@@ -30,9 +35,13 @@
 </template>
 
 <script>
+import ModalProducto from './ModalProducto.vue'
 
 export default {
   name: 'Productos',
+  components: {
+    ModalProducto
+  },
   data() {
     return {
       // token: true,

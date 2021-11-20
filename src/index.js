@@ -5,7 +5,7 @@ import Productos from './components/Productos.vue';
 import ProductoDia from './components/ProductoDia.vue';
 import Pmostrar from './components/Pmostrar.vue';
 import Peditar from './components/Peditar.vue';
-import ModalPro from './components/ModalProducto.vue';
+import ModalProducto from './components/ModalProducto.vue';
 
 new Vue({
   render: h => h(App)
@@ -32,5 +32,5 @@ new Vue({
 }).$mount('#peditar')
 
 new Vue({
-  render: h => h(ModalPro)
-}).$mount('#modalpro')
+  render: h => h(ModalProducto)
+}).$mount('#ModalProdcuto')
