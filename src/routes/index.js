@@ -1,49 +1,52 @@
 const express = require("express");
 const router = express.Router();
+const Passport = require("passport");
+
+/* Controladores Orientados a objetos */
+const info = require("../controllers/informacion")
+const clien = require("../controllers/clientes")
+let informacion = new info
+let cliente = new clien
+
+/* Controladores */
 const Prdt = require("../controllers/Producto");
 const Menu = require("../controllers/menu_dia");
 const Pr_dia = require("../controllers/Pr_dia");
-const Clientes = require('../models/cliente.js');
-const Passport = require("passport");
 
-const info = require("../controllers/informacion")
-let informacion = new info
+
 // GET rutas
-/* GET home page. */
-router.get('/Login', async (req, res) => {
+/* GET vistas */
+router.get('/login', async (req, res) => {
   res.render('Login')
 });
-router.get('/Clientes', async (req, res) => {
-  const cliente = await Clientes.find();
-  res.json(cliente);
-});
-router.get('/Clientes', async (req, res) => {
-    const cliente = await Clientes.find();
-    res.json(cliente);
-});
-router.post('/Login/Registrarse', async (req, res) => {
-  const Email = await Clientes.findOne({correo: req.body.correo})
-  const User = await Clientes.findOne({user: req.body.user})
 
-  if (Email) {
-    res.json({
-      status: 'El correo ya está en uso'
-    })
-    res.redirect('/Login')
-  }
-  if (User) {
-    res.json({
-      status: 'El user ya está en uso'
-    })
-    res.redirect('/Login')
-  }
-  const cliente = new Clientes(req.body);
-  await cliente.save();
-  res.json({
-    status: 'Te has registrado correctamente'
-  })
-  res.redirect('/Clientes')
+router.get('/AcercadeNosotros', function(req, res) {
+  res.render('AcercadeNosotros')
+})
+
+/* GET API*/
+router.get('/Clientes', async (req, res) => {
+  res.json(await cliente.consultar(req.body));
 });
+
+router.get('/AcercadeNosotros/consulta', async function(req, res) {
+  res.json(await informacion.consultar())
+})
+
+/* POST  rutas*/
+router.post('/Login/Registrarse', async (req, res) => {
+  await cliente.guardar(req.body)
+    .then(registro => {
+      if(registro) {
+        res.json({ status: 'Te has registrado correctamente'})
+        res.redirect('/Clientes')
+      } else {
+        res.json({ status: 'Su usuario y/o correo ya está en uso'})
+        res.redirect('/Login')
+      }
+    })
+});
+
 router.post('/Login/Iniciar_sesion', Passport.authenticate('local', {
   successRedirect: '/AcercadeNosotros',
   failureRedirect: '/Login',
@@ -79,35 +82,6 @@ router.get('/AcercadeNosotros', function(req, res) {
 router.get('/AcercadeNosotros/consulta', async function(req, res) {
   res.json(await informacion.consultar())
 })
-
-// POST rutas
-router.post('/Login/Registrarse', async (req, res) => {
-  const Email = await Clientes.findOne({correo: req.body.correo})
-  const User = await Clientes.findOne({user: req.body.user})
-  if (Email) {
-    res.json({
-      status: 'El correo ya está en uso'
-    })
-    res.redirect('/Login')
-  }
-  if (User) {
-    res.json({
-      status: 'El user ya está en uso'
-    })
-    res.redirect('/Login')
-  }
-  const cliente = new Clientes(req.body);
-  await cliente.save();
-  res.json({
-    status: 'Te has registrado correctamente'
-  })
-  res.redirect('/Clientes')
-});
-router.post('/Login/Iniciar_sesion', Passport.authenticate('local', {
-  successRedirect: '/AcercadeNosotros',
-  failureRedirect: '/Login',
-  failureFlash: true
-}));
 
 // router.get("/:productos", Prdt.save);
 //Poductos
