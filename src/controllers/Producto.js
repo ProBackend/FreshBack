@@ -15,7 +15,7 @@ class pro{
   //   return token
   // }
   async guardar(req, res) {
-    const pro = new Producto(re.body);
+    const pro = new Producto(req.body);
     await pro.save();
     const mensaje = 'Te has registrado correctamente'
     return mensaje

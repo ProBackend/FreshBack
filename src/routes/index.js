@@ -1,80 +1,72 @@
 const express = require("express");
 const router = express.Router();
-const Menu = require("../controllers/menu_dia");
-const Pr_dia = require("../controllers/Pr_dia");
-const Clientes = require('../models/cliente.js');
 const Passport = require("passport");
 
+/* Controladores Orientados a objetos */
+const info = require("../controllers/informacion")
+const clien = require("../controllers/clientes")
 const pro = require("../controllers/Producto");
+let informacion = new info
+let cliente = new clien
 let Producto = new pro
-/* GET home page. */
+
+/* Controladores */
+const Prdt = require("../controllers/Producto");
+const Menu = require("../controllers/menu_dia");
+const Pr_dia = require("../controllers/Pr_dia");
+
+/* GET vistas */
 router.get('/Login', async (req, res) => {
   res.render('Login')
 });
-router.get('/Clientes', async (req, res) => {
-    const cliente = await Clientes.find();
-    res.json(cliente);
-});
-router.post('/Login/Registrarse', async (req, res) => {
-  const Email = await Clientes.findOne({correo: req.body.correo})
-  const User = await Clientes.findOne({user: req.body.user})
 
-  if (Email) {
-    res.json({
-      status: 'El correo ya está en uso'
-    })
-    res.redirect('/Login')
-  }
-  if (User) {
-    res.json({
-      status: 'El user ya está en uso'
-    })
-    res.redirect('/Login')
-  }
-  const cliente = new Clientes(req.body);
-  await cliente.save();
-  res.json({
-    status: 'Te has registrado correctamente'
-  })
-  res.redirect('/Clientes')
+router.get('/AcercadeNosotros', function(req, res) {
+  res.render('AcercadeNosotros')
+})
+
+router.get('/Productos', function(req, res) {
+  res.render('productos')
 });
+
+router.get('/MenudelDia', function(req, res) {
+  res.render('MenudelDia')
+})
+
+/* GET API*/
+router.get('/Clientes', async (req, res) => {
+  res.json(await cliente.consultar(req.body));
+});
+
+router.get('/AcercadeNosotros/consulta', async function(req, res) {
+  res.json(await informacion.consultar())
+})
+
+router.get('/Productos/consulta', async function(req, res) {
+  res.json(await Producto.consultar())
+})
+
+/* POST  rutas*/
+router.post('/Login/Registrarse', async (req, res) => {
+  await cliente.guardar(req.body)
+    .then(registro => {
+      if(registro) {
+        res.json({ status: 'Te has registrado correctamente'})
+        res.redirect('/Clientes')
+      } else {
+        res.json({ status: 'Su usuario y/o correo ya está en uso'})
+        res.redirect('/Login')
+      }
+    })
+});
+
 router.post('/Login/Iniciar_sesion', Passport.authenticate('local', {
   successRedirect: '/AcercadeNosotros',
   failureRedirect: '/Login',
   failureFlash: true
 }));
 
-router.get('/Productos', function(req, res) {
-  res.render('Inventario')
+router.post('/Productos/guardar', async function(req, res) {
+  res.json(await Producto.guardar())
 })
-router.get('/Productos/consulta', async function(req, res) {
-  res.json(await Producto.consultar())
-})
-
-//Poductos
-// router.get("/:productos", Producto.save);
-// router.post("/productos", Prdt.guardar);
-// router.get("/productos/mostrar", Prdt.mostrar);
-// router.get("/productos/editar/:id", Prdt.edit);
-// router.post("/productos/editar/:id", Prdt.editar);
-// router.get("/productos/delete/:id", Prdt.delete);
-
-//Menu del día
-// router.post("/menu", Menu.guardar);
-// router.get("/menu/mostrar", Menu.mostrar);
-// router.get("/menu/editar/:id", Menu.edit);
-// router.post("/menu/editarm/:id", Menu.editar);
-// router.get("/menu/delete/:id", Menu.delete);
-
-//Producto del día
-// router.post("/productodia", Pr_dia.guardar);
-// router.get("/productodia/mostrar", Pr_dia.mostrar);
-// router.get("/productodia/editar/:id", Pr_dia.edit);
-// router.post("/productodia/editar/:id", Pr_dia.editar);
-// router.get("/productodia/delete/:id", Pr_dia.delete);
-
-// router.get('/AcercadeNosotros', function(req, res) {
-//   res.render('AcercadeNosotros')
-// })
 
 module.exports = router;

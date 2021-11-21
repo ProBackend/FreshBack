@@ -1,20 +1,31 @@
 <template>
-  <body>
+  <section>
+    <Navbar/>
+    <div class="d-flex justify-content-around">
+      <button
+        type="button"
+        class="btn-secundario"
+        @click="mostrar = !mostrar; proRe = !proRE"
+      >
+        Agregar producto regular
+      </button>
+      <button
+        type="button"
+        class="btn-secundario"
+        @click="mostrar = !mostrar; proDia = !prodia"
+      >
+        Agregar producto del día
+      </button>
+      <button
+        type="button"
+        class="btn-secundario"
+        @click="mostrar = !mostrar; menuDia = !menuDia"
+      >
+        Agregar menú del día
+      </button>
+    </div>
     <div class="container">
-      <div class="d-flex">
-        <button
-          type="button"
-          class="agg-pro"
-          @click="modal = !modal"
-        >
-          Agregar producto regular
-        </button>
-      </div>
-      <ModalProducto
-        :mostrarmodal="modal"
-        @cerrar="mostrar= false, Escontacto=false, Esgerente=false"
-      />
-      <div class="card" style="width: 20rem" v-for="p in productos" :key="p.nombre">
+      <div class="card" v-for="p in productos" :key="p.nombre">
         <img :src="p.path" class="card-img-top" :alt="p.filename">
         <div class="card-body text-center">
           <h5 class="card-tittle">
@@ -31,22 +42,33 @@
         </div>
       </div>
     </div>
-  </body>
+    <ModalProducto
+      :ProductoRe= proRe
+      :ProductoDia = proDia
+      :MenuDia = menuDia
+      :mostrarmodal="mostrar"
+      @cerrar="mostrar= false; proRe = false; proDia = false"
+    />
+  </section>
 </template>
 
 <script>
-import ModalProducto from './ModalProducto.vue'
+import ModalProducto from './ModalPPDM.vue'
+import Navbar from './navbar.vue'
 
 export default {
   name: 'Productos',
   components: {
-    ModalProducto
+    ModalProducto,
+    Navbar
   },
   data() {
     return {
-      // token: true,
       productos: [],
-      modal: false
+      mostrar: false,
+      proRe: false,
+      proDia: false,
+      menuDia: false
     }
   },
   created(){
