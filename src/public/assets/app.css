@@ -66,9 +66,16 @@ nav.navbar {
   color: #e6d3c5;
 }
 
-a.p-texto:hover {
+.p-texto.link:hover {
   color: #e6d3c5;
   font-weight: bold;
+}
+
+.contenedor {
+  margin: 3rem;
+  width: 80%;
+  height: 50%;
+  background-color: #788f7663;
 }
 
 /* Inputs */
