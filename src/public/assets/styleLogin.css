@@ -4,22 +4,22 @@ body {
   background-repeat: no-repeat;
 }
 
-.parteDelantera{
+.parteDelantera form{
+  max-width: 20%;
+  left: 29%;
+  top: 10rem;
   padding: 40px 20px;
-  position: absolute;
   background: #e6d3c5;
+  position: absolute;
   border-radius: 20px;
-  max-width: 380px;
-  left: 390px;
-  margin-top: 7rem;
 }
 
-.parteDelantera.log{
-  left: 720px;
+.parteDelantera .log{
+  left: 51%;
 }
 
 .parteTrasera{
-  width: 50%;
+  width: 45%;
   margin-top: 10rem;
   padding: 20px 50px;
   display: flex;
@@ -27,6 +27,7 @@ body {
 }
 
 .parteTrasera div{
+  padding-left: 2rem;
   margin: 100px 40px;
   color: #e6d3c5;
   transition: all 500ms;

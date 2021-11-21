@@ -17,18 +17,25 @@
         </ul>
         <form class="d-flex">
           <button class="btn-primario mx-2" @click.prevent="registro = true, login = true, Menu = false, Pro = false, Nosotros = false">Iniciar sesión</button>
-          <button class="btn-secundario mx-2" @click.prevent="registro = true, Menu = false, Pro = false, Nosotros = false">Registrarse</button>
+          <button class="btn-secundario mx-2" @click.prevent="registro = true, login = false, Menu = false, Pro = false, Nosotros = false">Registrarse</button>
         </form>
       </div>
     </nav>
-    <div v-if="Menu">
-      <MenudelDia/>
-    </div>
-    <div v-if="Pro">
-      <Productos/>
-    </div>
-    <div v-if="Nosotros">
-      <AcercadeNosotros/>
+    <div class="row">
+      <div class="col-3">
+        <div class="mx-3">
+          <Carrusel/>
+        </div>
+      </div>
+      <div v-if="Menu" class="col">
+        <MenudelDia/>
+      </div>
+      <div v-if="Pro" class="col">
+        <Productos/>
+      </div>
+      <div v-if="Nosotros" class="col">
+        <AcercadeNosotros/>
+      </div>
     </div>
   </div>
   <div v-else>
@@ -42,6 +49,7 @@
 
 <script>
 import Login from './components/Login.vue';
+import Carrusel from './components/Carrusel.vue';
 import MenudelDia from './components/MenudelDia.vue';
 import Productos from './components/Productos.vue';
 import AcercadeNosotros from './components/AcercadeNosotros.vue';
@@ -52,7 +60,8 @@ export default {
     Login,
     MenudelDia,
     Productos,
-    AcercadeNosotros
+    AcercadeNosotros,
+    Carrusel
   },
   data(){
     return {

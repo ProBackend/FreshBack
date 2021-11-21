@@ -35,7 +35,7 @@
           <div class="d-flex justify-content-end mx-2 my-2">
             <div>
               <button class="btn-primario-modal" @click="guardarPro(), $emit('cerrar', false)">Guardar</button>
-              <button class="btn-secundario-modal" @click="$emit('cerrar', false)">nomepegues</button>
+              <button class="btn-secundario-modal" @click="$emit('cerrar', false)">Cerrar</button>
             </div>
           </div>
         </div>
@@ -67,7 +67,8 @@ export default {
       nombre: '',
       ingredientes: '',
       precio: 0,
-      oferta: 0
+      oferta: 0,
+      src: ''
     }
   },
   methods: {

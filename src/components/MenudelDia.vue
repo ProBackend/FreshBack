@@ -1,14 +1,12 @@
 <template>
   <section>
-    <div v-if="1==2">
-      <div class="card bg-dark text-white">
-        <div class="col-md-2">
-        <img src="/assets/prueba.jpg" alt="prueba.jpg" class="card-img">
-        </div>
+    <div v-if="2==2" class="mb-4">
+      <div class="card imagenAncha">
+        <img src="/assets/prueba.jpg" alt="prueba.jpg" class="card-img imagenAncha">
         <div class="card-img-overlay">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <p class="card-text">Last updated 3 mins ago</p>
+          <h5 class="card-title h5-tittle">Producto del día</h5>
+          <p class="card-text p-texto-oscuro">Descripción</p>
+          <p class="card-text p-texto-oscuro">Precio idk</p>
         </div>
       </div>
     </div>

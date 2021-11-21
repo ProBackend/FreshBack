@@ -62,8 +62,19 @@ nav.navbar {
   color: #937563;
   font-weight: bold;
 }
+
+.h5-tittle {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #553F25;
+  font-weight: bold;
+}
+
 .p-texto {
   color: #e6d3c5;
+}
+.p-texto-oscuro {
+  color: #553F25;
 }
 
 .p-texto.link:hover {
@@ -71,7 +82,7 @@ nav.navbar {
   font-weight: bold;
 }
 
-.contenedor {
+/*.contenedor {
   margin: 3rem;
   width: 80%;
   height: 50%;
@@ -156,4 +167,16 @@ nav.navbar {
   background-color: #e6d3c5;
   border: 1px solid #937563;
   border-radius: 0.25rem;
+}
+
+.imagenAncha {
+  background-color: transparent !important;
+  color: #553F25;
+  max-width: 95%;
+  max-height: 180px;
+}
+
+.imagenAncha .card-img-overlay {
+  max-width: 95%;
+  background-color: #e6d3c546;
 }
