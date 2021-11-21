@@ -2,7 +2,9 @@
   <section>
     <div v-if="1==2">
       <div class="card bg-dark text-white">
-        <img src="url(./assets/loginBack.jpg)" class="card-img">
+        <div class="col-md-2">
+        <img src="/assets/prueba.jpg" alt="prueba.jpg" class="card-img">
+        </div class="col-md-2">
         <div class="card-img-overlay">
           <h5 class="card-title">Card title</h5>
           <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>

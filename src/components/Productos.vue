@@ -4,14 +4,14 @@
       <button
         type="button"
         class="btn-secundario"
-        @click="mostrar = !mostrar; proRe = !proRE"
+        @click="mostrar = !mostrar; proRe = !proRe"
       >
         Agregar producto regular
       </button>
       <button
         type="button"
         class="btn-secundario"
-        @click="mostrar = !mostrar; proDia = !prodia"
+        @click="mostrar = !mostrar; proDia = !proDia"
       >
         Agregar producto del día
       </button>
@@ -46,7 +46,7 @@
       :ProductoDia = proDia
       :MenuDia = menuDia
       :mostrarmodal="mostrar"
-      @cerrar="mostrar= false; proRe = false; proDia = false"
+      @cerrar="mostrar= false; proRe = false; proDia = false; menuDia = false"
     />
   </section>
 </template>
