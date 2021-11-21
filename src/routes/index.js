@@ -66,6 +66,7 @@ router.post('/Login/Iniciar_sesion', Passport.authenticate('local', {
 }));
 
 router.post('/Productos/guardar', async function(req, res) {
+
     res.json(await Producto.guardar())
 })
 

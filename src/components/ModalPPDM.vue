@@ -74,17 +74,19 @@ export default {
     }
   },
   methods: {
-    guardarPro() {
+    guardarPro(req,res) {
       const file = this.$refs.file.files[0]
       
      
-      console.log(file)
+      console.log(file.filename)
      
       console.log(this.nombre+ " " + this.ingredientes+ " " + this.precio)
       if (!this.nombre || !this.ingredientes || !this.precio) {
         console.log("Ingrese la información correctamente")
         return
-      }
+      } 
+
+      
       fetch('/Productos/guardar')
         .then(res => res.json())
         .then(data => console.log(data))
