@@ -15,59 +15,41 @@ const Prdt = require("../controllers/Producto");
 const Menu = require("../controllers/menu_dia");
 const Pr_dia = require("../controllers/Pr_dia");
 
-/* GET vistas */
-router.get('/Login', async(req, res) => {
-    res.render('Login')
-});
+/* GET home */
+router.get('/', async (req, res) => {
+    res.render('main')
+  });
 
-router.get('/AcercadeNosotros', function(req, res) {
-    res.render('AcercadeNosotros')
-})
-
-router.get('/Productos', function(req, res) {
-    res.render('productos')
-});
-
-router.get('/MenudelDia', function(req, res) {
-    res.render('MenudelDia')
-})
-
-/* GET API*/
-router.get('/Clientes', async(req, res) => {
+  router.get('/Clientes', async (req, res) => {
     res.json(await cliente.consultar(req.body));
-});
-
-router.get('/AcercadeNosotros/consulta', async function(req, res) {
+  });
+  
+  router.get('/nosotros/consulta', async function(req, res) {
     res.json(await informacion.consultar())
-})
-
-router.get('/Productos/consulta', async function(req, res) {
+  })
+  
+  router.get('/Productos/consulta', async function(req, res) {
     res.json(await Producto.consultar())
-})
-
-/* POST  rutas*/
-router.post('/Login/Registrarse', async(req, res) => {
+  })
+  /* POST  rutas*/
+  router.post('/Login/Registrarse', async (req, res) => {
     await cliente.guardar(req.body)
-        .then(registro => {
-            if (registro) {
-                res.json({ status: 'Te has registrado correctamente' })
-                res.redirect('/Clientes')
-            } else {
-                res.json({ status: 'Su usuario y/o correo ya está en uso' })
-                res.redirect('/Login')
-            }
-        })
-});
-
-router.post('/Login/Iniciar_sesion', Passport.authenticate('local', {
+      .then(registro => {
+        if(registro) {
+          res.json({ status: 'Te has registrado correctamente'})
+          res.redirect('/Clientes')
+        } else {
+          res.json({ status: 'Su usuario y/o correo ya está en uso'})
+          res.redirect('/Login')
+        }
+      })
+  });
+  router.post('/Login/Iniciar_sesion', Passport.authenticate('local', {
     successRedirect: '/AcercadeNosotros',
     failureRedirect: '/Login',
     failureFlash: true
-}));
-
-router.post('/Productos/guardar', async function(req, res) {
-
+  }));
+  router.post('/Productos/guardar', async function(req, res) {
     res.json(await Producto.guardar())
-})
-
-module.exports = router;
+  })
+  module.exports = router;
