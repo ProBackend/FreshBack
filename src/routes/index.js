@@ -2,9 +2,6 @@ const express = require("express");
 const router = express.Router();
 
 require('../connection');
-const admin = require('../controllers/administradores');
-
-let administradores = new admin;
 
 // GET home page. 
 const Prdt = require("../controllers/Producto");
@@ -17,8 +14,6 @@ const admin = require('../controllers/administradores');
 let informacion = new info;
 let administradores = new admin;
 
-const info = require("../controllers/informacion")
-let informacion = new info
 // GET rutas
 /* GET home page. */
 router.get('/Login', async (req, res) => {
@@ -49,6 +44,7 @@ router.post('/Login/Registrarse', async (req, res) => {
     res.redirect('/Login')
   }
   const cliente = new Clientes(req.body);
+  cliente.password = await cliente.encryptPass(cliente.password);
   await cliente.save();
   res.json({
     status: 'Te has registrado correctamente'

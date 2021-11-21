@@ -24,4 +24,9 @@ const Clienteschema = new Schema({
   }
 });
 
+Clienteschema.methods.encryptPass = async (password) => {
+  const salt = await bcrypt.genSalt(10);
+  return bcrypt.hash(password, salt);
+};
+
 module.exports = model("Cliente", Clienteschema);
