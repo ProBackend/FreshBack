@@ -17,21 +17,9 @@ const Pr_diaschema = new Schema({
         type: String,
         required: true,
     },
-    filename: {
-        type: String,
-    },
     path: {
         type: String,
-    },
-    originalname: {
-        type: String,
-    },
-    mimetype: {
-        type: String,
-    },
-    size: {
-        type: Number,
-    },
+    }
 });
 
 module.exports = model("Pr_dia", Pr_diaschema);

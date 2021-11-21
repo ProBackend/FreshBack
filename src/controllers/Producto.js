@@ -14,10 +14,10 @@ class pro{
   //   console.log('asdasdasAAA')
   //   return token
   // }
-  async guardar(req, res) {
-    const pro = new Producto(req.body);
+  async guardar(req) {
+    const pro = new Producto(req);
     await pro.save();
-    const mensaje = 'Te has registrado correctamente'
+    const mensaje = `Se ha registrado ${req.nombre} como producto regular correctamente`
     return mensaje
   }
 }

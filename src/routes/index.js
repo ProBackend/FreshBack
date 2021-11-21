@@ -6,14 +6,14 @@ const Passport = require("passport");
 const info = require("../controllers/informacion")
 const clien = require("../controllers/clientes")
 const pro = require("../controllers/Producto");
+const proDia = require("../controllers/Pr_dia");
+const menu = require("../controllers/menu_dia");
 let informacion = new info
 let cliente = new clien
-let Producto = new pro
+let producto = new pro
+let productoDia = new proDia
+let menuDia = new menu
 
-/* Controladores */
-const Prdt = require("../controllers/Producto");
-const Menu = require("../controllers/menu_dia");
-const Pr_dia = require("../controllers/Pr_dia");
 
 /* GET home */
 router.get('/', async (req, res) => {
@@ -29,7 +29,13 @@ router.get('/', async (req, res) => {
   })
   
   router.get('/Productos/consulta', async function(req, res) {
-    res.json(await Producto.consultar())
+    res.json(await producto.consultar())
+  })
+  router.get('/ProductoDia/consulta', async function(req, res) {
+    res.json(await productoDia.consultar())
+  })
+  router.get('/MenuDia/consulta', async function(req, res) {
+    res.json(await menuDia.consultar())
   })
   /* POST  rutas*/
   router.post('/Login/Registrarse', async (req, res) => {
@@ -49,7 +55,13 @@ router.get('/', async (req, res) => {
     failureRedirect: '/Login',
     failureFlash: true
   }));
-  router.post('/Productos/guardar', async function(req, res) {
-    res.json(await Producto.guardar())
+  router.post('/ProductosRegu/guardar', async function(req, res) {
+    res.json(await producto.guardar(req.body))
+  })
+  router.post('/ProductosDia/guardar', async function(req, res) {
+    res.json(await productoDia.guardar(req.body))
+  })
+  router.post('/MenuDia/guardar', async function(req, res) {
+    res.json(await menuDia.guardar(req.body))
   })
   module.exports = router;

@@ -25,7 +25,7 @@
     </div>
     <div class="container">
       <div class="card" v-for="p in productos" :key="p.nombre">
-        <img :src="p.path" class="card-img-top" :alt="p.filename">
+        <img :src="p.path" class="card-img-top">
         <div class="card-body text-center">
           <h5 class="card-tittle">
             {{p.nombre}}

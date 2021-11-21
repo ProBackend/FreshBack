@@ -7,17 +7,14 @@
             <h2 class="h2-tittle">{{MenuDia ? 'Agregar menú del día' : (ProductoDia ? 'Agregar producto del día': 'Agregar producto')}}</h2>
           </div>
           <div class="card-body">
-            
             <form enctype="multipart/form-data">
-              <div class="" >
-              <label class="input-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">
-                Elige una imagen
-              </label>
-              <input  type="file" @change="guardarPro" ref="file" name="image" class="input-file" id="inputGroupFile02">
-            </div>
               <div>
                 <label for="inputNombre" class="input-label">Nombre</label>
                 <input v-model="nombre" type="text" class="input" id="inputNombre" placeholder="Nombre">
+              </div>
+              <div>
+                <label for="inputImagen" class="input-label">Imagen de referencia</label>
+                <input v-model="path" type="text" class="input" id="inputImagen" placeholder="Link de la imagen">
               </div>
               <div>
                 <label for="inputIngredientes" class="input-label">Ingredientes</label>
@@ -35,19 +32,30 @@
           </div>
           <div class="d-flex justify-content-end mx-2 my-2">
             <div>
-              <button class="btn-primario-modal" @click="guardarPro(), $emit('cerrar', false)">Guardar</button>
-              <button class="btn-secundario-modal" @click="$emit('cerrar', false)">nomepegues</button>
+              <button class="btn-primario-modal" @click="guardar(); $emit('cerrar', false)">Guardar</button>
+              <button class="btn-secundario-modal" @click="$emit('cerrar', false)">Cerrar</button>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <Alertamensaje
+      @limpio="this.mensaje"
+      :mensaje="this.mensaje"
+    />
   </section>
 </template>
 
 <script>
+import Alertamensaje from './Alertamensaje.vue';
+import { capitalizar } from "../controllers/funcionesGenerales";
+
 export default {
   name: 'modalPro',
+  components: {
+    Alertamensaje,
+    capitalizar
+  },
   props: {
     mostrarmodal:{
       type: Boolean,
@@ -68,28 +76,88 @@ export default {
       nombre: '',
       ingredientes: '',
       precio: 0,
-      file:'',
-      oferta: 0
-      
+      file:[],
+      oferta: 0,
+      path: '',
+      productoRe: {},
+      productoDia: {},
+      menuDia: {},
+      mensaje: ''
     }
   },
   methods: {
-    guardarPro(req,res) {
-      const file = this.$refs.file.files[0]
-      
-     
-      console.log(file.filename)
-     
-      console.log(this.nombre+ " " + this.ingredientes+ " " + this.precio)
-      if (!this.nombre || !this.ingredientes || !this.precio) {
-        console.log("Ingrese la información correctamente")
+    guardar() {
+      if (!this.nombre || !this.ingredientes || !this.precio || !this.path) {
+        this.mensaje = 'Recuerde rellenar todos los campos'
         return
       } 
 
-      
-      fetch('/Productos/guardar')
+      this.nombre = capitalizar(this.nombre)
+      this.ingredientes = capitalizar(this.ingredientes)
+
+      if (this.ProductoRe) {
+        this.productoRe = {
+          nombre: this.nombre,
+          ingredientes: this.ingredientes,
+          precio: this.precio,
+          path: this.path
+        }
+  
+        fetch('/ProductosRegu/guardar', {
+          method: 'POST',
+          body: JSON.stringify(this.productoRe),
+          headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json'
+          }
+        })
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => this.mensaje = data)
+      }
+      if (this.ProductoDia) {
+        if (!this.oferta) {
+          this.mensaje = 'Recuerde rellenar todos los campos'
+          return
+        }
+
+        this.productoDia = {
+          nombre: this.nombre,
+          ingredientes: this.ingredientes,
+          precio_r: this.precio,
+          oferta: this.oferta,
+          path: this.path
+        }
+        
+        fetch('/ProductosDia/guardar', {
+          method: 'POST',
+          body: JSON.stringify(this.productoDia),
+          headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json'
+          }
+        })
+        .then(res => res.json())
+        .then(data => this.mensaje = data)
+      }
+      if (this.MenuDia) {
+        this.menuDia = {
+          nombre: this.nombre,
+          ingredientes: this.ingredientes,
+          precio: this.precio,
+          path: this.path
+        }
+  
+        fetch('/MenuDia/guardar', {
+          method: 'POST',
+          body: JSON.stringify(this.menuDia),
+          headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json'
+          }
+        })
+        .then(res => res.json())
+        .then(data => this.mensaje = data)
+      }
     }
   }
 }

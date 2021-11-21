@@ -12,21 +12,9 @@ const Menuschema = new Schema({
         type: Number,
         required: true,
     },
-    filename: {
-        type: String,
-    },
     path: {
         type: String,
-    },
-    originalname: {
-        type: String,
-    },
-    mimetype: {
-        type: String,
-    },
-    size: {
-        type: Number,
-    },
+    }
 });
 
 module.exports = model("Menu", Menuschema);
