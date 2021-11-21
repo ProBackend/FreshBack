@@ -4,51 +4,32 @@ body {
   background-repeat: no-repeat;
 }
 
-.contenedor {
-  width: 100%;
-  max-width: 800px;
-  margin: 11rem 15rem;
+.parteDelantera{
+  padding: 40px 20px;
+  position: absolute;
+  background: #e6d3c5;
+  border-radius: 20px;
+  max-width: 380px;
+  left: 410px;
+  margin-top: 7rem;
+}
+
+.parteDelantera.log{
+  left: 780px;
 }
 
 .parteTrasera{
-  width: 100%;
+  width: 50%;
+  margin-top: 10rem;
   padding: 20px 50px;
   display: flex;
-  justify-content: center;
   background-color: #937563;
-  margin-top: 100px;
 }
 
 .parteTrasera div{
   margin: 100px 40px;
   color: #e6d3c5;
   transition: all 500ms;
-}
-
-.parteDelantera{
-  display: flex;
-  align-items: center;
-  position: relative;
-  width: 100%;
-  max-width: 380px;
-  top: -480px;
-  left: 10px;
-}
-
-.parteDelantera .Registro form{
-  width: 100%;
-  padding: 40px 20px;
-  background: #e6d3c5;
-  position: absolute;
-  border-radius: 20px;
-}
-.parteDelantera .Nuevo form{
-  width: 100%;
-  padding: 40px 20px;
-  background: #e6d3c5;
-  position: absolute;
-  border-radius: 20px;
-  left: 400px;
 }
 
 .regis{

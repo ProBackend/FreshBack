@@ -1,32 +1,7 @@
 <template>
-  <section>
-    <div class="contenedor">
-      <div class="parteTrasera">
-        <div>
-          <h3>¿Aún no tienes una cuenta?</h3>
-          <p>Registrate para hacer un pedido</p>
-          <button
-            id="btn_iniSe"
-            class="btn-primario"
-            @click="nuevo = false"
-          >
-            Registrarse
-          </button>
-        </div>
-        <div>
-          <h3>¿Ya tienes una cuenta?</h3>
-          <p>Inicia sesión para hacer un pedido</p>
-          <button
-            id="btn_iniSe"
-            class="btn-primario"
-            @click="nuevo= true"
-          >
-            Iniciar sesión
-          </button>
-        </div>
-      </div>
-      <div class="parteDelantera">
-        <div v-if="nuevo" class="Nuevo">
+  <div>
+    <div class="d-flex justify-content-center">
+        <div v-if="ingreso" class="parteDelantera log">
           <form>
             <h2 class="h2-tittle">Iniciar sesión</h2>
             <label for="userIngre" class="input-label">Usuario</label>
@@ -56,7 +31,7 @@
             </div>
           </form>
         </div>
-        <div v-else class="Registro">
+        <div v-else class="parteDelantera">
           <form>
             <h2 class="h2-tittle">Registrarse</h2>
             <label for="nombreRegis" class="input-label">Nombre</label>
@@ -116,13 +91,36 @@
             </div>
           </form>
         </div>
-      </div>
+        <div class="parteTrasera">
+          <div>
+            <h3>¿Aún no tienes una cuenta?</h3>
+            <p>Registrate para hacer un pedido</p>
+            <button
+              id="btn_iniSe"
+              class="btn-primario"
+              @click="ingreso = false"
+            >
+              Registrarse
+            </button>
+          </div>
+          <div>
+            <h3>¿Ya tienes una cuenta?</h3>
+            <p>Inicia sesión para hacer un pedido</p>
+            <button
+              id="btn_iniSe"
+              class="btn-primario"
+              @click="ingreso = true"
+            >
+              Iniciar sesión
+            </button>
+          </div>
+        </div>
     </div>
     <Alertamensaje
       @limpio="this.mensaje"
       :mensaje="this.mensaje"
     />
-  </section>
+  </div>
 </template>
 
 <script>
@@ -148,7 +146,7 @@ export default {
         password: ''
       },
       mensaje: '',
-      nuevo: false
+      ingreso: false
     }
   },
   methods: {

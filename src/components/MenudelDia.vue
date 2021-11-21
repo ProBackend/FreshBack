@@ -4,7 +4,7 @@
       <div class="card bg-dark text-white">
         <div class="col-md-2">
         <img src="/assets/prueba.jpg" alt="prueba.jpg" class="card-img">
-        </div class="col-md-2">
+        </div>
         <div class="card-img-overlay">
           <h5 class="card-title">Card title</h5>
           <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -13,7 +13,7 @@
       </div>
     </div>
     <!-- v-for="combo in combos" :key="combo.nombre" -->
-    <div class="contenedor">
+    <div class="">
       <div class="card mb-3" style="max-width: 540px;">
         <div class="row g-0">
           <div class="col-md-4">

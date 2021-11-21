@@ -3,7 +3,7 @@
   <div v-if="!log">
     <nav class="navbar navbar-expand-lg m-4 p-3">
       <div class="container-fluid">
-        <h1 class="h1-tittle">Somos un restaurante</h1>
+        <h1 class="h1-tittle">FreshBack - Restaurante</h1>
         <ul class="navbar-nav">
           <li class="nav-item">
             <button class="btn-secundario" @click="Menu = true, Pro = false, Nosotros = false"><span class="p-texto link">Menu del día</span></button>
@@ -31,7 +31,7 @@
       <AcercadeNosotros/>
     </div>
   </div>
-  <div v-else class="login d-flex justify-content-center">
+  <div v-else>
     <Login
       @back="login"
       :Nuevo="log"
