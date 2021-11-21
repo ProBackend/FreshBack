@@ -1,19 +1,9 @@
 const Infor = require("../models/infor")
 
 class info{
-  constructor(req) {}
+  constructor() {}
   async consultar() {
-    const consulta = await Infor.find()
-    return consulta
-  }
-  pruebassa(token) {
-    if(token){
-      token = false
-    } else{
-      token = true;
-    }
-    console.log('asdasdasAAA')
-    return token
+    return await Infor.find()
   }
   async guardar(req, res) {
     const info = new Infor({

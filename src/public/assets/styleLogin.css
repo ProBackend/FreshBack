@@ -1,0 +1,61 @@
+body {
+  background-image: url(/assets/loginBack.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.contenedor {
+  width: 100%;
+  max-width: 800px;
+  margin: 11rem 15rem;
+}
+
+.parteTrasera{
+  width: 100%;
+  padding: 20px 50px;
+  display: flex;
+  justify-content: center;
+  background-color: #937563;
+  margin-top: 100px;
+}
+
+.parteTrasera div{
+  margin: 100px 40px;
+  color: #e6d3c5;
+  transition: all 500ms;
+}
+
+.parteDelantera{
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  top: -480px;
+  left: 10px;
+}
+
+.parteDelantera .Registro form{
+  width: 100%;
+  padding: 40px 20px;
+  background: #e6d3c5;
+  position: absolute;
+  border-radius: 20px;
+}
+.parteDelantera .Nuevo form{
+  width: 100%;
+  padding: 40px 20px;
+  background: #e6d3c5;
+  position: absolute;
+  border-radius: 20px;
+  left: 400px;
+}
+
+.regis{
+  opacity: 1;
+  display: block;
+}
+
+.iniSes{
+  display: none;
+}

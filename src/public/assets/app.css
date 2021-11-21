@@ -1,0 +1,149 @@
+*{
+  font-family: sans-serif !important;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+.alerta-mensaje {
+  animation-name: alerta;
+  animation-duration: 2s;
+  animation-iteration-count: 2;
+  animation-direction: alternate;
+  background-color: #788f76;
+  position: absolute;
+  padding: 20px 50px;
+  display: flex;
+  justify-content: center;
+  color: #553F25;
+  font-weight: bold;
+}
+
+@keyframes alerta {
+  0% { top: 0; width: 100%;}
+  20% {top: 20px}
+  100% {top: 20px; width: 100%;}
+}
+
+/* Definicion de colores */
+.color-primario {
+  color: #937563;
+}
+.color-secundario {
+  color: #e6d3c5;
+}
+.color-terciario {
+  color: #788f7663;
+}
+
+/* Barra de navegación */
+nav.navbar {
+  background-color: #937563;
+  border-radius: 0.25rem;
+}
+.navbar-nav {
+  flex-direction: row;
+}
+.nav-item {
+  margin: .5rem;
+}
+
+/* Titulos */
+.h1-tittle {
+  font-size: 1.80rem;
+  color: #e6d3c5;
+  font-weight: bold;
+  margin: 0;
+}
+.h2-tittle {
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #937563;
+  font-weight: bold;
+}
+.p-texto {
+  color: #e6d3c5;
+}
+
+.p-texto.link:hover {
+  color: #e6d3c5;
+  font-weight: bold;
+}
+
+.contenedor {
+  margin: 3rem;
+  width: 80%;
+  height: 50%;
+  background-color: #788f7663;
+}
+
+/* Inputs */
+.input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: #788f7663;
+  font-size: 15px;
+  outline: none;
+}
+.input-label {
+  color: #553F25;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.input-file {
+  padding: 10px;
+  color: #553F25 !important;
+  border: none;
+  background: #788f7663;
+  font-size: 15px;
+  outline: none;
+  font-weight: bold;
+  margin: 10px;
+}
+
+/* Buttons */
+.btn-primario {
+  padding: 10px 40px;
+  border: 2px solid #e6d3c5;
+  background-color: transparent;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #e6d3c5;
+  outline: none;
+  transition: all 300ms;
+}
+.btn-primario:hover{
+  background: #e6d3c5;
+  color: #937563;
+}
+
+.btn-secundario {
+  padding: 10px 40px;
+  border: none;
+  font-size: 14px;
+  background: #937563;
+  color: #e6d3c5;
+  cursor: pointer;
+  outline: none;
+}
+
+.btn-terciario {
+  padding: 10px 40px;
+  border: 2px solid #937563;
+  font-size: 14px;
+  background: transparent;
+  color: #937563;
+  cursor: pointer;
+  outline: none;
+}
+
+/* Cards */
+.cards {
+  background-color: #e6d3c5;
+  border: 1px solid #937563;
+  border-radius: 0.25rem;
+}
