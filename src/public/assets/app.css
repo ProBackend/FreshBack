@@ -48,7 +48,7 @@ nav.navbar {
   margin: .5rem;
 }
 
-/* Titulos */
+/* Titulos y textos */
 .h1-tittle {
   font-size: 1.80rem;
   color: #e6d3c5;
@@ -62,8 +62,19 @@ nav.navbar {
   color: #937563;
   font-weight: bold;
 }
+
+.h5-tittle {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #553F25;
+  font-weight: bold;
+}
+
 .p-texto {
   color: #e6d3c5;
+}
+.p-texto-oscuro {
+  color: #553F25;
 }
 
 .p-texto.link:hover {
@@ -72,10 +83,17 @@ nav.navbar {
 }
 
 .contenedor {
-  margin: 3rem;
-  width: 80%;
-  height: 50%;
-  background-color: #788f7663;
+  margin-right: 2rem;
+  padding: 1rem;
+  background-color: #937563b7;
+  border-radius: 0.25rem;
+}
+
+.contenedor-carrusel {
+  position: sticky;
+  padding: .5rem;
+  background-color: #937563b7;
+  border-radius: 0.25rem;
 }
 
 /* Inputs */
@@ -105,6 +123,16 @@ nav.navbar {
 }
 
 /* Buttons */
+.btn-cerrar{
+  margin: 1rem;
+  padding: 10px 40px;
+  border: transparent;
+  border-radius: 3rem;
+  font-weight: 600;
+  cursor: pointer;
+  background-color: #e6d3c56b
+}
+
 .btn-primario {
   padding: 10px 40px;
   border: 2px solid #e6d3c5;
@@ -142,8 +170,19 @@ nav.navbar {
 }
 
 /* Cards */
-.cards {
-  background-color: #e6d3c5;
-  border: 1px solid #937563;
+.card {
+  background-color: #e6d3c5 !important;
   border-radius: 0.25rem;
+}
+
+.imagenAncha {
+  background-color: transparent !important;
+  border-radius: 0.25rem;
+  color: #553F25;
+  max-height: 180px;
+}
+
+.imagenAncha .card-img-overlay {
+  border-radius: 0.25rem;
+  background-color: #e6d3c546;
 }

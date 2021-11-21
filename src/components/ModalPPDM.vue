@@ -123,7 +123,7 @@ export default {
       if (!this.nombre || !this.ingredientes || !this.precio || !this.path) {
         this.mensaje = 'Recuerde rellenar todos los campos'
         return
-      } 
+      }
 
       this.nombre = capitalizar(this.nombre)
       this.ingredientes = capitalizar(this.ingredientes)
@@ -135,7 +135,6 @@ export default {
           precio: this.precio,
           path: this.path
         }
-  
         fetch('/ProductosRegu/guardar', {
           method: 'POST',
           body: JSON.stringify(this.productoRe),
@@ -160,7 +159,6 @@ export default {
           oferta: this.oferta,
           path: this.path
         }
-        
         fetch('/ProductosDia/guardar', {
           method: 'POST',
           body: JSON.stringify(this.productoDia),
@@ -179,7 +177,6 @@ export default {
           precio: this.precio,
           path: this.path
         }
-  
         fetch('/MenuDia/guardar', {
           method: 'POST',
           body: JSON.stringify(this.menuDia),
@@ -191,7 +188,6 @@ export default {
         .then(res => res.json())
         .then(data => this.mensaje = data)
       }
-      
       this.productoRe = {}
       this.productoDia = {}
       this.menuDia = {}
@@ -200,7 +196,7 @@ export default {
       if (!this.nombre || !this.ingredientes || !this.precio || !this.path) {
         this.mensaje = 'Recuerde rellenar todos los campos'
         return
-      } 
+      }
 
       this.nombre = capitalizar(this.nombre)
       this.ingredientes = capitalizar(this.ingredientes)
@@ -212,7 +208,6 @@ export default {
           precio: this.precio,
           path: this.path
         }
-  
         fetch('/ProductosRegu/guardar', {
           method: 'POST',
           body: JSON.stringify(this.productoRe),
@@ -229,7 +224,6 @@ export default {
           this.mensaje = 'Recuerde rellenar todos los campos'
           return
         }
-
         this.productoDia = {
           nombre: this.nombre,
           ingredientes: this.ingredientes,
@@ -237,7 +231,6 @@ export default {
           oferta: this.oferta,
           path: this.path
         }
-        
         fetch('/ProductosDia/guardar', {
           method: 'POST',
           body: JSON.stringify(this.productoDia),
@@ -256,7 +249,6 @@ export default {
           precio: this.precio,
           path: this.path
         }
-  
         fetch('/MenuDia/guardar', {
           method: 'POST',
           body: JSON.stringify(this.menuDia),
