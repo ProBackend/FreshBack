@@ -1,7 +1,6 @@
 <template>
   <section>
-    <Navbar/>
-    <div>
+    <div v-if="1==2">
       <div class="card bg-dark text-white">
         <img src="url(./assets/loginBack.jpg)" class="card-img">
         <div class="card-img-overlay">
@@ -11,30 +10,19 @@
         </div>
       </div>
     </div>
-    <div class="card mb-3" style="max-width: 540px;">
-      <div class="row g-0">
-        <div class="col-md-4">
-                  <!-- <img src="..." class="card-img" alt="..."> -->
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    <!-- v-for="combo in combos" :key="combo.nombre" -->
+    <div class="contenedor">
+      <div class="card mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <!-- <img src="..." class="card-img" alt="..."> -->
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="card mb-3" style="max-width: 540px;">
-      <div class="row g-0">
-        <div class="col-md-4">
-                  <!-- <img src="..." class="card-img" alt="..."> -->
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
           </div>
         </div>
       </div>
@@ -43,12 +31,12 @@
 </template>
 
 <script>
-import Navbar from './navbar.vue'
-
 export default {
   name: 'MenudelDia',
-  components: {
-    Navbar
+  data() {
+    return {
+      combos: []
+    }
   }
 }
 </script>

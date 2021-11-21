@@ -1,21 +1,67 @@
 <template>
-  <section>
-    <Navbar/>
-  </section>
+<section>
+  <div v-if="!log">
+    <nav class="navbar navbar-expand-lg m-4 p-3">
+      <div class="container-fluid">
+        <h1 class="h1-tittle">Somos un restaurante</h1>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <button class="btn-secundario" @click="Menu = true, Pro = false, Nosotros = false"><span class="p-texto link">Menu del día</span></button>
+          </li>
+          <li class="nav-item">
+            <button class="btn-secundario" @click="Menu = false, Pro = true, Nosotros = false"><span class="p-texto link">Productos</span></button>
+          </li>
+          <li class="nav-item">
+            <button class="btn-secundario" @click="Menu = false, Pro = false, Nosotros = true"><span class="p-texto link">Acerca de nosotros</span></button>
+          </li>
+        </ul>
+        <form class="d-flex">
+          <button class="btn-primario mx-2" @click.prevent="log = true, Menu = false, Pro = false, Nosotros = false">Iniciar sesión</button>
+          <button class="btn-secundario mx-2" @click.prevent="log = true, Menu = false, Pro = false, Nosotros = false">Registrarse</button>
+        </form>
+      </div>
+    </nav>
+    <div v-if="Menu">
+      <MenudelDia/>
+    </div>
+    <div v-if="Pro">
+      <Productos/>
+    </div>
+    <div v-if="Nosotros">
+      <AcercadeNosotros/>
+    </div>
+  </div>
+  <div v-else class="login d-flex justify-content-center">
+    <Login
+      @back="login"
+      :Nuevo="log"
+    />
+  </div>
+</section>
 </template>
 
 <script>
-import Navbar from './components/navbar.vue'
+import Login from './components/Login.vue';
+import MenudelDia from './components/MenudelDia.vue';
+import Productos from './components/Productos.vue';
+import AcercadeNosotros from './components/AcercadeNosotros.vue';
 
 export default {
   name: 'App',
   components: {
-    Navbar
+    Login,
+    MenudelDia,
+    Productos,
+    AcercadeNosotros
   },
-  data() {
+  data(){
     return {
-      a: 1
+      login: false,
+      log: false,
+      Menu: true,
+      Pro: false,
+      Nosotros: false
     }
-  },
+  }
 }
 </script>

@@ -23,17 +23,17 @@ app.use(express.urlencoded({extended: false}));
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
 const storage = multer.diskStorage({
-    destination: path.join(__dirname, "public/uploads"),
-    filename: (req, file, cb, filename) => {
+  destination: path.join(__dirname, "public/uploads"),
+  filename: (req, file, cb, filename) => {
 
-        cb(null, uuidv4() + path.extname(file.originalname));
-    },
+    cb(null, uuidv4() + path.extname(file.originalname));
+  },
 });
 app.use(multer({ storage }).single("image"));
 app.use(session({
-    secret: 'freshback',
-    resave: true,
-    saveUninitialized: true
+  secret: 'freshback',
+  resave: true,
+  saveUninitialized: true
 }))
 app.use(passport.initialize());
 app.use(passport.session());
@@ -46,5 +46,5 @@ app.use(require("./routes/index"));
 
 // start
 app.listen(3000, () => {
-    console.log(`Server on port ${app.get("port")}`);
+  console.log(`Server on port ${app.get("port")}`);
 });

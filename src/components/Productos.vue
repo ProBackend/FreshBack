@@ -1,6 +1,5 @@
 <template>
   <section>
-    <Navbar/>
     <div class="d-flex justify-content-around">
       <button
         type="button"
@@ -54,13 +53,11 @@
 
 <script>
 import ModalProducto from './ModalPPDM.vue'
-import Navbar from './navbar.vue'
 
 export default {
   name: 'Productos',
   components: {
     ModalProducto,
-    Navbar
   },
   data() {
     return {
