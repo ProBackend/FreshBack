@@ -97,8 +97,8 @@ export default {
   },
   props: {
     mostrarmodal:{
-      tyoe: Boolean,
-      required: true,
+      type: Boolean,
+      default: false
     },
     esContacto:{
       tyoe: Boolean,
@@ -106,14 +106,14 @@ export default {
   },
   data() {
     return {
-      mostrarmodal: false,
       contacto: {
         nombre:'',
         apellido:'',
         direccion:'',
         descipcion:'',
         telefono:''
-      }
+      },
+      mensaje: ''
     }
   },
   methods: {
