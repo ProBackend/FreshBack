@@ -16,57 +16,57 @@ const Menu = require("../controllers/menu_dia");
 const Pr_dia = require("../controllers/Pr_dia");
 
 /* GET vistas */
-router.get('/Login', async (req, res) => {
-  res.render('Login')
+router.get('/Login', async(req, res) => {
+    res.render('Login')
 });
 
 router.get('/AcercadeNosotros', function(req, res) {
-  res.render('AcercadeNosotros')
+    res.render('AcercadeNosotros')
 })
 
 router.get('/Productos', function(req, res) {
-  res.render('productos')
+    res.render('productos')
 });
 
 router.get('/MenudelDia', function(req, res) {
-  res.render('MenudelDia')
+    res.render('MenudelDia')
 })
 
 /* GET API*/
-router.get('/Clientes', async (req, res) => {
-  res.json(await cliente.consultar(req.body));
+router.get('/Clientes', async(req, res) => {
+    res.json(await cliente.consultar(req.body));
 });
 
 router.get('/AcercadeNosotros/consulta', async function(req, res) {
-  res.json(await informacion.consultar())
+    res.json(await informacion.consultar())
 })
 
 router.get('/Productos/consulta', async function(req, res) {
-  res.json(await Producto.consultar())
+    res.json(await Producto.consultar())
 })
 
 /* POST  rutas*/
-router.post('/Login/Registrarse', async (req, res) => {
-  await cliente.guardar(req.body)
-    .then(registro => {
-      if(registro) {
-        res.json({ status: 'Te has registrado correctamente'})
-        res.redirect('/Clientes')
-      } else {
-        res.json({ status: 'Su usuario y/o correo ya está en uso'})
-        res.redirect('/Login')
-      }
-    })
+router.post('/Login/Registrarse', async(req, res) => {
+    await cliente.guardar(req.body)
+        .then(registro => {
+            if (registro) {
+                res.json({ status: 'Te has registrado correctamente' })
+                res.redirect('/Clientes')
+            } else {
+                res.json({ status: 'Su usuario y/o correo ya está en uso' })
+                res.redirect('/Login')
+            }
+        })
 });
 
 router.post('/Login/Iniciar_sesion', Passport.authenticate('local', {
-  successRedirect: '/AcercadeNosotros',
-  failureRedirect: '/Login',
-  failureFlash: true
+    successRedirect: '/AcercadeNosotros',
+    failureRedirect: '/Login',
+    failureFlash: true
 }));
 
 router.post('/Productos/guardar', async function(req, res) {
-  res.json(await Producto.guardar())
+    res.json(await Producto.guardar())
 })
 
 module.exports = router;

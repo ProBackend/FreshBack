@@ -7,13 +7,14 @@
             <h2 class="h2-tittle">{{MenuDia ? 'Agregar menú del día' : (ProductoDia ? 'Agregar producto del día': 'Agregar producto')}}</h2>
           </div>
           <div class="card-body">
-            <div class="">
+            
+            <form enctype="multipart/form-data">
+              <div class="" >
               <label class="input-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">
                 Elige una imagen
               </label>
-              <input type="file" name="image" class="input-file" id="inputGroupFile02">
+              <input  type="file" @change="guardarPro" ref="file" name="image" class="input-file" id="inputGroupFile02">
             </div>
-            <form>
               <div>
                 <label for="inputNombre" class="input-label">Nombre</label>
                 <input v-model="nombre" type="text" class="input" id="inputNombre" placeholder="Nombre">
@@ -67,11 +68,19 @@ export default {
       nombre: '',
       ingredientes: '',
       precio: 0,
+      file:'',
       oferta: 0
+      
     }
   },
   methods: {
     guardarPro() {
+      const file = this.$refs.file.files[0]
+      
+     
+      console.log(file)
+     
+      console.log(this.nombre+ " " + this.ingredientes+ " " + this.precio)
       if (!this.nombre || !this.ingredientes || !this.precio) {
         console.log("Ingrese la información correctamente")
         return
