@@ -8,13 +8,7 @@ class adminis{
   constructor() {}
   async guardar (nombre, apellido, usuario, clave, contacto) {
     console.log(nombre, apellido, usuario, clave, contacto);
-    const adm = new Gerente({
-      nombre,
-      apellido,
-      usuario,
-      clave,
-      contacto,
-    });
+    const adm = new Gerente({ nombre, apellido, usuario, clave, contacto });
     adm.clave = await adm.encryptClave(adm.clave);
     await adm.save();
     const token = jwt.sign({id: adm._id}, config.secret, {
