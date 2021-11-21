@@ -32,7 +32,7 @@
           </div>
           <div class="d-flex justify-content-end mx-2 my-2">
             <div>
-              <button class="btn-primario-modal" @click="esEditar ? editar() : guardar(); $emit('cerrar', false)">Guardar</button>
+              <button type="submit" class="btn-primario-modal" @click="esEditar ? editar() : guardar(); $emit('cerrar', false)">Guardar</button>
               <button class="btn-secundario-modal" @click="$emit('cerrar', false)">Cerrar</button>
             </div>
           </div>
@@ -71,8 +71,8 @@ export default {
       type: Boolean,
     },
     esEditar:{
-      type: Object,
-      default: {}
+      type: Boolean,
+      default: false
     }
   },
   data() {

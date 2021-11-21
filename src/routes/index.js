@@ -23,11 +23,11 @@ router.get('/', async (req, res) => {
   router.get('/Clientes', async (req, res) => {
     res.json(await cliente.consultar(req.body));
   });
-  
+
   router.get('/nosotros/consulta', async function(req, res) {
     res.json(await informacion.consultar())
   })
-  
+
   router.get('/ProductoRegu/consulta', async function(req, res) {
     res.json(await producto.consultar())
   })
@@ -37,6 +37,7 @@ router.get('/', async (req, res) => {
   router.get('/MenuDia/consulta', async function(req, res) {
     res.json(await menuDia.consultar())
   })
+
   /* POST  rutas*/
   router.post('/Login/Registrarse', async (req, res) => {
     await cliente.guardar(req.body)
@@ -50,17 +51,21 @@ router.get('/', async (req, res) => {
         }
       })
   });
+
   router.post('/Login/Iniciar_sesion', Passport.authenticate('local', {
     successRedirect: '/AcercadeNosotros',
     failureRedirect: '/Login',
     failureFlash: true
   }));
+
   router.post('/ProductosRegu/guardar', async function(req, res) {
     res.json(await producto.guardar(req.body))
   })
+
   router.post('/ProductosDia/guardar', async function(req, res) {
     res.json(await productoDia.guardar(req.body))
   })
+
   router.post('/MenuDia/guardar', async function(req, res) {
     res.json(await menuDia.guardar(req.body))
   })
@@ -69,9 +74,11 @@ router.get('/', async (req, res) => {
   router.put('/ProductosRegu/editar', async function(req, res) {
     res.json(await producto.editar(req.body))
   })
+
   router.put('/ProductosDia/editar', async function(req, res) {
     res.json(await productoDia.editar(req.body))
   })
+
   router.put('/MenuDia/editar', async function(req, res) {
     res.json(await menuDia.editar(req.body))
   })
@@ -80,10 +87,13 @@ router.get('/', async (req, res) => {
   router.delete('/ProductosRegu/eliminar', async function(req, res) {
     res.json(await producto.eliminar(req.body))
   })
+
   router.delete('/ProductosDia/eliminar', async function(req, res) {
     res.json(await productoDia.eliminar(req.body))
   })
+
   router.delete('/MenuDia/eliminar', async function(req, res) {
     res.json(await menuDia.eliminar(req.body))
   })
+
   module.exports = router;

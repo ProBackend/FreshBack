@@ -35,7 +35,7 @@
           </div>
         <div>
           <button @click="eliminar(p._id)" class="btn btn-danger btn-block">Delete</button>
-          <button @click="mostrar = true; esEditar = p; proRe = true" class="btn btn-primary">Editar</button>
+          <button @click="mostrar = true; editar = true; proRe = true" class="btn btn-primary">Editar</button>
         </div>
       </div>
     </div>
@@ -44,7 +44,7 @@
       :ProductoDia = proDia
       :MenuDia = menuDia
       :mostrarmodal= mostrar
-      :esEditar= esEditar
+      :esEditar= editar
       @cerrar="buscar(); mostrar= false; proRe = false; proDia = false; menuDia = false; esEditar = {}"
     />
     <Alertamensaje
@@ -72,7 +72,7 @@ export default {
       proDia: false,
       menuDia: false,
       mensaje: '',
-      esEditar: {}
+      editar: false
     }
   },
   created(){
@@ -82,7 +82,7 @@ export default {
     buscar(){
       fetch('/ProductoRegu/consulta')
         .then(res => res.json())
-        .then(data => this.productos= data)
+        .then(data => this.productos = data)
     },
     eliminar(id){
       const eliminar = {

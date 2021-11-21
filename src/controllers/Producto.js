@@ -2,23 +2,12 @@ const Producto = require("../models/productos");
 class pro{
   constructor(req) {}
   async consultar() {
-    const consulta = await Producto.find()
-    return consulta
+    return await Producto.find()
   }
-  // pruebassa(token) {
-  //   if(token){
-  //     token = false
-  //   } else{
-  //     token = true;
-  //   }
-  //   console.log('asdasdasAAA')
-  //   return token
-  // }
+
   async guardar(req) {
-    const pro = new Producto(req);
-    await pro.save();
-    const mensaje = `Se ha registrado ${req.nombre} como producto regular correctamente`
-    return mensaje
+    await new Producto(req).save();
+    return `Se ha registrado ${req.nombre} como producto regular correctamente`
   }
 
   async eliminar(req) {
@@ -34,7 +23,7 @@ class pro{
       precio: req.precio,
       path: req.path,
     })
-    
+
     const mensaje = `Se ha actualizado ${req.nombre} correctamente`
     return mensaje
   }
