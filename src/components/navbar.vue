@@ -26,8 +26,12 @@ export default {
     return {
       enlaces: [
         {
-          nombre: 'Inicio',
-          ruta: '/'
+          nombre: 'Menu del dia',
+          ruta: '/MenudelDia'
+        },
+        {
+          nombre: 'Productos',
+          ruta: '/Productos'
         },
         {
           nombre: 'Acerca de nosotros',

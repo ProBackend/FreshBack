@@ -24,6 +24,14 @@ router.get('/AcercadeNosotros', function(req, res) {
   res.render('AcercadeNosotros')
 })
 
+router.get('/Productos', function(req, res) {
+  res.render('productos')
+});
+
+router.get('/MenudelDia', function(req, res) {
+  res.render('MenudelDia')
+})
+
 /* GET API*/
 router.get('/Clientes', async (req, res) => {
   res.json(await cliente.consultar(req.body));
@@ -31,6 +39,10 @@ router.get('/Clientes', async (req, res) => {
 
 router.get('/AcercadeNosotros/consulta', async function(req, res) {
   res.json(await informacion.consultar())
+})
+
+router.get('/Productos/consulta', async function(req, res) {
+  res.json(await Producto.consultar())
 })
 
 /* POST  rutas*/
@@ -53,12 +65,6 @@ router.post('/Login/Iniciar_sesion', Passport.authenticate('local', {
   failureFlash: true
 }));
 
-router.get('/Productos', function(req, res) {
-  res.render('Inventario')
-})
-router.get('/Productos/consulta', async function(req, res) {
-  res.json(await Producto.consultar())
-})
 router.post('/Productos/guardar', async function(req, res) {
   res.json(await Producto.guardar())
 })

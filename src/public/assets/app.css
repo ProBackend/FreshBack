@@ -1,5 +1,5 @@
 *{
-  font-family: sans-serif;
+  font-family: sans-serif !important;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -82,6 +82,17 @@ a.p-texto:hover {
 }
 .input-label {
   color: #553F25;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.input-file {
+  padding: 10px;
+  color: #553F25 !important;
+  border: none;
+  background: #788f7663;
+  font-size: 15px;
+  outline: none;
   font-weight: bold;
   margin: 10px;
 }
