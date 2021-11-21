@@ -97,11 +97,11 @@ export default {
   },
   props: {
     mostrarmodal:{
-      tyoe: Boolean,
+      type: Boolean,
       required: true,
     },
     esContacto:{
-      tyoe: Boolean,
+      type: Boolean,
     }
   },
   data() {

@@ -1,6 +1,6 @@
 <template>
 <section>
-  <div v-if="!log">
+  <div v-if="!registro">
     <nav class="navbar navbar-expand-lg m-4 p-3">
       <div class="container-fluid">
         <h1 class="h1-tittle">FreshBack - Restaurante</h1>
@@ -16,8 +16,8 @@
           </li>
         </ul>
         <form class="d-flex">
-          <button class="btn-primario mx-2" @click.prevent="log = true, Menu = false, Pro = false, Nosotros = false">Iniciar sesión</button>
-          <button class="btn-secundario mx-2" @click.prevent="log = true, Menu = false, Pro = false, Nosotros = false">Registrarse</button>
+          <button class="btn-primario mx-2" @click.prevent="registro = true, login = true, Menu = false, Pro = false, Nosotros = false">Iniciar sesión</button>
+          <button class="btn-secundario mx-2" @click.prevent="registro = true, Menu = false, Pro = false, Nosotros = false">Registrarse</button>
         </form>
       </div>
     </nav>
@@ -33,8 +33,8 @@
   </div>
   <div v-else>
     <Login
-      @back="login"
-      :Nuevo="log"
+      @back="registro"
+      :Nuevo="login"
     />
   </div>
 </section>
@@ -56,8 +56,8 @@ export default {
   },
   data(){
     return {
+      registro: false,
       login: false,
-      log: false,
       Menu: true,
       Pro: false,
       Nosotros: false
