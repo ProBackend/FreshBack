@@ -36,7 +36,7 @@
           <li class="list-group-item">{{p.precio}}</li>
         </ul>
         <div class="card-body">
-          <a href="/<%=p %>/delete/<%= mostrart.id%>" class="btn btn-danger btn-block">Delete</a>
+          <button @click="eliminar(p._id)" class="btn btn-danger btn-block">Delete</button>
           <a href="/<%=p %>/editar/<%= mostrart.id%>" class="btn btn-primary">Editar</a>
         </div>
       </div>
@@ -46,18 +46,24 @@
       :ProductoDia = proDia
       :MenuDia = menuDia
       :mostrarmodal="mostrar"
-      @cerrar="mostrar= false; proRe = false; proDia = false; menuDia = false"
+      @cerrar="buscar(); mostrar= false; proRe = false; proDia = false; menuDia = false"
+    />
+    <Alertamensaje
+      @limpio="this.mensaje"
+      :mensaje="this.mensaje"
     />
   </section>
 </template>
 
 <script>
+import Alertamensaje from './Alertamensaje.vue';
 import ModalProducto from './ModalPPDM.vue'
 
 export default {
   name: 'Productos',
   components: {
     ModalProducto,
+    Alertamensaje
   },
   data() {
     return {
@@ -65,7 +71,8 @@ export default {
       mostrar: false,
       proRe: false,
       proDia: false,
-      menuDia: false
+      menuDia: false,
+      mensaje: ''
     }
   },
   created(){
@@ -73,9 +80,26 @@ export default {
   },
   methods: {
     buscar(){
-      fetch('/Productos/consulta')
+      fetch('/ProductoRegu/consulta')
         .then(res => res.json())
         .then(data => this.productos= data)
+    },
+    eliminar(id){
+      const eliminar = {
+        id: id
+      }
+      fetch('/ProductosRegu/eliminar', {
+        method: 'DELETE',
+        body: JSON.stringify(eliminar),
+        headers: {
+          'Accept': 'application/json',
+          'Content-type': 'application/json'
+        }
+      })
+        .then(res => res.json())
+        .then(data => this.mensaje = data)
+
+      this.buscar()
     }
   }
 }

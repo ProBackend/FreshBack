@@ -25,6 +25,10 @@
               <p class="card-text"><small class="text-muted">{{pro.precio_r}}</small></p>
               <p class="card-text"><small class="text-muted">{{pro.oferta}}</small></p>
             </div>
+            <div class="card-body">
+              <button @click="eliminar(pro._id, 1)" class="btn btn-danger btn-block">Delete</button>
+              <a href="/<%=p %>/editar/<%= mostrart.id%>" class="btn btn-primary">Editar</a>
+            </div>
           </div>
         </div>
       </div>
@@ -40,6 +44,10 @@
               <h5 class="card-title">{{menu.nombre}}</h5>
               <p class="card-text">{{menu.ingredientes}}</p>
               <p class="card-text"><small class="text-muted">{{menu.precio}}</small></p>
+            </div>
+            <div class="card-body">
+              <button @click="eliminar(menu._id)" class="btn btn-danger btn-block">Delete</button>
+              <a href="/<%=p %>/editar/<%= mostrart.id%>" class="btn btn-primary">Editar</a>
             </div>
           </div>
         </div>
@@ -69,6 +77,37 @@ export default {
       fetch('/ProductoDia/consulta')
         .then(res => res.json())
         .then(data => this.proDia= data)
+    },
+    eliminar(id, acc){
+      const eliminar = {
+        id: id
+      }
+
+      if (acc) {
+        fetch('/ProductosDia/eliminar', {
+          method: 'DELETE',
+          body: JSON.stringify(eliminar),
+          headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json'
+          }
+        })
+          .then(res => res.json())
+          .then(data => this.mensaje = data)
+      } else {
+        fetch('/MenuDia/eliminar', {
+          method: 'DELETE',
+          body: JSON.stringify(eliminar),
+          headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json'
+          }
+        })
+          .then(res => res.json())
+          .then(data => this.mensaje = data)
+      }
+
+      this.buscar()
     }
   }
 }

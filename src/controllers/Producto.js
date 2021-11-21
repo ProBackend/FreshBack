@@ -20,44 +20,13 @@ class pro{
     const mensaje = `Se ha registrado ${req.nombre} como producto regular correctamente`
     return mensaje
   }
+
+  async eliminar(req) {
+    await Producto.findByIdAndRemove({ _id: req.id });
+    const mensaje = `Se ha eliminado correctamente`
+    return mensaje
+  }
 }
-
-// module.exports.save = (req, res) => {
-//   const url = req.params.productos
-//   if (url == "productodia") {
-//     res.render("productodia", { url })
-//   } else {
-//     res.render("Productos", { url })
-//   }
-// }
-
-// module.exports.guardar = async(req, res) => {
-//   const { nombre, ingredientes, precio } = req.body;
-
-//   if (!nombre || !ingredientes || !precio || !req.file) {
-//     return res.send("Ingrese la información correctamente")
-//   }
-
-//   const producto = new Producto({
-//     nombre: nombre,
-//     ingredientes: ingredientes,
-//     precio: precio,
-//     filename: req.file.filename,
-//     path: "/uploads/" + req.file.filename,
-//     orinalname: req.file.originalname,
-//     mimetype: req.file.mimetype,
-//     size: req.file.size
-//   })
-
-//   await producto.save()
-//   return res.send("Guardado con exito")
-// };
-
-// module.exports.mostrar = async(req, res) => {
-//   const p = "productos"
-//   const mostrart = await Producto.find();
-//   res.render("pmostrar", { mostrart, p });
-// }
 
 // module.exports.edit = async(req, res) => {
 //   const p = "productos"

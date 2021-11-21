@@ -20,6 +20,12 @@ class proDia{
       const mensaje = `Se ha registrado ${req.nombre} como producto del día correctamente`
       return mensaje
     }
+    
+    async eliminar(req) {
+        await ProDia.findByIdAndRemove({ _id: req.id });
+        const mensaje = `Se ha eliminado correctamente`
+        return mensaje
+    }
   }
 
 // module.exports.guardar = async(req, res) => {

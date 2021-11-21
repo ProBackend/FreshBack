@@ -20,6 +20,12 @@ class menuDia{
       const mensaje = `Se ha registrado ${req.nombre} como menú del día correctamente`
       return mensaje
     }
+    
+    async eliminar(req) {
+        await MenuDia.findByIdAndRemove({ _id: req.id });
+        const mensaje = `Se ha eliminado correctamente`
+        return mensaje
+    }
   }
 
 // module.exports.guardar = async(req, res) => {

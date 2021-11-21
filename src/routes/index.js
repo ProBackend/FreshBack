@@ -28,7 +28,7 @@ router.get('/', async (req, res) => {
     res.json(await informacion.consultar())
   })
   
-  router.get('/Productos/consulta', async function(req, res) {
+  router.get('/ProductoRegu/consulta', async function(req, res) {
     res.json(await producto.consultar())
   })
   router.get('/ProductoDia/consulta', async function(req, res) {
@@ -63,5 +63,16 @@ router.get('/', async (req, res) => {
   })
   router.post('/MenuDia/guardar', async function(req, res) {
     res.json(await menuDia.guardar(req.body))
+  })
+
+  /*Delete rutas */
+  router.delete('/ProductosRegu/eliminar', async function(req, res) {
+    res.json(await producto.eliminar(req.body))
+  })
+  router.delete('/ProductosDia/eliminar', async function(req, res) {
+    res.json(await productoDia.eliminar(req.body))
+  })
+  router.delete('/MenuDia/eliminar', async function(req, res) {
+    res.json(await menuDia.eliminar(req.body))
   })
   module.exports = router;
