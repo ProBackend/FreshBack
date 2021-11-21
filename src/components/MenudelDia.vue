@@ -1,32 +1,80 @@
 <template>
   <section>
-    <div v-if="2==2" class="mb-4">
+    <div class="mb-4">
       <div class="card imagenAncha">
         <img src="/assets/prueba.jpg" alt="prueba.jpg" class="card-img imagenAncha">
         <div class="card-img-overlay">
-          <h5 class="card-title h5-tittle">Producto del día</h5>
+          <h5 class="card-title h5-tittle">Menú del día</h5>
           <p class="card-text p-texto-oscuro">Descripción</p>
-          <p class="card-text p-texto-oscuro">Precio idk</p>
+          <p class="mt-5"><small class="p-texto-oscuro">Precio idk</small></p>
         </div>
       </div>
     </div>
+      <div class="row d-flex justify-content-around">
     <!-- v-for="combo in combos" :key="combo.nombre" -->
-    <div class="">
-      <div class="card mb-3" style="max-width: 540px;">
-        <div class="row g-0">
-          <div class="col-md-4">
-            <!-- <img src="..." class="card-img" alt="..."> -->
+        <div class="card col-2 m-3">
+          <div class="mt-2 d-flex justify-content-center">
+            <img src="/assets/prueba.jpg" alt="prueba.jpg" class="card-img"/>
           </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            <div class="mt-2">
+              <h5 class="card-title h5-tittle">Salsa de maiz</h5>
+              <p class="p-texto-oscuro">Rica porq es de maiz</p>
+              <p><small class="text-muted">Precio idk</small></p>
             </div>
-          </div>
         </div>
+
+<!-- de aqui hacia abajo se puede borrar -->
+
+        <div class="card col-2 m-3">
+          <div class="mt-2 d-flex justify-content-center">
+            <img src="/assets/prueba.jpg" alt="prueba.jpg" class="card-img"/>
+          </div>
+            <div class="mt-2">
+              <h5 class="card-title h5-tittle">Salsa de maiz</h5>
+              <p class="p-texto-oscuro">Rica porq es de maiz</p>
+              <p><small class="text-muted">Precio idk</small></p>
+            </div>
+        </div><div class="card col-2 m-3">
+          <div class="mt-2 d-flex justify-content-center">
+            <img src="/assets/prueba.jpg" alt="prueba.jpg" class="card-img"/>
+          </div>
+            <div class="mt-2">
+              <h5 class="card-title h5-tittle">Salsa de maiz</h5>
+              <p class="p-texto-oscuro">Rica porq es de maiz</p>
+              <p><small class="text-muted">Precio idk</small></p>
+            </div>
+        </div><div class="card col-2 m-3">
+          <div class="mt-2 d-flex justify-content-center">
+            <img src="/assets/prueba.jpg" alt="prueba.jpg" class="card-img"/>
+          </div>
+            <div class="mt-2">
+              <h5 class="card-title h5-tittle">Salsa de maiz</h5>
+              <p class="p-texto-oscuro">Rica porq es de maiz</p>
+              <p><small class="text-muted">Precio idk</small></p>
+            </div>
+        </div><div class="card col-2 m-3">
+          <div class="mt-2 d-flex justify-content-center">
+            <img src="/assets/prueba.jpg" alt="prueba.jpg" class="card-img"/>
+          </div>
+            <div class="mt-2">
+              <h5 class="card-title h5-tittle">Salsa de maiz</h5>
+              <p class="p-texto-oscuro">Rica porq es de maiz</p>
+              <p><small class="text-muted">Precio idk</small></p>
+            </div>
+        </div><div class="card col-2 m-3">
+          <div class="mt-2 d-flex justify-content-center">
+            <img src="/assets/prueba.jpg" alt="prueba.jpg" class="card-img"/>
+          </div>
+            <div class="mt-2">
+              <h5 class="card-title h5-tittle">Salsa de maiz</h5>
+              <p class="p-texto-oscuro">Rica porq es de maiz</p>
+              <p><small class="text-muted">Precio idk</small></p>
+            </div>
+        </div>
+
+<!-- hasta aqui xd -->
+
       </div>
-    </div>
   </section>
 </template>
 

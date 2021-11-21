@@ -48,7 +48,7 @@ nav.navbar {
   margin: .5rem;
 }
 
-/* Titulos */
+/* Titulos y textos */
 .h1-tittle {
   font-size: 1.80rem;
   color: #e6d3c5;
@@ -82,11 +82,18 @@ nav.navbar {
   font-weight: bold;
 }
 
-/*.contenedor {
-  margin: 3rem;
-  width: 80%;
-  height: 50%;
-  background-color: #788f7663;
+.contenedor {
+  margin-right: 2rem;
+  padding: 1rem;
+  background-color: #937563b7;
+  border-radius: 0.25rem;
+}
+
+.contenedor-carrusel {
+  position: sticky;
+  padding: .5rem;
+  background-color: #937563b7;
+  border-radius: 0.25rem;
 }
 
 /* Inputs */
@@ -163,20 +170,19 @@ nav.navbar {
 }
 
 /* Cards */
-.cards {
-  background-color: #e6d3c5;
-  border: 1px solid #937563;
+.card {
+  background-color: #e6d3c5 !important;
   border-radius: 0.25rem;
 }
 
 .imagenAncha {
   background-color: transparent !important;
+  border-radius: 0.25rem;
   color: #553F25;
-  max-width: 95%;
   max-height: 180px;
 }
 
 .imagenAncha .card-img-overlay {
-  max-width: 95%;
+  border-radius: 0.25rem;
   background-color: #e6d3c546;
 }

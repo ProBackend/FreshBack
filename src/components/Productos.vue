@@ -23,24 +23,71 @@
         Agregar menú del día
       </button>
     </div>
-    <div class="container">
-      <div class="card" v-for="p in productos" :key="p.nombre">
-        <img :src="p.path" class="card-img-top" :alt="p.filename">
-        <div class="card-body text-center">
-          <h5 class="card-tittle">
-            {{p.nombre}}
-          </h5>
-        </div>
-        <ul class="list-group list-group-flush text-center">
-          <li class="list-group-item">{{p.ingredientes}}</li>
-          <li class="list-group-item">{{p.precio}}</li>
-        </ul>
-        <div class="card-body">
-          <a href="/<%=p %>/delete/<%= mostrart.id%>" class="btn btn-danger btn-block">Delete</a>
-          <a href="/<%=p %>/editar/<%= mostrart.id%>" class="btn btn-primary">Editar</a>
-        </div>
+<div class="row d-flex justify-content-around">
+<!-- v-for="poroducto in productos" :key="producto.nombre" -->
+    <div class="card col-2 m-3">
+      <div class="mt-2 d-flex justify-content-center">
+        <img src="/assets/prueba.jpg" alt="prueba.jpg" class="card-img"/>
       </div>
+        <div class="mt-2">
+          <h5 class="card-title h5-tittle">Salsa de maiz</h5>
+          <p class="p-texto-oscuro">Rica porq es de maiz</p>
+          <p><small class="text-muted">Precio idk</small></p>
+        </div>
     </div>
+
+<!-- de aqui hacia abajo se puede borrar -->
+
+    <div class="card col-2 m-3">
+      <div class="mt-2 d-flex justify-content-center">
+        <img src="/assets/prueba.jpg" alt="prueba.jpg" class="card-img"/>
+      </div>
+        <div class="mt-2">
+          <h5 class="card-title h5-tittle">Salsa de maiz</h5>
+          <p class="p-texto-oscuro">Rica porq es de maiz</p>
+          <p><small class="text-muted">Precio idk</small></p>
+        </div>
+    </div><div class="card col-2 m-3">
+      <div class="mt-2 d-flex justify-content-center">
+        <img src="/assets/prueba.jpg" alt="prueba.jpg" class="card-img"/>
+      </div>
+        <div class="mt-2">
+          <h5 class="card-title h5-tittle">Salsa de maiz</h5>
+          <p class="p-texto-oscuro">Rica porq es de maiz</p>
+          <p><small class="text-muted">Precio idk</small></p>
+        </div>
+    </div><div class="card col-2 m-3">
+      <div class="mt-2 d-flex justify-content-center">
+        <img src="/assets/prueba.jpg" alt="prueba.jpg" class="card-img"/>
+      </div>
+        <div class="mt-2">
+          <h5 class="card-title h5-tittle">Salsa de maiz</h5>
+          <p class="p-texto-oscuro">Rica porq es de maiz</p>
+          <p><small class="text-muted">Precio idk</small></p>
+        </div>
+    </div><div class="card col-2 m-3">
+      <div class="mt-2 d-flex justify-content-center">
+        <img src="/assets/prueba.jpg" alt="prueba.jpg" class="card-img"/>
+      </div>
+        <div class="mt-2">
+          <h5 class="card-title h5-tittle">Salsa de maiz</h5>
+          <p class="p-texto-oscuro">Rica porq es de maiz</p>
+          <p><small class="text-muted">Precio idk</small></p>
+        </div>
+    </div><div class="card col-2 m-3">
+      <div class="mt-2 d-flex justify-content-center">
+        <img src="/assets/prueba.jpg" alt="prueba.jpg" class="card-img"/>
+      </div>
+        <div class="mt-2">
+          <h5 class="card-title h5-tittle">Salsa de maiz</h5>
+          <p class="p-texto-oscuro">Rica porq es de maiz</p>
+          <p><small class="text-muted">Precio idk</small></p>
+        </div>
+    </div>
+
+<!-- hasta aqui -->
+
+</div>
     <ModalProducto
       :ProductoRe= proRe
       :ProductoDia = proDia

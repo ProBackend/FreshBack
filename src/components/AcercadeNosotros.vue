@@ -3,21 +3,21 @@
     <div class="d-flex justify-content-center">
       <button
         type="button"
-        class="btn-terciario mx-4 mb-4"
+        class="btn-secundario mx-4 mb-4"
         @click="mostrar = !mostrar, Escontacto = true"
       >
         Agregar contacto
       </button>
       <button
         type="button"
-        class="btn-terciario mx-4 mb-4"
+        class="btn-secundario mx-4 mb-4"
         @click="mostrar = !mostrar, Esgerente = true"
       >
         Agregar gerente
       </button>
     </div>
     <div class="d-flex justify-content-around">
-      <div class="cards mx-3" style="width: 18rem;" v-for="contacto in contactos" :key="contacto.id">
+      <div class="card mx-3" style="width: 18rem;" v-for="contacto in contactos" :key="contacto.id">
         <div class="card-body">
           <h5 class="card-title">{{ contacto.nombre }} {{ contacto.apellido }}</h5>
           <h6 class="card-subtitle mb-2 text-muted">{{ contacto.direccion }}</h6>
