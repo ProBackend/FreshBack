@@ -31,12 +31,3 @@ body {
   color: #e6d3c5;
   transition: all 500ms;
 }
-
-.regis{
-  opacity: 1;
-  display: block;
-}
-
-.iniSes{
-  display: none;
-}

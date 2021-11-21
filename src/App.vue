@@ -33,7 +33,7 @@
   </div>
   <div v-else>
     <Login
-      @back="registro"
+      @back="registro = false, Menu = true"
       :Nuevo="login"
     />
   </div>

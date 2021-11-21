@@ -105,6 +105,16 @@ nav.navbar {
 }
 
 /* Buttons */
+.btn-cerrar{
+  margin: 1rem;
+  padding: 10px 40px;
+  border: transparent;
+  border-radius: 3rem;
+  font-weight: 600;
+  cursor: pointer;
+  background-color: #e6d3c56b
+}
+
 .btn-primario {
   padding: 10px 40px;
   border: 2px solid #e6d3c5;

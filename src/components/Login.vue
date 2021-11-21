@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div class="d-flex justify-content-end">
+      <button class="btn-cerrar" @click="$emit('back', false)">X</button>
+    </div>
     <div class="d-flex justify-content-center">
       <div v-if="Nuevo" class="parteDelantera log">
         <form>

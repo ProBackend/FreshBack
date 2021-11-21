@@ -73,7 +73,7 @@
           <div class="d-flex justify-content-end mx-2 my-2">
             <div>
               <button class="btn-primario-modal" @click="$emit('cerrar', false), guardar()">Guardar</button>
-              <button class="btn-secundario-modal" @click="$emit('cerrar', false)">nomepegues</button>
+              <button class="btn-secundario-modal" @click="$emit('cerrar', false)">Cerrar</button>
             </div>
           </div>
         </div>
