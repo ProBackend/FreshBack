@@ -32,7 +32,7 @@
           </div>
           <div class="d-flex justify-content-end mx-2 my-2">
             <div>
-              <button class="btn-primario-modal" @click="esEditar ? editar() : guardar(); $emit('cerrar', false)">Guardar</button>
+              <button class="btn-primario-modal" @click="guardar(); $emit('cerrar', false)">Guardar</button>
               <button class="btn-secundario-modal" @click="$emit('cerrar', false)">Cerrar</button>
             </div>
           </div>
@@ -188,9 +188,7 @@ export default {
         .then(res => res.json())
         .then(data => this.mensaje = data)
       }
-      this.productoRe = {}
-      this.productoDia = {}
-      this.menuDia = {}
+      this.reinicioDeDatos()
     },
     editar() {
       if (!this.nombre || !this.ingredientes || !this.precio || !this.path) {
@@ -208,7 +206,7 @@ export default {
           precio: this.precio,
           path: this.path
         }
-        fetch('/ProductosRegu/guardar', {
+        fetch('/ProductosRegu/editar', {
           method: 'POST',
           body: JSON.stringify(this.productoRe),
           headers: {
@@ -231,7 +229,7 @@ export default {
           oferta: this.oferta,
           path: this.path
         }
-        fetch('/ProductosDia/guardar', {
+        fetch('/ProductosDia/editar', {
           method: 'POST',
           body: JSON.stringify(this.productoDia),
           headers: {
@@ -249,7 +247,7 @@ export default {
           precio: this.precio,
           path: this.path
         }
-        fetch('/MenuDia/guardar', {
+        fetch('/MenuDia/editar', {
           method: 'POST',
           body: JSON.stringify(this.menuDia),
           headers: {
@@ -260,9 +258,20 @@ export default {
         .then(res => res.json())
         .then(data => this.mensaje = data)
       }
+      
+      this.reinicioDeDatos()
+    },
+    reinicioDeDatos() {
+      this.nombre = ''
+      this.ingredientes = ''
+      this.precio = 0
+      this.file = []
+      this.oferta = 0
+      this.path = ''
       this.productoRe = {}
       this.productoDia = {}
       this.menuDia = {}
+      this.mensaje = ''
     }
   }
 }
