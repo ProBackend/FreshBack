@@ -37,7 +37,7 @@
         </ul>
         <div class="card-body">
           <button @click="eliminar(p._id)" class="btn btn-danger btn-block">Delete</button>
-          <a href="/<%=p %>/editar/<%= mostrart.id%>" class="btn btn-primary">Editar</a>
+          <button @click="mostrar = true; esEditar = p; proRe = true" class="btn btn-primary">Editar</button>
         </div>
       </div>
     </div>
@@ -45,8 +45,9 @@
       :ProductoRe= proRe
       :ProductoDia = proDia
       :MenuDia = menuDia
-      :mostrarmodal="mostrar"
-      @cerrar="buscar(); mostrar= false; proRe = false; proDia = false; menuDia = false"
+      :mostrarmodal= mostrar
+      :esEditar= esEditar
+      @cerrar="buscar(); mostrar= false; proRe = false; proDia = false; menuDia = false; esEditar = {}"
     />
     <Alertamensaje
       @limpio="this.mensaje"
@@ -72,7 +73,8 @@ export default {
       proRe: false,
       proDia: false,
       menuDia: false,
-      mensaje: ''
+      mensaje: '',
+      esEditar: {}
     }
   },
   created(){

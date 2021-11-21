@@ -26,6 +26,18 @@ class pro{
     const mensaje = `Se ha eliminado correctamente`
     return mensaje
   }
+
+  async editar(req) {
+    await Producto.updateOne({ _id: req.id }, {
+      nombre: req.nombre,
+      ingredientes: req.ingredientes,
+      precio: req.precio,
+      path: req.path,
+    })
+    
+    const mensaje = `Se ha actualizado ${req.nombre} correctamente`
+    return mensaje
+  }
 }
 
 // module.exports.edit = async(req, res) => {
@@ -44,7 +56,7 @@ class pro{
 //   const valor = req.params.id;
 //   if (req.file) {
 //     await Producto.updateOne({ id: valor }, {
-//       nombre: req.body.nombre,
+//       nombre: req.nombre,
 //       ingredientes: req.body.ingredientes,
 //       precio: req.body.precio,
 //       filename: req.file.filename,

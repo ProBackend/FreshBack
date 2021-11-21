@@ -65,6 +65,17 @@ router.get('/', async (req, res) => {
     res.json(await menuDia.guardar(req.body))
   })
 
+  /*Put rutas */
+  router.put('/ProductosRegu/editar', async function(req, res) {
+    res.json(await producto.editar(req.body))
+  })
+  router.put('/ProductosDia/editar', async function(req, res) {
+    res.json(await productoDia.editar(req.body))
+  })
+  router.put('/MenuDia/editar', async function(req, res) {
+    res.json(await menuDia.editar(req.body))
+  })
+
   /*Delete rutas */
   router.delete('/ProductosRegu/eliminar', async function(req, res) {
     res.json(await producto.eliminar(req.body))

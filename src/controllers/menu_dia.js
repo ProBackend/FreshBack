@@ -26,6 +26,18 @@ class menuDia{
         const mensaje = `Se ha eliminado correctamente`
         return mensaje
     }
+    
+  async editar(req) {
+    await MenuDia.updateOne({ _id: req.id }, {
+      nombre: req.nombre,
+      ingredientes: req.ingredientes,
+      precio: req.precio,
+      path: req.path,
+    })
+    
+    const mensaje = `Se ha actualizado ${req.nombre} correctamente`
+    return mensaje
+  }
   }
 
 // module.exports.guardar = async(req, res) => {

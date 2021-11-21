@@ -27,7 +27,7 @@
             </div>
             <div class="card-body">
               <button @click="eliminar(pro._id, 1)" class="btn btn-danger btn-block">Delete</button>
-              <a href="/<%=p %>/editar/<%= mostrart.id%>" class="btn btn-primary">Editar</a>
+              <button @click="mostrar = !mostrar, esEditar = pro, ProDia = true" class="btn btn-primary">Editar</button>
             </div>
           </div>
         </div>
@@ -53,16 +53,39 @@
         </div>
       </div>
     </div>
+    <ModalProducto
+      :ProductoDia = ProDia
+      :MenuDia = MenuDia
+      :mostrarmodal= mostrar
+      :esEditar = esEditar
+      @cerrar="buscar(); mostrar= false; ProDia = false; MenuDia = false; esEditar = {}"
+    />
+    <Alertamensaje
+      @limpio="this.mensaje"
+      :mensaje="this.mensaje"
+    />
   </section>
 </template>
 
 <script>
+import Alertamensaje from './Alertamensaje.vue';
+import ModalProducto from './ModalPPDM.vue'
+
 export default {
   name: 'MenudelDia',
+  components: {
+    ModalProducto,
+    Alertamensaje
+  },
   data() {
     return {
       proDia: [],
-      menuDia: []
+      menuDia: [],
+      esEditar: {},
+      mensaje: '',
+      mostrar: false,
+      ProDia: false,
+      MenuDia: false
     }
   },
   created(){

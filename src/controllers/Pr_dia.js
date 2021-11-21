@@ -26,6 +26,19 @@ class proDia{
         const mensaje = `Se ha eliminado correctamente`
         return mensaje
     }
+    
+  async editar(req) {
+    await ProDia.updateOne({ _id: req.id }, {
+      nombre: req.nombre,
+      ingredientes: req.ingredientes,
+      precio_r: req.precio_r,
+      oferta: req.oferta,
+      path: req.path,
+    })
+    
+    const mensaje = `Se ha actualizado ${req.nombre} correctamente`
+    return mensaje
+  }
   }
 
 // module.exports.guardar = async(req, res) => {
