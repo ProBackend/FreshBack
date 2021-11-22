@@ -13,10 +13,12 @@ class cliente {
       const clientela = new Clientes({ nombre, apellido, user, password, correo });
       clientela.password = await clientela.encryptPass(clientela.password);
       await clientela.save();
-      return true
-    }else {
-      return false
+      const token = jwt.sign({id: adm._id, tipo: 'Cliente'}, config.secret, {
+        expiresIn: 60 * 60 * 12
+      });
+      return {tokencont: true, token: token, clientela: clientela}
     }
+    return {tokencont: false}
   }
 }
 

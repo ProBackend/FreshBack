@@ -153,6 +153,7 @@ export default {
         password: ''
       },
       mensaje: '',
+      token: ''
     }
   },
   methods: {
@@ -195,7 +196,13 @@ export default {
         }
       })
       .then(res => res.json())
-      .then(data => this.mensaje = data.status)
+      .then(data => {
+        this.mensaje = data.status
+        if (data.tokencont) {
+          this.token = data
+          $emit('token', this.token)
+        }
+      })
     }
   }
 }

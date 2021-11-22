@@ -15,9 +15,12 @@
             <button class="btn-secundario" @click="Menu = false, Pro = false, Nosotros = true"><span class="p-texto link">Acerca de nosotros</span></button>
           </li>
         </ul>
-        <form class="d-flex">
+        <form class="d-flex" v-if="token == {}">
           <button class="btn-primario mx-2" @click.prevent="registro = true, login = true, Menu = false, Pro = false, Nosotros = false">Iniciar sesión</button>
           <button class="btn-secundario mx-2" @click.prevent="registro = true, login = false, Menu = false, Pro = false, Nosotros = false">Registrarse</button>
+        </form>
+        <form class="d-flex" v-else>
+          <button class="btn-primario mx-2" @click.prevent="registro = true, login = true, Menu = false, Pro = false, Nosotros = false">Cerrar sesión</button>
         </form>
       </div>
     </nav>
@@ -41,6 +44,7 @@
   <div v-else>
     <Login
       @back="registro = false, Menu = true"
+      @token="token"
       :Nuevo="login"
     />
   </div>
@@ -69,7 +73,8 @@ export default {
       login: false,
       Menu: true,
       Pro: false,
-      Nosotros: false
+      Nosotros: false,
+      token: {}
     }
   }
 }

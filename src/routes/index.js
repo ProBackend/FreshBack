@@ -50,22 +50,22 @@ router.get('/', async (req, res) => {
   router.post('/Login/Registrarse', async (req, res) => {
     await cliente.guardar(req.body)
       .then(registro => {
-        if(registro) {
-          res.json({ status: 'Te has registrado correctamente'})
+        if(registro.tokencont) {
+          res.json({ status: 'Te has registrado correctamente', tokencont: true, token: registro.token, clientela: registro.clientela, tipo: "Cliente"})
           res.redirect('/Clientes')
         } else {
-          res.json({ status: 'Su usuario y/o correo ya está en uso'})
+          res.json({ status: 'Su usuario y/o correo ya está en uso', tokencont: false})
           res.redirect('/Login')
         }
       })
   });
-
+/*
   router.post('/Login/Iniciar_sesion', Passport.authenticate('local', {
     successRedirect: '/AcercadeNosotros',
     failureRedirect: '/Login',
     failureFlash: true
   }));
-
+*/
   router.post('/ProductosRegu/guardar', async function(req, res) {
     res.json(await producto.guardar(req.body))
   })
