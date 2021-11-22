@@ -4,41 +4,37 @@
       <button
         type="button"
         class="btn-secundario"
-        @click="mostrar = !mostrar; proRe = !proRe"
+        @click="proRe = !proRe"
       >
         Agregar producto regular
       </button>
       <button
         type="button"
         class="btn-secundario"
-        @click="mostrar = !mostrar; proDia = !proDia"
+        @click="proDia = !proDia"
       >
         Agregar producto del día
       </button>
       <button
         type="button"
         class="btn-secundario"
-        @click="mostrar = !mostrar; menuDia = !menuDia"
+        @click="menuDia = !menuDia"
       >
         Agregar menú del día
       </button>
     </div>
-    <div class="container">
-      <div class="card" v-for="p in productos" :key="p.nombre">
-        <img :src="p.path" class="card-img-top">
-        <div class="card-body text-center">
-          <h5 class="card-tittle">
-            {{p.nombre}}
-          </h5>
+    <div class="row d-flex justify-content-around">
+      <div class="card col-2 m-3" v-for="p in productos" :key="p.ingredientes">
+        <div class="mt-2 d-flex justify-content-center">
+          <img :src="p.path" class="card-img"/>
         </div>
-        <ul class="list-group list-group-flush text-center">
-          <li class="list-group-item">{{p.ingredientes}}</li>
-          <li class="list-group-item">{{p.precio}}</li>
-        </ul>
-        <div class="card-body">
-          <button type="button" @click=" agregar(p._id),mostrard = !mostrard; proRee = !proRee" class="btn-secundario">Agregar</button>
-          <button @click="eliminar(p._id)" class="btn-secundario">Delete</button>
-          <a href="/<%=p %>/editar/<%= mostrart.id%>" class="btn btn-primary">Editar</a>
+        <div class="mt-2">
+          <h5 class="card-title h5-tittle">{{p.nombre}}</h5>
+          <p class="p-texto-oscuro">{{p.ingredientes}}</p>
+          <p><small class="text-muted">{{p.precio}}</small></p>
+         <button type="button" @click=" agregar(p._id),mostrard = !mostrard; proRee = !proRee" class="btn-secundario">Agregar</button>
+         <button @click="editar = true; Editar = p; proRe = true" class="btn-terciario px-2">Editar</button>
+          <button type="submit" @click="eliminar(p._id)" class="btn-secundario px-2">Eliminar</button>
         </div>
       </div>
     </div>
@@ -46,8 +42,10 @@
       :ProductoRe= proRe
       :ProductoDia = proDia
       :MenuDia = menuDia
-      :mostrarmodal="mostrar"
-      @cerrar="buscar(); mostrar= false; proRe = false; proDia = false; menuDia = false"
+      :esEditar= Editar
+      :Actualizar= editar
+      @cerrar="editar = false; Editar = {}; proRe = false; proDia = false; menuDia = false"
+      @actualizar="buscar()"
     />
 <ModalD
       :ProductoRee= proRee
@@ -56,8 +54,7 @@
     />
 
     <Alertamensaje
-      @limpio="this.mensaje"
-      :mensaje="this.mensaje"
+      :mensaje="mensaje"
     />
   </section>
 </template>
@@ -83,7 +80,9 @@ export default {
       proRe: false,
       proDia: false,
       menuDia: false,
-      mensaje: ''
+      mensaje: '',
+      Editar: {},
+      editar: false
     }
   },
   created(){
@@ -94,7 +93,7 @@ export default {
       
       fetch('/ProductoRegu/consulta')
         .then(res => res.json())
-        .then(data => this.productos= data)
+        .then(data => this.productos = data)
     },
     eliminar(id){
       const eliminar = {

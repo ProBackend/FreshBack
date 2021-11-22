@@ -1,38 +1,28 @@
 <template>
   <section>
-    <div v-if="1==2">
-      <div class="card bg-dark text-white">
-        <div class="col-md-2">
-        <img src="/assets/prueba.jpg" alt="prueba.jpg" class="card-img">
-        </div>
+    <div class="mb-4">
+      <div class="card imagenAncha">
+        <img src="/assets/prueba.jpg" alt="prueba.jpg" class="card-img imagenAncha">
         <div class="card-img-overlay">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <p class="card-text">Last updated 3 mins ago</p>
+          <h5 class="card-title h5-tittle">Menú del día</h5>
+          <p class="card-text p-texto-oscuro">Descripción</p>
+          <p class="mt-5"><small class="p-texto-oscuro">Precio idk</small></p>
         </div>
       </div>
     </div>
-    <div class="contenedor"  v-for="pro in proDia" :key="pro.nombre">
-      <div class="card mb-3" style="max-width: 540px;">
-        <div class="row g-0">
-          <div class="col-md-4">
-            <img :src="pro.path" class="card-img">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">{{pro.nombre}}</h5>
-              <p class="card-text">{{pro.ingredientes}}</p>
-              <p class="card-text"><small class="text-muted">{{pro.precio_r}}</small></p>
-              <p class="card-text"><small class="text-muted">{{pro.oferta}}</small></p>
-            </div>
-            <div class="card-body">
-              <button @click="agregar(pro._id,1)" class="btn-primario">Agregar</button>
-              <button @click="eliminar(pro._id, 1)" class="btn-secundario">Delete</button>
-              <a href="/<%=p %>/editar/<%= mostrart.id%>" class="btn btn-primary">Editar</a>
-            </div>
-          </div>
-        </div>
+
+    <div class="card col-2 m-3" v-for="pro in proDia" :key="pro.nombre">
+      <button @click="agregar(pro._id,1)" class="btn-primario">Agregar</button>
+              
+      <div class="mt-2 d-flex justify-content-center">
+        <img :src="pro.path" class="card-img">
       </div>
+      <div class="mt-2">
+        <h5 class="card-title h5-tittle">{{pro.nombre}}</h5>
+        <p class="p-texto-oscuro">{{pro.oferta}}</p>
+        <p><small class="text-muted">{{pro.nombre}}</small></p>
+      </div>
+        <button type="submit" @click="eliminar(pro._id, 1)" class="btn-secundario px-2">Eliminar</button>
     </div>
     <div class="contenedor"  v-for="menu in menuDia" :key="menu.nombre">
       <div class="card mb-3" style="max-width: 540px;">
@@ -48,23 +38,45 @@
             </div>
             <div class="card-body">
               <button @click="agregar(menu._id)" class="btn-primario">Agregar al carrito</button>
-             <button @click="eliminar(menu._id)" class="btn-secundario">Delete</button>
-              <a href="/<%=p %>/editar/<%= mostrart.id%>" class="btn btn-primary">Editar</a>
+              <button type="submit" @click="eliminar(menu._id)" class="btn-secundario px-2">Eliminar</button>
+              <button @click="editar = true; Editar = menu; MenuDia = true" class="btn-terciario px-2">Editar</button>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <ModalProducto
+      :MenuDia = MenuDia
+      :esEditar= Editar
+      :Actualizar= editar
+      @cerrar="editar = false; Editar = {}; MenuDia = false"
+      @actualizar="buscar()"
+    />
+    <Alertamensaje
+      @limpio="mensaje"
+      :mensaje="mensaje"
+    />
   </section>
 </template>
 
 <script>
+import Alertamensaje from './Alertamensaje.vue';
+import ModalProducto from './ModalPPDM.vue'
+
 export default {
   name: 'MenudelDia',
+  components: {
+    ModalProducto,
+    Alertamensaje
+  },
   data() {
     return {
       proDia: [],
-      menuDia: []
+      menuDia: [],
+      mensaje: '',
+      MenuDia: false,
+      Editar: {},
+      editar: false
     }
   },
   created(){

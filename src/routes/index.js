@@ -70,11 +70,10 @@ router.post('/Pedido/ProductosRegu', async function(req, res) {
     res.json(await pedido.agregarp(req.body))
 })
 router.post('/Pedido/ProductosDia', async function(req, res) {
-    console.log("hola")
+    console.log
     res.json(await pedido.agregarpd(req.body))
 })
 router.post('/Pedido/MenuDia', async function(req, res) {
-    console.log("holaaa")
     res.json(await pedido.agregarm(req.body))
 })
 

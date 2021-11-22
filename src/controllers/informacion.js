@@ -6,15 +6,12 @@ class info{
     return await Infor.find()
   }
   async guardar(req, res) {
-    const info = new Infor({
-      nombre: 'pedro',
-      apellido: 'salinas',
-      direccion: 'av los callaos',
-      descripcion: 'Chef',
-      telefono: '04123366548'
-    });
-    await info.save();
-    console.log("Guardado")
+    await new Infor(req).save();
+    return `Se ha registrado ${req.nombre} como contacto correctamente`
+  }
+  async eliminar(req) {
+    await Infor.findByIdAndRemove({ _id: req.id });
+    return `Se ha eliminado correctamente`
   }
 }
 
