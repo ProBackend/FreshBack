@@ -34,7 +34,6 @@
           <p><small class="text-muted">{{p.precio}}</small></p>
          <button @click="editar = true; Editar = p; proRe = true" class="btn-terciario px-2">Editar</button>
           <button type="submit" @click="eliminar(p._id)" class="btn-secundario px-2">Eliminar</button>
-          <button type="sutmit" @click=" agregar(p._id),mostrard = !mostrard; proRee = !proRee" class="btn-secundario px-2">Agregar</button>
         </div>
       </div>
     </div>
@@ -47,12 +46,6 @@
       @cerrar="editar = false; Editar = {}; proRe = false; proDia = false; menuDia = false"
       @actualizar="buscar()"
     />
-<ModalD
-      :ProductoRee= proRee
-      :mostrarmodald="mostrard"
-      @cerrar="buscar(); mostrard= false; proRee = false; "
-    />
-
     <Alertamensaje
       :mensaje="mensaje"
     />
@@ -62,13 +55,11 @@
 <script>
 import Alertamensaje from './Alertamensaje.vue';
 import ModalProducto from './ModalPPDM.vue'
-import ModalD from'./ModalD.vue'
 
 export default {
   name: 'Productos',
   components: {
     ModalProducto,
-    ModalD,
     Alertamensaje
   },
   data() {
@@ -102,23 +93,6 @@ export default {
       fetch('/ProductosRegu/eliminar', {
         method: 'DELETE',
         body: JSON.stringify(eliminar),
-        headers: {
-          'Accept': 'application/json',
-          'Content-type': 'application/json'
-        }
-      })
-        .then(res => res.json())
-        .then(data => this.mensaje = data)
-
-      this.buscar()
-    },
-    agregar(id){
-      const agregar = {
-        id: id
-      }
-      fetch('/Pedido/ProductosRegu', {
-        method: 'POST',
-        body: JSON.stringify(agregar),
         headers: {
           'Accept': 'application/json',
           'Content-type': 'application/json'

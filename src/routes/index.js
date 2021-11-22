@@ -21,10 +21,6 @@ let pr_dia = new proDia
 const menu = require("../controllers/menu_dia");
 let menu_dia = new menu
 
-const ped = require("../controllers/Pedido")
-let pedido = new ped
-
-
 /* GET home */
 router.get('/', async(req, res) => {
     res.render('main')
@@ -86,16 +82,6 @@ router.post('/ProductosDia/guardar', async function(req, res) {
 })
 router.post('/MenuDia/guardar', async function(req, res) {
     res.json(await menu_dia.guardar(req.body))
-})
-router.post('/Pedido/ProductosRegu', async function(req, res) {
-    res.json(await pedido.agregarp(req.body))
-})
-router.post('/Pedido/ProductosDia', async function(req, res) {
-    console.log
-    res.json(await pedido.agregarpd(req.body))
-})
-router.post('/Pedido/MenuDia', async function(req, res) {
-    res.json(await pedido.agregarm(req.body))
 })
 /*Put rutas */
 router.put('/ProductosRegu/editar', async function(req, res) {

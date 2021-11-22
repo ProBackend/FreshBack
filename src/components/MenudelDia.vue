@@ -20,7 +20,6 @@
         <p><small class="text-muted">{{pro.nombre}}</small></p>
       </div>
         <button type="submit" @click="eliminar(pro._id, 1)" class="btn-secundario px-2">Eliminar</button>
-        <button @click="agregar(pro._id,1)"  class="btn-secundario px-2">Agregar</button>
     </div>
     <div class="contenedor"  v-for="menu in menuDia" :key="menu.nombre">
       <div class="card mb-3" style="max-width: 540px;">
@@ -37,7 +36,6 @@
             <div class="card-body">
               <button type="submit" @click="eliminar(menu._id)" class="btn-secundario px-2">Eliminar</button>
               <button @click="editar = true; Editar = menu; MenuDia = true" class="btn-terciario px-2">Editar</button>
-              <button @click="agregar(menu._id)" class="btn-secundario px-2">Agregar al carrito</button>
             </div>
           </div>
         </div>
@@ -120,41 +118,7 @@ export default {
       }
 
       this.buscar()
-    },
-    
-agregar(id, acc){
-      const agregar = {
-        id: id
-      }
-if (acc) {
-  
-  fetch('/Pedido/ProductosDia', {
-        method: 'POST',
-        body: JSON.stringify(agregar),
-        headers: {
-          'Accept': 'application/json',
-          'Content-type': 'application/json'
-        }
-      })
-        .then(res => res.json())
-        .then(data => this.mensaje = data)
-
-      this.buscar()
-} else {
-  fetch('/Pedido/MenuDia', {
-        method: 'POST',
-        body: JSON.stringify(agregar),
-        headers: {
-          'Accept': 'application/json',
-          'Content-type': 'application/json'
-        }
-      })
-        .then(res => res.json())
-        .then(data => this.mensaje = data)
-
-      this.buscar()
-}
-
+    }
   }
-}}
+}
 </script>

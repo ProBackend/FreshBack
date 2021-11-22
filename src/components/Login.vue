@@ -95,7 +95,7 @@
       <div class="parteTrasera">
         <div>
           <h3>¿Aún no tienes una cuenta?</h3>
-          <p>Registrate para hacer un pedido</p>
+          <p>Registrate para hacer ver nuestros productos</p>
           <button
             id="btn_iniSe"
             class="btn-primario"
@@ -106,7 +106,7 @@
         </div>
         <div>
           <h3>¿Ya tienes una cuenta?</h3>
-          <p>Inicia sesión para hacer un pedido</p>
+          <p>Inicia sesión para ver nuestros productos</p>
           <button
             id="btn_iniSe"
             class="btn-primario"
