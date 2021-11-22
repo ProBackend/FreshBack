@@ -192,7 +192,7 @@ export default {
         path: this.esEditar.path
       }
       if (this.ProductoRe) {
-        fetch('/ProductosRegu/guardar', {
+        fetch('/ProductosRegu/editar', {
           method: 'POST',
           body: JSON.stringify(this.UpdatePPDM),
           headers: {
@@ -207,7 +207,7 @@ export default {
         if (!this.esEditar.oferta) {
           return this.mensaje = 'Recuerde rellenar todos los campos'
         }
-        fetch('/ProductosDia/guardar', {
+        fetch('/ProductosDia/editar', {
           method: 'POST',
           body: JSON.stringify(this.UpdatePPDM),
           headers: {
@@ -219,7 +219,7 @@ export default {
         .then(data => this.mensaje = data)
       }
       if (this.MenuDia) {
-        fetch('/MenuDia/guardar', {
+        fetch('/MenuDia/editar', {
           method: 'POST',
           body: JSON.stringify(this.UpdatePPDM),
           headers: {

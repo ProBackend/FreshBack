@@ -4,15 +4,19 @@ const Passport = require("passport");
 
 /* Controladores Orientados a objetos */
 const info = require("../controllers/informacion")
-const clien = require("../controllers/clientes")
-const pro = require("../controllers/Producto");
-const proDia = require("../controllers/Pr_dia");
-const menu = require("../controllers/menu_dia");
 let informacion = new info
+
+const clien = require("../controllers/clientes")
 let cliente = new clien
+
+const pro = require("../controllers/Producto");
 let producto = new pro
-let productoDia = new proDia
-let menuDia = new menu
+
+const proDia = require("../controllers/Pr_dia");
+let Pr_dia = new proDia
+
+const menu = require("../controllers/menu_dia");
+let menu_dia = new menu
 
 
 /* GET home */
@@ -32,10 +36,10 @@ router.get('/', async (req, res) => {
     res.json(await producto.consultar())
   })
   router.get('/ProductoDia/consulta', async function(req, res) {
-    res.json(await productoDia.consultar())
+    res.json(await Pr_dia.consultar())
   })
   router.get('/MenuDia/consulta', async function(req, res) {
-    res.json(await menuDia.consultar())
+    res.json(await menu_dia.consultar())
   })
 
   /* POST  rutas*/
@@ -63,11 +67,11 @@ router.get('/', async (req, res) => {
   })
 
   router.post('/ProductosDia/guardar', async function(req, res) {
-    res.json(await productoDia.guardar(req.body))
+    res.json(await Pr_dia.guardar(req.body))
   })
 
   router.post('/MenuDia/guardar', async function(req, res) {
-    res.json(await menuDia.guardar(req.body))
+    res.json(await menu_dia.guardar(req.body))
   })
 
   /*Put rutas */
@@ -76,11 +80,11 @@ router.get('/', async (req, res) => {
   })
 
   router.put('/ProductosDia/editar', async function(req, res) {
-    res.json(await productoDia.editar(req.body))
+    res.json(await Pr_dia.editar(req.body))
   })
 
   router.put('/MenuDia/editar', async function(req, res) {
-    res.json(await menuDia.editar(req.body))
+    res.json(await menu_dia.editar(req.body))
   })
 
   /*Delete rutas */
@@ -89,11 +93,11 @@ router.get('/', async (req, res) => {
   })
 
   router.delete('/ProductosDia/eliminar', async function(req, res) {
-    res.json(await productoDia.eliminar(req.body))
+    res.json(await Pr_dia.eliminar(req.body))
   })
 
   router.delete('/MenuDia/eliminar', async function(req, res) {
-    res.json(await menuDia.eliminar(req.body))
+    res.json(await menu_dia.eliminar(req.body))
   })
 
   module.exports = router;
