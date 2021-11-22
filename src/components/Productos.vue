@@ -32,9 +32,9 @@
           <h5 class="card-title h5-tittle">{{p.nombre}}</h5>
           <p class="p-texto-oscuro">{{p.ingredientes}}</p>
           <p><small class="text-muted">{{p.precio}}</small></p>
-         <button type="button" @click=" agregar(p._id),mostrard = !mostrard; proRee = !proRee" class="btn-secundario">Agregar</button>
          <button @click="editar = true; Editar = p; proRe = true" class="btn-terciario px-2">Editar</button>
           <button type="submit" @click="eliminar(p._id)" class="btn-secundario px-2">Eliminar</button>
+          <button type="sutmit" @click=" agregar(p._id),mostrard = !mostrard; proRee = !proRee" class="btn-secundario px-2">Agregar</button>
         </div>
       </div>
     </div>

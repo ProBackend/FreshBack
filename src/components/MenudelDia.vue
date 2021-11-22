@@ -10,10 +10,7 @@
         </div>
       </div>
     </div>
-
-    <div class="card col-2 m-3" v-for="pro in proDia" :key="pro.nombre">
-      <button @click="agregar(pro._id,1)" class="btn-primario">Agregar</button>
-              
+    <div class="card col-2 m-3" v-for="pro in proDia" :key="pro.nombre">              
       <div class="mt-2 d-flex justify-content-center">
         <img :src="pro.path" class="card-img">
       </div>
@@ -23,6 +20,7 @@
         <p><small class="text-muted">{{pro.nombre}}</small></p>
       </div>
         <button type="submit" @click="eliminar(pro._id, 1)" class="btn-secundario px-2">Eliminar</button>
+        <button @click="agregar(pro._id,1)"  class="btn-secundario px-2">Agregar</button>
     </div>
     <div class="contenedor"  v-for="menu in menuDia" :key="menu.nombre">
       <div class="card mb-3" style="max-width: 540px;">
@@ -37,9 +35,9 @@
               <p class="card-text"><small class="text-muted">{{menu.precio}}</small></p>
             </div>
             <div class="card-body">
-              <button @click="agregar(menu._id)" class="btn-primario">Agregar al carrito</button>
               <button type="submit" @click="eliminar(menu._id)" class="btn-secundario px-2">Eliminar</button>
               <button @click="editar = true; Editar = menu; MenuDia = true" class="btn-terciario px-2">Editar</button>
+              <button @click="agregar(menu._id)" class="btn-secundario px-2">Agregar al carrito</button>
             </div>
           </div>
         </div>

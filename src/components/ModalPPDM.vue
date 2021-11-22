@@ -51,7 +51,7 @@
       </div>
     </div>
     <Alertamensaje
-      :mensaje="this.mensaje"
+      :mensaje="mensaje"
     />
   </section>
 </template>
@@ -104,7 +104,7 @@ export default {
   },
   methods: {
     guardar() {
-      if (!this.nombre || !this.ingredientes || !this.precio || !this.path) {
+      if (!this.nombre || !this.ingredientes && !this.productos || !this.precio || !this.path) {
         return this.mensaje= 'Recuerde rellenar todos los campos'
       }
       this.nombre = capitalizar(this.nombre)
@@ -124,7 +124,7 @@ export default {
         }
       this.M = {
           nombre: this.nombre,
-          productos: this.ingredientes,
+          productos: this.productos,
           precio: this.precio,
           path: this.path
         }
@@ -143,13 +143,6 @@ export default {
       if (this.ProductoDia) {
         if (!this.oferta) {
           return this.mensaje = 'Recuerde rellenar todos los campos'
-        }
-        this.PPDM = {
-          nombre: this.nombre,
-          ingredientes: this.ingredientes,
-          precio_r: this.precio,
-          oferta: this.oferta,
-          path: this.path
         }
         fetch('/ProductosDia/guardar', {
           method: 'POST',

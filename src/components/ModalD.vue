@@ -24,8 +24,8 @@
     </div>
     
     <Alertamensaje
-      @limpio="this.mensaje"
-      :mensaje="this.mensaje"
+      @limpio="mensaje"
+      :mensaje="mensaje"
     />
   </section>
 </template>

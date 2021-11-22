@@ -1,7 +1,7 @@
 <template>
   <section v-if="mostrarmodal" >
     <Alertamensaje
-      :mensaje="this.mensaje"
+      :mensaje="mensaje"
     />
     <div class="modal fade show">
       <div class="modal-dialog modal-lg">
@@ -120,7 +120,7 @@
           <div class="d-flex justify-content-end mx-2 my-2">
             <div>
               <button type="submit" class="btn-primario-modal" @click="guardar()">Guardar</button>
-              <button class="btn-secundario-modal" @click="$emit('cerrar', false), reinicioDeDatos()">Cerrar</button>
+              <button class="btn-secundario-modal" @click="$emit('cerrar', false); reinicioDeDatos()">Cerrar</button>
             </div>
           </div>
         </div>
@@ -209,6 +209,8 @@ export default {
         .then(res => res.json())
         .then(data => this.mensaje = data.status)
       }
+      this.reinicioDeDatos()
+      this.$emit('cerrar', false)
     },
     reinicioDeDatos() {
       this.contacto = {
@@ -217,6 +219,12 @@ export default {
         direccion:'',
         descripcion:'',
         telefono:''
+      }
+      this.gerente = {
+        nombre:'',
+        apellido:'',
+        usuario:'',
+        clave:'',
       }
     }
   }

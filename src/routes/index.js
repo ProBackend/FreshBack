@@ -4,17 +4,25 @@ const Passport = require("passport");
 
 /* Controladores Orientados a objetos */
 const info = require("../controllers/informacion")
+let informacion = new info
+
 const clien = require("../controllers/clientes")
+let cliente = new clien
+
 const pro = require("../controllers/Producto");
+let producto = new pro
+
+const ge = require("../controllers/gerente")
+let gerente = new ge
+
 const proDia = require("../controllers/Pr_dia");
+let pr_dia = new proDia
+
 const menu = require("../controllers/menu_dia");
+let menu_dia = new menu
+
 const ped = require("../controllers/Pedido")
 let pedido = new ped
-let informacion = new info
-let cliente = new clien
-let producto = new pro
-let productoDia = new proDia
-let menuDia = new menu
 
 
 /* GET home */
@@ -34,10 +42,10 @@ router.get('/ProductoRegu/consulta', async function(req, res) {
     res.json(await producto.consultar())
 })
 router.get('/ProductoDia/consulta', async function(req, res) {
-    res.json(await productoDia.consultar())
+    res.json(await pr_dia.consultar())
 })
 router.get('/MenuDia/consulta', async function(req, res) {
-        res.json(await menuDia.consultar())
+        res.json(await menu_dia.consultar())
     })
     /* POST  rutas*/
 router.post('/Login/Registrarse', async(req, res) => {
@@ -57,14 +65,27 @@ router.post('/Login/Iniciar_sesion', Passport.authenticate('local', {
     failureRedirect: '/Login',
     failureFlash: true
 }));
+router.post('/gerente/registrar', async (req, res) => {
+    await gerente.guardar(req.body)
+      .then(registro => {
+        if(registro) {
+          res.json({ status: 'Se ha registrado correctamente'})
+        } else {
+          res.json({ status: 'El usuario ya está en uso'})
+        }
+      })
+  });
+router.post('/nosotros/guardar', async function(req, res) {
+res.json(await informacion.guardar(req.body))
+})
 router.post('/ProductosRegu/guardar', async function(req, res) {
     res.json(await producto.guardar(req.body))
 })
 router.post('/ProductosDia/guardar', async function(req, res) {
-    res.json(await productoDia.guardar(req.body))
+    res.json(await pr_dia.guardar(req.body))
 })
 router.post('/MenuDia/guardar', async function(req, res) {
-    res.json(await menuDia.guardar(req.body))
+    res.json(await menu_dia.guardar(req.body))
 })
 router.post('/Pedido/ProductosRegu', async function(req, res) {
     res.json(await pedido.agregarp(req.body))
@@ -76,15 +97,25 @@ router.post('/Pedido/ProductosDia', async function(req, res) {
 router.post('/Pedido/MenuDia', async function(req, res) {
     res.json(await pedido.agregarm(req.body))
 })
+/*Put rutas */
+router.put('/ProductosRegu/editar', async function(req, res) {
+    res.json(await producto.editar(req.body))
+  })
 
+  router.put('/MenuDia/editar', async function(req, res) {
+    res.json(await menu_dia.editar(req.body))
+  })
 /*Delete rutas */
 router.delete('/ProductosRegu/eliminar', async function(req, res) {
     res.json(await producto.eliminar(req.body))
 })
 router.delete('/ProductosDia/eliminar', async function(req, res) {
-    res.json(await productoDia.eliminar(req.body))
+    res.json(await pr_dia.eliminar(req.body))
 })
 router.delete('/MenuDia/eliminar', async function(req, res) {
-    res.json(await menuDia.eliminar(req.body))
+    res.json(await menu_dia.eliminar(req.body))
 })
+router.delete('/nosotros/eliminar', async function(req, res) {
+    res.json(await informacion.eliminar(req.body))
+  })
 module.exports = router;

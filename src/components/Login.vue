@@ -118,8 +118,8 @@
       </div>
     </div>
     <Alertamensaje
-      @limpio="this.mensaje"
-      :mensaje="this.mensaje"
+      @limpio="mensaje"
+      :mensaje="mensaje"
     />
   </div>
 </template>
