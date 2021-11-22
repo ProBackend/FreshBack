@@ -96,8 +96,9 @@ export default {
       oferta : 0,
       path : '',
       mensaje : '',
-      PPDM: [],
-      UpdatePPDM : [],
+      P : {},
+      PD : {},
+      M : {},
       menuDia : false,
     }
   },
@@ -108,31 +109,29 @@ export default {
       }
       this.nombre = capitalizar(this.nombre)
       this.ingredientes = capitalizar(this.ingredientes)
-      this.PPDM = [
-        {
+      this.P = {
           nombre: this.nombre,
           ingredientes: this.ingredientes,
           precio: this.precio,
           path: this.path
-        },
-        {
+        }
+      this.PD = {
           nombre: this.nombre,
           ingredientes: this.ingredientes,
           precio_r: this.precio_r,
           oferta: this.oferta,
           path: this.path
-        },
-        {
+        }
+      this.M = {
           nombre: this.nombre,
           productos: this.ingredientes,
           precio: this.precio,
           path: this.path
         }
-      ]
       if (this.ProductoRe) {
         fetch('/ProductosRegu/guardar', {
           method: 'POST',
-          body: JSON.stringify(this.PPDM[1]),
+          body: JSON.stringify(this.P),
           headers: {
             'Accept': 'application/json',
             'Content-type': 'application/json'
@@ -147,7 +146,7 @@ export default {
         }
         fetch('/ProductosDia/guardar', {
           method: 'POST',
-          body: JSON.stringify(this.PPDM[2]),
+          body: JSON.stringify(this.PD),
           headers: {
             'Accept': 'application/json',
             'Content-type': 'application/json'
@@ -159,7 +158,7 @@ export default {
       if (this.MenuDia) {
         fetch('/MenuDia/guardar', {
           method: 'POST',
-          body: JSON.stringify(this.PPDM[3]),
+          body: JSON.stringify(this.M),
           headers: {
             'Accept': 'application/json',
             'Content-type': 'application/json'
@@ -252,9 +251,9 @@ export default {
       this.oferta = 0
       this.path = ''
       this.mensaje = ''
-      this.PPDM= []
-      this.UpdatePPDM = []
-      this.menuDia = false
+      this.P = {}
+      this.PD = {}
+      this.M = {}
     }
   }
 }
