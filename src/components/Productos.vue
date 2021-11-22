@@ -36,7 +36,8 @@
           <li class="list-group-item">{{p.precio}}</li>
         </ul>
         <div class="card-body">
-          <button @click="eliminar(p._id)" class="btn btn-danger btn-block">Delete</button>
+          <button type="button" @click=" agregar(p._id),mostrard = !mostrard; proRee = !proRee" class="btn-secundario">Agregar</button>
+          <button @click="eliminar(p._id)" class="btn-secundario">Delete</button>
           <a href="/<%=p %>/editar/<%= mostrart.id%>" class="btn btn-primary">Editar</a>
         </div>
       </div>
@@ -48,6 +49,12 @@
       :mostrarmodal="mostrar"
       @cerrar="buscar(); mostrar= false; proRe = false; proDia = false; menuDia = false"
     />
+<ModalD
+      :ProductoRee= proRee
+      :mostrarmodald="mostrard"
+      @cerrar="buscar(); mostrard= false; proRee = false; "
+    />
+
     <Alertamensaje
       @limpio="this.mensaje"
       :mensaje="this.mensaje"
@@ -58,17 +65,21 @@
 <script>
 import Alertamensaje from './Alertamensaje.vue';
 import ModalProducto from './ModalPPDM.vue'
+import ModalD from'./ModalD.vue'
 
 export default {
   name: 'Productos',
   components: {
     ModalProducto,
+    ModalD,
     Alertamensaje
   },
   data() {
     return {
       productos: [],
       mostrar: false,
+      mostrard:false,
+      proRee: false,
       proRe: false,
       proDia: false,
       menuDia: false,
@@ -80,6 +91,7 @@ export default {
   },
   methods: {
     buscar(){
+      
       fetch('/ProductoRegu/consulta')
         .then(res => res.json())
         .then(data => this.productos= data)
@@ -91,6 +103,23 @@ export default {
       fetch('/ProductosRegu/eliminar', {
         method: 'DELETE',
         body: JSON.stringify(eliminar),
+        headers: {
+          'Accept': 'application/json',
+          'Content-type': 'application/json'
+        }
+      })
+        .then(res => res.json())
+        .then(data => this.mensaje = data)
+
+      this.buscar()
+    },
+    agregar(id){
+      const agregar = {
+        id: id
+      }
+      fetch('/Pedido/ProductosRegu', {
+        method: 'POST',
+        body: JSON.stringify(agregar),
         headers: {
           'Accept': 'application/json',
           'Content-type': 'application/json'

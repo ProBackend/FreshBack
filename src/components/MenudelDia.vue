@@ -26,7 +26,8 @@
               <p class="card-text"><small class="text-muted">{{pro.oferta}}</small></p>
             </div>
             <div class="card-body">
-              <button @click="eliminar(pro._id, 1)" class="btn btn-danger btn-block">Delete</button>
+              <button @click="agregar(pro._id,1)" class="btn-primario">Agregar</button>
+              <button @click="eliminar(pro._id, 1)" class="btn-secundario">Delete</button>
               <a href="/<%=p %>/editar/<%= mostrart.id%>" class="btn btn-primary">Editar</a>
             </div>
           </div>
@@ -46,7 +47,8 @@
               <p class="card-text"><small class="text-muted">{{menu.precio}}</small></p>
             </div>
             <div class="card-body">
-              <button @click="eliminar(menu._id)" class="btn btn-danger btn-block">Delete</button>
+              <button @click="agregar(menu._id)" class="btn-primario">Agregar al carrito</button>
+             <button @click="eliminar(menu._id)" class="btn-secundario">Delete</button>
               <a href="/<%=p %>/editar/<%= mostrart.id%>" class="btn btn-primary">Editar</a>
             </div>
           </div>
@@ -108,7 +110,41 @@ export default {
       }
 
       this.buscar()
-    }
-  }
+    },
+    
+agregar(id, acc){
+      const agregar = {
+        id: id
+      }
+if (acc) {
+  
+  fetch('/Pedido/ProductosDia', {
+        method: 'POST',
+        body: JSON.stringify(agregar),
+        headers: {
+          'Accept': 'application/json',
+          'Content-type': 'application/json'
+        }
+      })
+        .then(res => res.json())
+        .then(data => this.mensaje = data)
+
+      this.buscar()
+} else {
+  fetch('/Pedido/MenuDia', {
+        method: 'POST',
+        body: JSON.stringify(agregar),
+        headers: {
+          'Accept': 'application/json',
+          'Content-type': 'application/json'
+        }
+      })
+        .then(res => res.json())
+        .then(data => this.mensaje = data)
+
+      this.buscar()
 }
+
+  }
+}}
 </script>
