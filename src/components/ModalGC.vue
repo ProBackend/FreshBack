@@ -1,5 +1,8 @@
 <template>
   <section v-if="mostrarmodal" >
+    <Alertamensaje
+      :mensaje="this.mensaje"
+    />
     <div class="modal fade show">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -116,16 +119,13 @@
           </div>
           <div class="d-flex justify-content-end mx-2 my-2">
             <div>
-              <button class="btn-primario-modal" @click="$emit('cerrar', false), guardar()">Guardar</button>
-              <button class="btn-secundario-modal" @click="$emit('cerrar', false)">Cerrar</button>
+              <button type="submit" class="btn-primario-modal" @click="guardar()">Guardar</button>
+              <button class="btn-secundario-modal" @click="$emit('cerrar', false), reinicioDeDatos()">Cerrar</button>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <Alertamensaje
-      :mensaje="this.mensaje"
-    />
   </section>
 </template>
 
@@ -174,16 +174,13 @@ export default {
           this.mensaje = 'Recuerde rellenar todos los campos'
           return
         }
-  
         if (!this.contacto.telefono || !validarTel(this.contacto.telefono)) {
           this.mensaje = 'Ingrese un número de teléfono válido en el formato: 58xxxxxxxxxx'
           return
         }
-  
         this.contacto.nombre = capitalizar(this.contacto.nombre)
         this.contacto.apellido = capitalizar(this.contacto.apellido)
         this.contacto.descripcion = capitalizar(this.contacto.descripcion)
-  
         fetch('/nosotros/guardar', {
           method: 'POST',
           body: JSON.stringify(this.contacto),
@@ -199,10 +196,8 @@ export default {
           this.mensaje = 'Recuerde rellenar todos los campos'
           return
         }
-        
         this.gerente.nombre = capitalizar(this.gerente.nombre)
         this.gerente.apellido = capitalizar(this.gerente.apellido)
-        
         fetch('/gerente/registrar', {
           method: 'POST',
           body: JSON.stringify(this.gerente),
@@ -214,8 +209,6 @@ export default {
         .then(res => res.json())
         .then(data => this.mensaje = data.status)
       }
-
-      this.reinicioDeDatos()
     },
     reinicioDeDatos() {
       this.contacto = {

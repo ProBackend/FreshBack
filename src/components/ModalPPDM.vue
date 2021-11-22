@@ -19,9 +19,15 @@
                 <input v-else v-model="esEditar.path" type="text" class="input" id="inputImagen" placeholder="Link de la imagen">
               </div>
               <div>
-                <label for="inputIngredientes" class="input-label">Ingredientes</label>
-                <textarea v-if="!Actualizar" v-model="ingredientes" type="text" class="input" id="inputIngredientes" placeholder="Ingredientes"></textarea>
-                <textarea v-else v-model="esEditar.ingredientes" type="text" class="input" id="inputIngredientes" placeholder="Ingredientes"></textarea>
+                <label for="inputIngredientes" class="input-label">{{MenuDia ? 'Productos' : 'Ingredientes'}}</label>
+                <div v-if="MenuDia">
+                  <textarea v-if="!Actualizar" v-model="productos" type="text" class="input" id="inputIngredientes" placeholder="Productos"></textarea>
+                  <textarea v-else v-model="esEditar.productos" type="text" class="input" id="inputIngredientes" placeholder="Productos"></textarea>
+                </div>
+                <div v-else>
+                  <textarea v-if="!Actualizar" v-model="ingredientes" type="text" class="input" id="inputIngredientes" placeholder="Ingredientes"></textarea>
+                  <textarea v-else v-model="esEditar.ingredientes" type="text" class="input" id="inputIngredientes" placeholder="Ingredientes"></textarea>
+                </div>
               </div>
               <div>
                 <label for="inputPrecio" class="input-label">Precio</label>
@@ -38,14 +44,13 @@
           <div class="d-flex justify-content-end mx-2 my-2">
             <div>
               <button type="submit" class="btn-primario-modal" @click="Actualizar ? editar() : guardar(); $emit('cerrar')">Guardar</button>
-              <button class="btn-secundario-modal" @click="$emit('cerrar');$emit('actualizar')">Cerrar</button>
+              <button class="btn-secundario-modal" @click="$emit('cerrar');$emit('actualizar');reinicioDeDatos()">Cerrar</button>
             </div>
           </div>
         </div>
       </div>
     </div>
     <Alertamensaje
-      @limpio="this.mensaje"
       :mensaje="this.mensaje"
     />
   </section>
@@ -82,34 +87,51 @@ export default {
   },
   data() {
     return {
-      nombre: '',
-      ingredientes: '',
-      precio: 0,
-      file:[],
-      oferta: 0,
-      path: '',
-      PPDM: {},
-      UpdatePPDM: {},
-      mensaje: ''
+      nombre : '',
+      ingredientes : '',
+      productos : '',
+      precio : 0,
+      precio_r : 0,
+      file : [],
+      oferta : 0,
+      path : '',
+      mensaje : '',
+      P : {},
+      PD : {},
+      M : {},
+      menuDia : false,
     }
   },
   methods: {
     guardar() {
       if (!this.nombre || !this.ingredientes || !this.precio || !this.path) {
-        return 'Recuerde rellenar todos los campos'
+        return this.mensaje= 'Recuerde rellenar todos los campos'
       }
       this.nombre = capitalizar(this.nombre)
       this.ingredientes = capitalizar(this.ingredientes)
-      this.PPDM = {
+      this.P = {
           nombre: this.nombre,
           ingredientes: this.ingredientes,
+          precio: this.precio,
+          path: this.path
+        }
+      this.PD = {
+          nombre: this.nombre,
+          ingredientes: this.ingredientes,
+          precio_r: this.precio_r,
+          oferta: this.oferta,
+          path: this.path
+        }
+      this.M = {
+          nombre: this.nombre,
+          productos: this.ingredientes,
           precio: this.precio,
           path: this.path
         }
       if (this.ProductoRe) {
         fetch('/ProductosRegu/guardar', {
           method: 'POST',
-          body: JSON.stringify(this.PPDM),
+          body: JSON.stringify(this.P),
           headers: {
             'Accept': 'application/json',
             'Content-type': 'application/json'
@@ -120,8 +142,7 @@ export default {
       }
       if (this.ProductoDia) {
         if (!this.oferta) {
-          this.mensaje = 'Recuerde rellenar todos los campos'
-          return
+          return this.mensaje = 'Recuerde rellenar todos los campos'
         }
         this.PPDM = {
           nombre: this.nombre,
@@ -132,7 +153,7 @@ export default {
         }
         fetch('/ProductosDia/guardar', {
           method: 'POST',
-          body: JSON.stringify(this.PPDM),
+          body: JSON.stringify(this.PD),
           headers: {
             'Accept': 'application/json',
             'Content-type': 'application/json'
@@ -144,7 +165,7 @@ export default {
       if (this.MenuDia) {
         fetch('/MenuDia/guardar', {
           method: 'POST',
-          body: JSON.stringify(this.PPDM),
+          body: JSON.stringify(this.M),
           headers: {
             'Accept': 'application/json',
             'Content-type': 'application/json'
@@ -169,6 +190,27 @@ export default {
         precio: this.esEditar.precio,
         path: this.esEditar.path
       }
+      this.UpdatePD = [
+        {
+          nombre: this.esEditar.nombre,
+          ingredientes: this.esEditar.ingredientes,
+          precio: this.esEditar.precio,
+          path: this.esEditar.path,
+        },
+        {
+          nombre: this.esEditar.nombre,
+          ingredientes: this.esEditar.ingredientes,
+          precio_r: this.esEditar.precio_r,
+          oferta: this.esEditar.oferta,
+          path: this.esEditar.path,
+        },
+        {
+          nombre: this.esEditar.nombre,
+          productos: this.esEditar.ingredientes,
+          precio: this.esEditar.precio,
+          path: this.esEditar.path,
+        }
+      ]
       if (this.ProductoRe) {
         fetch('/ProductosRegu/editar', {
           method: 'PUT',
@@ -193,19 +235,20 @@ export default {
         .then(res => res.json())
         .then(data => this.mensaje = data)
       }
-      this.reinicioDeDatos()
     },
     reinicioDeDatos() {
       this.nombre = ''
       this.ingredientes = ''
+      this.productos = ''
       this.precio = 0
+      this.precio_r = 0
       this.file = []
       this.oferta = 0
       this.path = ''
       this.mensaje = ''
-      this.PPDM= {}
-      this.UpdatePPDM = {}
-      this.menuDia = false
+      this.P = {}
+      this.PD = {}
+      this.M = {}
     }
   }
 }
