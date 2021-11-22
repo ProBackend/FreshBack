@@ -2,62 +2,32 @@ const Producto = require("../models/productos");
 class pro{
   constructor(req) {}
   async consultar() {
-    const consulta = await Producto.find()
-    return consulta
+    return await Producto.find()
   }
-  // pruebassa(token) {
-  //   if(token){
-  //     token = false
-  //   } else{
-  //     token = true;
-  //   }
-  //   console.log('asdasdasAAA')
-  //   return token
-  // }
-  async guardar(req, res) {
-    const pro = new Producto(req.body);
-    await pro.save();
-    const mensaje = 'Te has registrado correctamente'
+
+  async guardar(req) {
+    await new Producto(req).save();
+    return `Se ha registrado ${req.nombre} como producto regular correctamente`
+  }
+
+  async eliminar(req) {
+    await Producto.findByIdAndRemove({ _id: req.id });
+    const mensaje = `Se ha eliminado correctamente`
+    return mensaje
+  }
+
+  async editar(req) {
+    await Producto.updateOne({ _id: req.id }, {
+      nombre: req.nombre,
+      ingredientes: req.ingredientes,
+      precio: req.precio,
+      path: req.path,
+    })
+
+    const mensaje = `Se ha actualizado ${req.nombre} correctamente`
     return mensaje
   }
 }
-
-// module.exports.save = (req, res) => {
-//   const url = req.params.productos
-//   if (url == "productodia") {
-//     res.render("productodia", { url })
-//   } else {
-//     res.render("Productos", { url })
-//   }
-// }
-
-// module.exports.guardar = async(req, res) => {
-//   const { nombre, ingredientes, precio } = req.body;
-
-//   if (!nombre || !ingredientes || !precio || !req.file) {
-//     return res.send("Ingrese la información correctamente")
-//   }
-
-//   const producto = new Producto({
-//     nombre: nombre,
-//     ingredientes: ingredientes,
-//     precio: precio,
-//     filename: req.file.filename,
-//     path: "/uploads/" + req.file.filename,
-//     orinalname: req.file.originalname,
-//     mimetype: req.file.mimetype,
-//     size: req.file.size
-//   })
-
-//   await producto.save()
-//   return res.send("Guardado con exito")
-// };
-
-// module.exports.mostrar = async(req, res) => {
-//   const p = "productos"
-//   const mostrart = await Producto.find();
-//   res.render("pmostrar", { mostrart, p });
-// }
 
 // module.exports.edit = async(req, res) => {
 //   const p = "productos"
@@ -75,7 +45,7 @@ class pro{
 //   const valor = req.params.id;
 //   if (req.file) {
 //     await Producto.updateOne({ id: valor }, {
-//       nombre: req.body.nombre,
+//       nombre: req.nombre,
 //       ingredientes: req.body.ingredientes,
 //       precio: req.body.precio,
 //       filename: req.file.filename,

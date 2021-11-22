@@ -4,40 +4,36 @@
       <button
         type="button"
         class="btn-secundario"
-        @click="mostrar = !mostrar; proRe = !proRe"
+        @click="proRe = !proRe"
       >
         Agregar producto regular
       </button>
       <button
         type="button"
         class="btn-secundario"
-        @click="mostrar = !mostrar; proDia = !proDia"
+        @click="proDia = !proDia"
       >
         Agregar producto del día
       </button>
       <button
         type="button"
         class="btn-secundario"
-        @click="mostrar = !mostrar; menuDia = !menuDia"
+        @click="menuDia = !menuDia"
       >
         Agregar menú del día
       </button>
     </div>
-    <div class="container">
-      <div class="card" v-for="p in productos" :key="p.nombre">
-        <img :src="p.path" class="card-img-top" :alt="p.filename">
-        <div class="card-body text-center">
-          <h5 class="card-tittle">
-            {{p.nombre}}
-          </h5>
+    <div class="row d-flex justify-content-around">
+      <div class="card col-2 m-3" v-for="p in productos" :key="p.ingredientes">
+        <div class="mt-2 d-flex justify-content-center">
+          <img :src="p.path" class="card-img"/>
         </div>
-        <ul class="list-group list-group-flush text-center">
-          <li class="list-group-item">{{p.ingredientes}}</li>
-          <li class="list-group-item">{{p.precio}}</li>
-        </ul>
-        <div class="card-body">
-          <a href="/<%=p %>/delete/<%= mostrart.id%>" class="btn btn-danger btn-block">Delete</a>
-          <a href="/<%=p %>/editar/<%= mostrart.id%>" class="btn btn-primary">Editar</a>
+        <div class="mt-2">
+          <h5 class="card-title h5-tittle">{{p.nombre}}</h5>
+          <p class="p-texto-oscuro">{{p.ingredientes}}</p>
+          <p><small class="text-muted">{{p.precio}}</small></p>
+          <button @click="editar = true; Editar = p; proRe = true" class="btn-terciario px-2">Editar</button>
+          <button type="submit" @click="eliminar(p._id)" class="btn-secundario px-2">Eliminar</button>
         </div>
       </div>
     </div>
@@ -45,27 +41,36 @@
       :ProductoRe= proRe
       :ProductoDia = proDia
       :MenuDia = menuDia
-      :mostrarmodal="mostrar"
-      @cerrar="mostrar= false; proRe = false; proDia = false; menuDia = false"
+      :esEditar= Editar
+      :Actualizar= editar
+      @cerrar="buscar(); editar = false; Editar = {}; limpiar(); proRe = false; proDia = false; menuDia = false"
+    />
+    <Alertamensaje
+      @limpio="this.mensaje"
+      :mensaje="this.mensaje"
     />
   </section>
 </template>
 
 <script>
+import Alertamensaje from './Alertamensaje.vue';
 import ModalProducto from './ModalPPDM.vue'
 
 export default {
   name: 'Productos',
   components: {
     ModalProducto,
+    Alertamensaje
   },
   data() {
     return {
       productos: [],
-      mostrar: false,
       proRe: false,
       proDia: false,
-      menuDia: false
+      menuDia: false,
+      mensaje: '',
+      Editar: {},
+      editar: false
     }
   },
   created(){
@@ -73,9 +78,34 @@ export default {
   },
   methods: {
     buscar(){
-      fetch('/Productos/consulta')
+      fetch('/ProductoRegu/consulta')
         .then(res => res.json())
-        .then(data => this.productos= data)
+        .then(data => this.productos = data)
+    },
+    eliminar(id){
+      const eliminar = {
+        id: id
+      }
+      fetch('/ProductosRegu/eliminar', {
+        method: 'DELETE',
+        body: JSON.stringify(eliminar),
+        headers: {
+          'Accept': 'application/json',
+          'Content-type': 'application/json'
+        }
+      })
+        .then(res => res.json())
+        .then(data => this.mensaje = data)
+
+      this.buscar()
+    },
+    limpiar(){
+      this.nombre= ''
+      this.ingredientes= ''
+      this.precio= 0
+      this.file=[]
+      this.oferta= 0
+      this.path= ''
     }
   }
 }

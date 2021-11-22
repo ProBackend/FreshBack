@@ -1,6 +1,97 @@
 <template>
-  <section>
-    <div class="contenedor">
+  <div class="Registrarse-IniciarSesion">
+    <div class="d-flex justify-content-end">
+      <button class="btn-cerrar" @click="$emit('back', false)">X</button>
+    </div>
+    <div class="parteDelantera">
+      <form v-if="Nuevo" class="log">
+        <h2 class="h2-tittle">Iniciar sesión</h2>
+        <label for="userIngre" class="input-label">Usuario</label>
+        <input
+          type="text"
+          id="userIngre"
+          placeholder="Usuario"
+          name="usuario"
+          class="input"
+          v-model="usuario.user"
+        >
+        <label for="contraIngre" class="input-label">Contraseña</label>
+        <input
+          type="password"
+          id="contraIngre"
+          placeholder="Contraseña"
+          name="contraseña"
+          class="input"
+          v-model="usuario.password"
+        >
+        <div class="d-flex justify-content-center">
+          <button
+            type="button"
+            @click="iniciarSesion()"
+            class="btn-secundario mt-4">Iniciar
+          </button>
+        </div>
+      </form>
+      <form v-else>
+        <h2 class="h2-tittle">Registrarse</h2>
+        <label for="nombreRegis" class="input-label">Nombre</label>
+        <input
+          type="text"
+          id="nombreRegis"
+          placeholder="Nombre"
+          name="nombre"
+          class="input"
+          v-model="registro.nombre"
+        >
+        <label for="apellidoRegis" class="input-label">Apellido</label>
+        <input
+          type="text"
+          id="apellidoRegis"
+          placeholder="Apellido"
+          name="apellido"
+          class="input"
+          v-model="registro.apellido"
+        >
+        <label for="correoRegis" class="input-label">Correo</label>
+        <input
+          type="email"
+          id="correoRegis"
+          placeholder="Correo electrónico"
+          name="correo"
+          required
+          class="input"
+          v-model="registro.correo"
+        >
+        <label for="userRegis" class="input-label">Usuario</label>
+        <input
+          type="text"
+          id="userRegis"
+          placeholder="Usuario"
+          name="usuario"
+          class="input"
+          v-model="registro.user"
+        >
+        <label for="contraRegis" class="input-label">Contraseña</label>
+        <input
+          type="password"
+          id="contraRegis"
+          placeholder="Contraseña"
+          name="contraseña"
+          class="input"
+          v-model="registro.password"
+        >
+        <div class="d-flex justify-content-center">
+          <button
+            type="button"
+            class="btn-secundario mt-4"
+            @click="registrarse()"
+          >
+            Crear cuenta
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="d-flex justify-content-center">
       <div class="parteTrasera">
         <div>
           <h3>¿Aún no tienes una cuenta?</h3>
@@ -8,7 +99,7 @@
           <button
             id="btn_iniSe"
             class="btn-primario"
-            @click="nuevo = false"
+            @click="Nuevo = false"
           >
             Registrarse
           </button>
@@ -19,102 +110,10 @@
           <button
             id="btn_iniSe"
             class="btn-primario"
-            @click="nuevo= true"
+            @click="Nuevo = true"
           >
             Iniciar sesión
           </button>
-        </div>
-      </div>
-      <div class="parteDelantera">
-        <div v-if="nuevo" class="Nuevo">
-          <form>
-            <h2 class="h2-tittle">Iniciar sesión</h2>
-            <label for="userIngre" class="input-label">Usuario</label>
-            <input
-              type="text"
-              id="userIngre"
-              placeholder="Usuario"
-              name="usuario"
-              class="input"
-              v-model="usuario.user"
-            >
-            <label for="contraIngre" class="input-label">Contraseña</label>
-            <input
-              type="password"
-              id="contraIngre"
-              placeholder="Contraseña"
-              name="contraseña"
-              class="input"
-              v-model="usuario.password"
-            >
-            <div class="d-flex justify-content-center">
-              <button
-                type="button"
-                @click="iniciarSesion()"
-                class="btn-secundario mt-4">Iniciar
-              </button>
-            </div>
-          </form>
-        </div>
-        <div v-else class="Registro">
-          <form>
-            <h2 class="h2-tittle">Registrarse</h2>
-            <label for="nombreRegis" class="input-label">Nombre</label>
-            <input
-              type="text"
-              id="nombreRegis"
-              placeholder="Nombre"
-              name="nombre"
-              class="input"
-              v-model="registro.nombre"
-            >
-            <label for="apellidoRegis" class="input-label">Apellido</label>
-            <input
-              type="text"
-              id="apellidoRegis"
-              placeholder="Apellido"
-              name="apellido"
-              class="input"
-              v-model="registro.apellido"
-            >
-            <label for="correoRegis" class="input-label">Correo</label>
-            <input
-              type="email"
-              id="correoRegis"
-              placeholder="Correo electrónico"
-              name="correo"
-              required
-              class="input"
-              v-model="registro.correo"
-            >
-            <label for="userRegis" class="input-label">Usuario</label>
-            <input
-              type="text"
-              id="userRegis"
-              placeholder="Usuario"
-              name="usuario"
-              class="input"
-              v-model="registro.user"
-            >
-            <label for="contraRegis" class="input-label">Contraseña</label>
-            <input
-              type="password"
-              id="contraRegis"
-              placeholder="Contraseña"
-              name="contraseña"
-              class="input"
-              v-model="registro.password"
-            >
-            <div class="d-flex justify-content-center">
-              <button
-                type="button"
-                class="btn-secundario mt-4"
-                @click="registrarse()"
-              >
-                Crear cuenta
-              </button>
-            </div>
-          </form>
         </div>
       </div>
     </div>
@@ -122,7 +121,7 @@
       @limpio="this.mensaje"
       :mensaje="this.mensaje"
     />
-  </section>
+  </div>
 </template>
 
 <script>
@@ -133,6 +132,12 @@ export default {
   components: {
     Alertamensaje,
     capitalizar
+  },
+  props: {
+    Nuevo:{
+      type: Boolean,
+      required: true
+    }
   },
   data(){
     return {
@@ -148,7 +153,6 @@ export default {
         password: ''
       },
       mensaje: '',
-      nuevo: false
     }
   },
   methods: {

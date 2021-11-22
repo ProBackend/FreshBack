@@ -10,28 +10,16 @@ const Pr_diaschema = new Schema({
     },
     //precio regular
     precio_r: {
-        type: Number,
+        type: String,
         required: true,
     },
     oferta: {
-        type: Number,
-        required: true,
-    },
-    filename: {
         type: String,
+        required: true,
     },
     path: {
         type: String,
-    },
-    originalname: {
-        type: String,
-    },
-    mimetype: {
-        type: String,
-    },
-    size: {
-        type: Number,
-    },
+    }
 });
 
 module.exports = model("Pr_dia", Pr_diaschema);
