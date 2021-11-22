@@ -37,8 +37,8 @@
           </div>
           <div class="d-flex justify-content-end mx-2 my-2">
             <div>
-              <button type="submit" class="btn-primario-modal" @click="Actualizar ? editar() : guardar(); $emit('cerrar', false)">Guardar</button>
-              <button class="btn-secundario-modal" @click="$emit('cerrar', false)">Cerrar</button>
+              <button type="submit" class="btn-primario-modal" @click="Actualizar ? editar() : guardar(); $emit('cerrar')">Guardar</button>
+              <button class="btn-secundario-modal" @click="$emit('cerrar');$emit('actualizar')">Cerrar</button>
             </div>
           </div>
         </div>
@@ -93,8 +93,6 @@ export default {
       mensaje: ''
     }
   },
-  created() {
-  },
   methods: {
     guardar() {
       if (!this.nombre || !this.ingredientes || !this.precio || !this.path) {
@@ -125,6 +123,13 @@ export default {
           this.mensaje = 'Recuerde rellenar todos los campos'
           return
         }
+        this.PPDM = {
+          nombre: this.nombre,
+          ingredientes: this.ingredientes,
+          precio_r: this.precio,
+          oferta: this.oferta,
+          path: this.path
+        }
         fetch('/ProductosDia/guardar', {
           method: 'POST',
           body: JSON.stringify(this.PPDM),
@@ -149,6 +154,7 @@ export default {
         .then(data => this.mensaje = data)
       }
       this.reinicioDeDatos()
+      this.$emit('actualizar')
     },
     editar() {
       if (!this.esEditar.nombre || !this.esEditar.ingredientes || !this.esEditar.precio || !this.esEditar.path) {
@@ -157,6 +163,7 @@ export default {
       this.esEditar.nombre = capitalizar(this.esEditar.nombre)
       this.esEditar.ingredientes = capitalizar(this.esEditar.ingredientes)
       this.UpdatePPDM = {
+        id: this.esEditar._id,
         nombre: this.esEditar.nombre,
         ingredientes: this.esEditar.ingredientes,
         precio: this.esEditar.precio,
@@ -164,22 +171,7 @@ export default {
       }
       if (this.ProductoRe) {
         fetch('/ProductosRegu/editar', {
-          method: 'POST',
-          body: JSON.stringify(this.UpdatePPDM),
-          headers: {
-            'Accept': 'application/json',
-            'Content-type': 'application/json'
-          }
-        })
-        .then(res => res.json())
-        .then(data => this.mensaje = data)
-      }
-      if (this.ProductoDia) {
-        if (!this.esEditar.oferta) {
-          return this.mensaje = 'Recuerde rellenar todos los campos'
-        }
-        fetch('/ProductosDia/editar', {
-          method: 'POST',
+          method: 'PUT',
           body: JSON.stringify(this.UpdatePPDM),
           headers: {
             'Accept': 'application/json',
@@ -191,7 +183,7 @@ export default {
       }
       if (this.MenuDia) {
         fetch('/MenuDia/editar', {
-          method: 'POST',
+          method: 'PUT',
           body: JSON.stringify(this.UpdatePPDM),
           headers: {
             'Accept': 'application/json',

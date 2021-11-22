@@ -19,6 +19,7 @@
         <p class="p-texto-oscuro">{{pro.oferta}}</p>
         <p><small class="text-muted">{{pro.nombre}}</small></p>
       </div>
+        <button type="submit" @click="eliminar(pro._id, 1)" class="btn-secundario px-2">Eliminar</button>
     </div>
     <div class="contenedor"  v-for="menu in menuDia" :key="menu.nombre">
       <div class="card mb-3" style="max-width: 540px;">
@@ -33,23 +34,23 @@
               <p class="card-text"><small class="text-muted">{{menu.precio}}</small></p>
             </div>
             <div class="card-body">
-              <button @click="eliminar(menu._id)" class="btn btn-danger btn-block">Delete</button>
-              <a href="/<%=p %>/editar/<%= mostrart.id%>" class="btn btn-primary">Editar</a>
+              <button type="submit" @click="eliminar(menu._id)" class="btn-secundario px-2">Eliminar</button>
+              <button @click="editar = true; Editar = menu; MenuDia = true" class="btn-terciario px-2">Editar</button>
             </div>
           </div>
         </div>
       </div>
     </div>
     <ModalProducto
-      :ProductoDia = ProDia
       :MenuDia = MenuDia
-      :mostrarmodal= mostrar
-      :esEditar = esEditar
-      @cerrar="buscar(); mostrar= false; ProDia = false; MenuDia = false; esEditar = {}"
+      :esEditar= Editar
+      :Actualizar= editar
+      @cerrar="editar = false; Editar = {}; MenuDia = false"
+      @actualizar="buscar()"
     />
     <Alertamensaje
-      @limpio="this.mensaje"
-      :mensaje="this.mensaje"
+      @limpio="mensaje"
+      :mensaje="mensaje"
     />
   </section>
 </template>
@@ -68,11 +69,10 @@ export default {
     return {
       proDia: [],
       menuDia: [],
-      esEditar: {},
       mensaje: '',
-      mostrar: false,
-      ProDia: false,
-      MenuDia: false
+      MenuDia: false,
+      Editar: {},
+      editar: false
     }
   },
   created(){

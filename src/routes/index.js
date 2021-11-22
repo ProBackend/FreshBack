@@ -95,10 +95,6 @@ router.get('/', async (req, res) => {
     res.json(await producto.editar(req.body))
   })
 
-  router.put('/ProductosDia/editar', async function(req, res) {
-    res.json(await Pr_dia.editar(req.body))
-  })
-
   router.put('/MenuDia/editar', async function(req, res) {
     res.json(await menu_dia.editar(req.body))
   })

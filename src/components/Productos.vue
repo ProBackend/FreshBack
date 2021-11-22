@@ -43,11 +43,12 @@
       :MenuDia = menuDia
       :esEditar= Editar
       :Actualizar= editar
-      @cerrar="buscar(); editar = false; Editar = {}; limpiar(); proRe = false; proDia = false; menuDia = false"
+      @cerrar="editar = false; Editar = {}; limpiar(); proRe = false; proDia = false; menuDia = false"
+      @actualizar="buscar()"
     />
     <Alertamensaje
-      @limpio="this.mensaje"
-      :mensaje="this.mensaje"
+      @limpio="mensaje"
+      :mensaje="mensaje"
     />
   </section>
 </template>
