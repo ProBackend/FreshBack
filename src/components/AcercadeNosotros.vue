@@ -52,6 +52,7 @@ export default {
       Escontacto: false,
       mostrar: false,
       contactos: [],
+      mensaje: ''
     }
   },
   created(){
