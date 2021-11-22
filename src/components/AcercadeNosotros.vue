@@ -33,15 +33,20 @@
       :mostrarmodal="mostrar"
       @cerrar="buscar(); mostrar= false, Escontacto=false, Esgerente=false"
     />
+    <Alertamensaje
+        :mensaje="this.mensaje"
+      />
   </section>
 </template>
 
 <script>
+import Alertamensaje from "./Alertamensaje.vue";
 import ModalGC from "./ModalGC.vue";
 export default {
   name: 'Nosotros',
   components: {
     ModalGC,
+    Alertamensaje
   },
   data() {
     return {

@@ -6,15 +6,12 @@ class info{
     return await Infor.find()
   }
   async guardar(req, res) {
-    const info = new Infor(req);
-    await info.save();
-    const mensaje = `Se ha registrado ${req.nombre} como contacto correctamente`
-    return mensaje
-  }  
+    await new Infor(req).save();
+    return `Se ha registrado ${req.nombre} como contacto correctamente`
+  }
   async eliminar(req) {
     await Infor.findByIdAndRemove({ _id: req.id });
-    const mensaje = `Se ha eliminado correctamente`
-    return mensaje
+    return `Se ha eliminado correctamente`
   }
 }
 
