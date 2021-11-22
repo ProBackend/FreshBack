@@ -11,7 +11,7 @@
       <button
         type="button"
         class="btn-secundario mx-4 mb-4"
-        @click="mostrar = !mostrar, Esgerente = true"
+        @click="mostrar = !mostrar"
       >
         Agregar gerente
       </button>
@@ -29,9 +29,8 @@
     </div>
     <ModalGC
       :esContacto="Escontacto"
-      :esGerente="Esgerente"
       :mostrarmodal="mostrar"
-      @cerrar="buscar(); mostrar= false, Escontacto=false, Esgerente=false"
+      @cerrar="buscar(); mostrar= false, Escontacto=false"
     />
   </section>
 </template>
@@ -46,7 +45,6 @@ export default {
   data() {
     return {
       Escontacto: false,
-      Esgerente: false,
       mostrar: false,
       contactos: [],
     }

@@ -67,8 +67,52 @@
             </form>
           </div>
           <div class="modal-body" v-else>
-            <label for="nombre">Nombre del gerente</label>
-            <input type="text" id="nombre">
+            <form class="row">
+              <div class="col-4">
+                <label for="nombreGe" class="input-label">Nombre del gerente</label>
+                <input
+                  type="text"
+                  id="nombreGe"
+                  placeholder="Nombre"
+                  name="nombre"
+                  class="input"
+                  v-model="gerente.nombre"
+                >
+              </div>
+              <div class="col-4">
+                <label for="apellidoGe" class="input-label">Apellido del gerente</label>
+                <input
+                  type="text"
+                  id="apellidoGe"
+                  placeholder="Apellido"
+                  name="apellido"
+                  class="input"
+                  v-model="gerente.apellido"
+                >
+              </div>
+              <div class="col-4">
+                <label for="usuarioGe" class="input-label">Usuario</label>
+                <input
+                  type="text"
+                  id="usuarioGe"
+                  placeholder="Usuario"
+                  name="usuario"
+                  class="input"
+                  v-model="gerente.usuario"
+                >
+              </div>
+              <div class="col-4">
+                <label for="claveGe" class="input-label">Contraseña</label>
+                <input
+                  type="password"
+                  id="claveGe"
+                  placeholder="Contraseña"
+                  name="contraseña"
+                  class="input"
+                  v-model="gerente.clave"
+                >
+              </div>
+            </form>
           </div>
           <div class="d-flex justify-content-end mx-2 my-2">
             <div>
@@ -114,35 +158,62 @@ export default {
         descripcion:'',
         telefono:''
       },
+      gerente: {
+        nombre:'',
+        apellido:'',
+        usuario:'',
+        clave:'',
+      },
       mensaje: ''
     }
   },
   methods: {
     guardar() {
-      if (!this.contacto.nombre || !this.contacto.apellido || !this.contacto.direccion || !this.contacto.descripcion) {
-        this.mensaje = 'Recuerde rellenar todos los campos'
-        return
-      }
-
-      if (!this.contacto.telefono || !validarTel(this.contacto.telefono)) {
-        this.mensaje = 'Ingrese un número de teléfono válido en el formato: 58xxxxxxxxxx'
-        return
-      }
-
-      this.contacto.nombre = capitalizar(this.contacto.nombre)
-      this.contacto.apellido = capitalizar(this.contacto.apellido)
-      this.contacto.descripcion = capitalizar(this.contacto.descripcion)
-
-      fetch('/nosotros/guardar', {
-        method: 'POST',
-        body: JSON.stringify(this.contacto),
-        headers: {
-          'Accept': 'application/json',
-          'Content-type': 'application/json'
+      if (this.esContacto) {
+        if (!this.contacto.nombre || !this.contacto.apellido || !this.contacto.direccion || !this.contacto.descripcion) {
+          this.mensaje = 'Recuerde rellenar todos los campos'
+          return
         }
-      })
-      .then(res => res.json())
-      .then(data => this.mensaje = data)
+  
+        if (!this.contacto.telefono || !validarTel(this.contacto.telefono)) {
+          this.mensaje = 'Ingrese un número de teléfono válido en el formato: 58xxxxxxxxxx'
+          return
+        }
+  
+        this.contacto.nombre = capitalizar(this.contacto.nombre)
+        this.contacto.apellido = capitalizar(this.contacto.apellido)
+        this.contacto.descripcion = capitalizar(this.contacto.descripcion)
+  
+        fetch('/nosotros/guardar', {
+          method: 'POST',
+          body: JSON.stringify(this.contacto),
+          headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json'
+          }
+        })
+        .then(res => res.json())
+        .then(data => this.mensaje = data)
+      } else {
+        if (!this.gerente.nombre || !this.gerente.apellido || !this.gerente.usuario || !this.gerente.clave) {
+          this.mensaje = 'Recuerde rellenar todos los campos'
+          return
+        }
+        
+        this.gerente.nombre = capitalizar(this.gerente.nombre)
+        this.gerente.apellido = capitalizar(this.gerente.apellido)
+        
+        fetch('/gerente/registrar', {
+          method: 'POST',
+          body: JSON.stringify(this.gerente),
+          headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json'
+          }
+        })
+        .then(res => res.json())
+        .then(data => this.mensaje = data.status)
+      }
 
       this.reinicioDeDatos()
     },

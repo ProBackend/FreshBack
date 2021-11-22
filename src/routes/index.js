@@ -5,11 +5,13 @@ const Passport = require("passport");
 /* Controladores Orientados a objetos */
 const info = require("../controllers/informacion")
 const clien = require("../controllers/clientes")
+const ge = require("../controllers/gerente")
 const pro = require("../controllers/Producto");
 const proDia = require("../controllers/Pr_dia");
 const menu = require("../controllers/menu_dia");
 let informacion = new info
 let cliente = new clien
+let gerente = new ge
 let producto = new pro
 let productoDia = new proDia
 let menuDia = new menu
@@ -67,6 +69,16 @@ router.get('/', async (req, res) => {
   router.post('/nosotros/guardar', async function(req, res) {
     res.json(await informacion.guardar(req.body))
   })
+  router.post('/gerente/registrar', async (req, res) => {
+    await gerente.guardar(req.body)
+      .then(registro => {
+        if(registro) {
+          res.json({ status: 'Se ha registrado correctamente'})
+        } else {
+          res.json({ status: 'El usuario ya está en uso'})
+        }
+      })
+  });
 
   /*Put rutas */
   router.put('/ProductosRegu/editar', async function(req, res) {
