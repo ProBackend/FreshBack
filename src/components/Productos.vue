@@ -43,10 +43,9 @@
       :MenuDia = menuDia
       :esEditar= Editar
       :Actualizar= editar
-      @cerrar="buscar(); editar = false; Editar = {}; limpiar(); proRe = false; proDia = false; menuDia = false"
+      @cerrar="buscar(); editar = false; Editar = {}; proRe = false; proDia = false; menuDia = false"
     />
     <Alertamensaje
-      @limpio="this.mensaje"
       :mensaje="this.mensaje"
     />
   </section>
@@ -98,14 +97,6 @@ export default {
         .then(data => this.mensaje = data)
 
       this.buscar()
-    },
-    limpiar(){
-      this.nombre= ''
-      this.ingredientes= ''
-      this.precio= 0
-      this.file=[]
-      this.oferta= 0
-      this.path= ''
     }
   }
 }

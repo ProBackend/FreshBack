@@ -4,18 +4,14 @@ class pro{
   async consultar() {
     return await Producto.find()
   }
-
   async guardar(req) {
     await new Producto(req).save();
     return `Se ha registrado ${req.nombre} como producto regular correctamente`
   }
-
   async eliminar(req) {
     await Producto.findByIdAndRemove({ _id: req.id });
-    const mensaje = `Se ha eliminado correctamente`
-    return mensaje
+    return`Se ha eliminado correctamente`
   }
-
   async editar(req) {
     await Producto.updateOne({ _id: req.id }, {
       nombre: req.nombre,
@@ -23,9 +19,7 @@ class pro{
       precio: req.precio,
       path: req.path,
     })
-
-    const mensaje = `Se ha actualizado ${req.nombre} correctamente`
-    return mensaje
+    return `Se ha actualizado ${req.nombre} correctamente`
   }
 }
 
