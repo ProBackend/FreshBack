@@ -87,13 +87,14 @@
 
 <script>
 import Alertamensaje from "./Alertamensaje.vue";
-import { capitalizarTexto } from "../controllers/funcionesGenerales";
+import { capitalizar, validarTel } from "../controllers/funcionesGenerales";
 
 export default {
   name: 'ModalGC',
   components: {
     Alertamensaje,
-    capitalizarTexto
+    capitalizar,
+    validarTel
   },
   props: {
     mostrarmodal:{
@@ -110,7 +111,7 @@ export default {
         nombre:'',
         apellido:'',
         direccion:'',
-        descipcion:'',
+        descripcion:'',
         telefono:''
       },
       mensaje: ''
@@ -118,8 +119,40 @@ export default {
   },
   methods: {
     guardar() {
-      if (!this.contacto.nombre || !this.contacto.apellido || !this.contacto.direccion || !this.contacto.descripcion || !this.contacto.telefono) {
-        this.mensaje = 'Recuerda rellenar todos los campos'
+      if (!this.contacto.nombre || !this.contacto.apellido || !this.contacto.direccion || !this.contacto.descripcion) {
+        this.mensaje = 'Recuerde rellenar todos los campos'
+        return
+      }
+
+      if (!this.contacto.telefono || !validarTel(this.contacto.telefono)) {
+        this.mensaje = 'Ingrese un número de teléfono válido en el formato: 58xxxxxxxxxx'
+        return
+      }
+
+      this.contacto.nombre = capitalizar(this.contacto.nombre)
+      this.contacto.apellido = capitalizar(this.contacto.apellido)
+      this.contacto.descripcion = capitalizar(this.contacto.descripcion)
+
+      fetch('/nosotros/guardar', {
+        method: 'POST',
+        body: JSON.stringify(this.contacto),
+        headers: {
+          'Accept': 'application/json',
+          'Content-type': 'application/json'
+        }
+      })
+      .then(res => res.json())
+      .then(data => this.mensaje = data)
+
+      this.reinicioDeDatos()
+    },
+    reinicioDeDatos() {
+      this.contacto = {
+        nombre:'',
+        apellido:'',
+        direccion:'',
+        descripcion:'',
+        telefono:''
       }
     }
   }

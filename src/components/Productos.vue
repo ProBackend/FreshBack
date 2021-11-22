@@ -33,7 +33,7 @@
           <p class="p-texto-oscuro">{{p.ingredientes}}</p>
           <p><small class="text-muted">{{p.precio}}</small></p>
           <button @click="editar = true; Editar = p; proRe = true" class="btn-terciario px-2">Editar</button>
-          <button @click="eliminar(p._id)" class="btn-secundario px-2">Eliminar</button>
+          <button type="submit" @click="eliminar(p._id)" class="btn-secundario px-2">Eliminar</button>
         </div>
       </div>
     </div>

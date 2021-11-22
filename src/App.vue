@@ -6,13 +6,13 @@
         <h1 class="h1-tittle">FreshBack - Restaurante</h1>
         <ul class="navbar-nav">
           <li class="nav-item">
-            <button class="btn-secundario" @click="Menu = true, Pro = false, Nosotros = false"><span class="p-texto link">Ofértas del día</span></button>
+            <button class="btn-secundario" @click="Menu = true, Pro = false, Nosotros = false"><span class="p-texto link">Ofertas del día</span></button>
           </li>
           <li class="nav-item">
             <button class="btn-secundario" @click="Menu = false, Pro = true, Nosotros = false"><span class="p-texto link">Productos</span></button>
           </li>
           <li class="nav-item">
-            <button class="btn-secundario" @click="Menu = false, Pro = false, Nosotros = true"><span class="p-texto link">Acérca de nosotros</span></button>
+            <button class="btn-secundario" @click="Menu = false, Pro = false, Nosotros = true"><span class="p-texto link">Acerca de nosotros</span></button>
           </li>
         </ul>
         <form class="d-flex">

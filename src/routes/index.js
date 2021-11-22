@@ -73,6 +73,9 @@ router.get('/', async (req, res) => {
   router.post('/MenuDia/guardar', async function(req, res) {
     res.json(await menu_dia.guardar(req.body))
   })
+  router.post('/nosotros/guardar', async function(req, res) {
+    res.json(await informacion.guardar(req.body))
+  })
 
   /*Put rutas */
   router.put('/ProductosRegu/editar', async function(req, res) {
@@ -99,5 +102,7 @@ router.get('/', async (req, res) => {
   router.delete('/MenuDia/eliminar', async function(req, res) {
     res.json(await menu_dia.eliminar(req.body))
   })
-
+  router.delete('/nosotros/eliminar', async function(req, res) {
+    res.json(await informacion.eliminar(req.body))
+  })
   module.exports = router;

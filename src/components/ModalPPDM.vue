@@ -90,38 +90,12 @@ export default {
       path: '',
       PPDM: {},
       UpdatePPDM: {},
-      productoRe: false,
-      productoDia: false,
-      menuDia: false,
       mensaje: ''
     }
   },
   created() {
   },
   methods: {
-    ordenar() {
-      if (this.esEditar) {
-        if (this.productoRe) {
-          this.nombre = this.esEditar.nombre
-          this.ingredientes = this.esEditar.ingredientes
-          this.precio = this.esEditar.precio
-          this.path = this.esEditar.path
-        }
-        if (this.productoDia) {
-          this.nombre = this.esEditar.nombre
-          this.ingredientes = this.esEditar.ingredientes
-          this.precio = this.esEditar.precio_r
-          this.path = this.esEditar.path
-          this.oferta = this.esEditar.oferta
-        }
-        if (this.menuDia) {
-          this.nombre = this.esEditar.nombre
-          this.ingredientes = this.esEditar.ingredientes
-          this.precio = this.esEditar.precio
-          this.path = this.esEditar.path
-        }
-      }
-    },
     guardar() {
       if (!this.nombre || !this.ingredientes || !this.precio || !this.path) {
         return 'Recuerde rellenar todos los campos'
@@ -174,10 +148,7 @@ export default {
         .then(res => res.json())
         .then(data => this.mensaje = data)
       }
-      this.PPDM = {}
-      this.productoRe = false
-      this.productoDia = false
-      this.menuDia = false
+      this.reinicioDeDatos()
     },
     editar() {
       if (!this.esEditar.nombre || !this.esEditar.ingredientes || !this.esEditar.precio || !this.esEditar.path) {
@@ -230,11 +201,20 @@ export default {
         .then(res => res.json())
         .then(data => this.mensaje = data)
       }
-      this.UpdatePPDM = {}
-      this.productoRe = false
-      this.productoDia = false
-      this.menuDia = false
+      this.reinicioDeDatos()
     },
+    reinicioDeDatos() {
+      this.nombre = ''
+      this.ingredientes = ''
+      this.precio = 0
+      this.file = []
+      this.oferta = 0
+      this.path = ''
+      this.mensaje = ''
+      this.PPDM= {}
+      this.UpdatePPDM = {}
+      this.menuDia = false
+    }
   }
 }
 </script>
