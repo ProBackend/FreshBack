@@ -4,38 +4,36 @@
       <button
         type="button"
         class="btn-secundario"
-        @click="mostrar = !mostrar; proRe = !proRe"
+        @click="proRe = !proRe"
       >
         Agregar producto regular
       </button>
       <button
         type="button"
         class="btn-secundario"
-        @click="mostrar = !mostrar; proDia = !proDia"
+        @click="proDia = !proDia"
       >
         Agregar producto del día
       </button>
       <button
         type="button"
         class="btn-secundario"
-        @click="mostrar = !mostrar; menuDia = !menuDia"
+        @click="menuDia = !menuDia"
       >
         Agregar menú del día
       </button>
     </div>
     <div class="row d-flex justify-content-around">
-      <div class="card col-2 m-3" v-for="p in productos" :key="p.nombre">
+      <div class="card col-2 m-3" v-for="p in productos" :key="p.ingredientes">
         <div class="mt-2 d-flex justify-content-center">
           <img :src="p.path" class="card-img"/>
         </div>
-          <div class="mt-2">
-            <h5 class="card-title h5-tittle">{{p.nombre}}</h5>
-            <p class="p-texto-oscuro">{{p.ingredientes}}</p>
-            <p><small class="text-muted">{{p.precio}}</small></p>
-          </div>
-        <div>
-          <button @click="eliminar(p._id)" class="btn btn-danger btn-block">Delete</button>
-          <button @click="mostrar = true; esEditar = p; proRe = true" class="btn btn-primary">Editar</button>
+        <div class="mt-2">
+          <h5 class="card-title h5-tittle">{{p.nombre}}</h5>
+          <p class="p-texto-oscuro">{{p.ingredientes}}</p>
+          <p><small class="text-muted">{{p.precio}}</small></p>
+          <button @click="editar = true; Editar = p; proRe = true" class="btn-terciario px-2">Editar</button>
+          <button type="submit" @click="eliminar(p._id)" class="btn-secundario px-2">Eliminar</button>
         </div>
       </div>
     </div>
@@ -43,9 +41,9 @@
       :ProductoRe= proRe
       :ProductoDia = proDia
       :MenuDia = menuDia
-      :mostrarmodal= mostrar
-      :esEditar= esEditar
-      @cerrar="buscar(); mostrar= false; proRe = false; proDia = false; menuDia = false; esEditar = {}"
+      :esEditar= Editar
+      :Actualizar= editar
+      @cerrar="buscar(); editar = false; Editar = {}; limpiar(); proRe = false; proDia = false; menuDia = false"
     />
     <Alertamensaje
       @limpio="this.mensaje"
@@ -67,12 +65,12 @@ export default {
   data() {
     return {
       productos: [],
-      mostrar: false,
       proRe: false,
       proDia: false,
       menuDia: false,
       mensaje: '',
-      esEditar: {}
+      Editar: {},
+      editar: false
     }
   },
   created(){
@@ -82,7 +80,7 @@ export default {
     buscar(){
       fetch('/ProductoRegu/consulta')
         .then(res => res.json())
-        .then(data => this.productos= data)
+        .then(data => this.productos = data)
     },
     eliminar(id){
       const eliminar = {
@@ -100,6 +98,14 @@ export default {
         .then(data => this.mensaje = data)
 
       this.buscar()
+    },
+    limpiar(){
+      this.nombre= ''
+      this.ingredientes= ''
+      this.precio= 0
+      this.file=[]
+      this.oferta= 0
+      this.path= ''
     }
   }
 }
