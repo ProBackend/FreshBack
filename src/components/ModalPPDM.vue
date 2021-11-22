@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="modal fade show" v-if="mostrarmodal">
+    <div class="modal fade show" v-if="ProductoRe || ProductoDia || MenuDia">
       <div class="modal-dialog modal-md">
         <div class="modal-content">
           <div class="card-header">
@@ -10,29 +10,34 @@
             <form enctype="multipart/form-data">
               <div>
                 <label for="inputNombre" class="input-label">Nombre</label>
-                <input v-model="nombre" type="text" class="input" id="inputNombre" placeholder="Nombre">
+                <input v-if="!Actualizar" v-model="nombre" type="text" class="input" id="inputNombre" placeholder="Nombre">
+                <input v-else v-model="esEditar.nombre" type="text" class="input" id="inputNombre" placeholder="Nombre">
               </div>
               <div>
                 <label for="inputImagen" class="input-label">Imagen de referencia</label>
-                <input v-model="path" type="text" class="input" id="inputImagen" placeholder="Link de la imagen">
+                <input v-if="!Actualizar" v-model="path" type="text" class="input" id="inputImagen" placeholder="Link de la imagen">
+                <input v-else v-model="esEditar.path" type="text" class="input" id="inputImagen" placeholder="Link de la imagen">
               </div>
               <div>
                 <label for="inputIngredientes" class="input-label">Ingredientes</label>
-                <textarea v-model="ingredientes" type="text" class="input" id="inputIngredientes" placeholder="Ingredientes"></textarea>
+                <textarea v-if="!Actualizar" v-model="ingredientes" type="text" class="input" id="inputIngredientes" placeholder="Ingredientes"></textarea>
+                <textarea v-else v-model="esEditar.ingredientes" type="text" class="input" id="inputIngredientes" placeholder="Ingredientes"></textarea>
               </div>
               <div>
                 <label for="inputPrecio" class="input-label">Precio</label>
-                <input v-model="precio" type="number" class="input" id="inputPrecio" placeholder="Precio">
+                <input v-if="!Actualizar" v-model="precio" type="number" class="input" id="inputPrecio" placeholder="Precio">
+                <input v-else v-model="esEditar.precio" type="number" class="input" id="inputPrecio" placeholder="Precio">
               </div>
               <div v-if="ProductoDia">
                 <label for="inputPrecio" class="input-label">Oferta</label>
-                <input v-model="oferta" type="number" class="input" id="inputPrecio" placeholder="Oferta">
+                <input v-if="!Actualizar" v-model="oferta" type="number" class="input" id="inputPrecio" placeholder="Oferta">
+                <input v-else v-model="esEditar.oferta" type="number" class="input" id="inputPrecio" placeholder="Oferta">
               </div>
             </form>
           </div>
           <div class="d-flex justify-content-end mx-2 my-2">
             <div>
-              <button type="submit" class="btn-primario-modal" @click="esEditar ? editar() : guardar(); $emit('cerrar', false)">Guardar</button>
+              <button type="submit" class="btn-primario-modal" @click="Actualizar ? editar() : guardar(); $emit('cerrar', false)">Guardar</button>
               <button class="btn-secundario-modal" @click="$emit('cerrar', false)">Cerrar</button>
             </div>
           </div>
@@ -57,10 +62,6 @@ export default {
     capitalizar
   },
   props: {
-    mostrarmodal:{
-      type: Boolean,
-      default: false
-    },
     ProductoRe:{
       type: Boolean,
     },
@@ -71,6 +72,10 @@ export default {
       type: Boolean,
     },
     esEditar:{
+      type: Object,
+      default: {}
+    },
+    Actualizar:{
       type: Boolean,
       default: false
     }
@@ -83,28 +88,26 @@ export default {
       file:[],
       oferta: 0,
       path: '',
-      productoRe: {},
-      productoDia: {},
-      menuDia: {},
+      PPDM: {},
+      UpdatePPDM: {},
+      productoRe: false,
+      productoDia: false,
+      menuDia: false,
       mensaje: ''
     }
   },
   created() {
-    this.ordenar()
-    console.log('aaa')
   },
   methods: {
     ordenar() {
-      console.log('bbb')
       if (this.esEditar) {
-        console.log('aaa')
         if (this.productoRe) {
           this.nombre = this.esEditar.nombre
           this.ingredientes = this.esEditar.ingredientes
           this.precio = this.esEditar.precio
           this.path = this.esEditar.path
         }
-        if (this.productoDia) {        
+        if (this.productoDia) {
           this.nombre = this.esEditar.nombre
           this.ingredientes = this.esEditar.ingredientes
           this.precio = this.esEditar.precio_r
@@ -121,23 +124,20 @@ export default {
     },
     guardar() {
       if (!this.nombre || !this.ingredientes || !this.precio || !this.path) {
-        this.mensaje = 'Recuerde rellenar todos los campos'
-        return
+        return 'Recuerde rellenar todos los campos'
       }
-
       this.nombre = capitalizar(this.nombre)
       this.ingredientes = capitalizar(this.ingredientes)
-
-      if (this.ProductoRe) {
-        this.productoRe = {
+      this.PPDM = {
           nombre: this.nombre,
           ingredientes: this.ingredientes,
           precio: this.precio,
           path: this.path
         }
+      if (this.ProductoRe) {
         fetch('/ProductosRegu/guardar', {
           method: 'POST',
-          body: JSON.stringify(this.productoRe),
+          body: JSON.stringify(this.PPDM),
           headers: {
             'Accept': 'application/json',
             'Content-type': 'application/json'
@@ -151,17 +151,9 @@ export default {
           this.mensaje = 'Recuerde rellenar todos los campos'
           return
         }
-
-        this.productoDia = {
-          nombre: this.nombre,
-          ingredientes: this.ingredientes,
-          precio_r: this.precio,
-          oferta: this.oferta,
-          path: this.path
-        }
         fetch('/ProductosDia/guardar', {
           method: 'POST',
-          body: JSON.stringify(this.productoDia),
+          body: JSON.stringify(this.PPDM),
           headers: {
             'Accept': 'application/json',
             'Content-type': 'application/json'
@@ -171,15 +163,9 @@ export default {
         .then(data => this.mensaje = data)
       }
       if (this.MenuDia) {
-        this.menuDia = {
-          nombre: this.nombre,
-          ingredientes: this.ingredientes,
-          precio: this.precio,
-          path: this.path
-        }
         fetch('/MenuDia/guardar', {
           method: 'POST',
-          body: JSON.stringify(this.menuDia),
+          body: JSON.stringify(this.PPDM),
           headers: {
             'Accept': 'application/json',
             'Content-type': 'application/json'
@@ -188,29 +174,27 @@ export default {
         .then(res => res.json())
         .then(data => this.mensaje = data)
       }
-      this.productoRe = {}
-      this.productoDia = {}
-      this.menuDia = {}
+      this.PPDM = {}
+      this.productoRe = false
+      this.productoDia = false
+      this.menuDia = false
     },
     editar() {
-      if (!this.nombre || !this.ingredientes || !this.precio || !this.path) {
-        this.mensaje = 'Recuerde rellenar todos los campos'
-        return
+      if (!this.esEditar.nombre || !this.esEditar.ingredientes || !this.esEditar.precio || !this.esEditar.path) {
+        return this.mensaje = 'Recuerde rellenar todos los campos'
       }
-
-      this.nombre = capitalizar(this.nombre)
-      this.ingredientes = capitalizar(this.ingredientes)
-
+      this.esEditar.nombre = capitalizar(this.esEditar.nombre)
+      this.esEditar.ingredientes = capitalizar(this.esEditar.ingredientes)
+      this.UpdatePPDM = {
+        nombre: this.esEditar.nombre,
+        ingredientes: this.esEditar.ingredientes,
+        precio: this.esEditar.precio,
+        path: this.esEditar.path
+      }
       if (this.ProductoRe) {
-        this.productoRe = {
-          nombre: this.nombre,
-          ingredientes: this.ingredientes,
-          precio: this.precio,
-          path: this.path
-        }
         fetch('/ProductosRegu/guardar', {
           method: 'POST',
-          body: JSON.stringify(this.productoRe),
+          body: JSON.stringify(this.UpdatePPDM),
           headers: {
             'Accept': 'application/json',
             'Content-type': 'application/json'
@@ -220,20 +204,12 @@ export default {
         .then(data => this.mensaje = data)
       }
       if (this.ProductoDia) {
-        if (!this.oferta) {
-          this.mensaje = 'Recuerde rellenar todos los campos'
-          return
-        }
-        this.productoDia = {
-          nombre: this.nombre,
-          ingredientes: this.ingredientes,
-          precio_r: this.precio,
-          oferta: this.oferta,
-          path: this.path
+        if (!this.esEditar.oferta) {
+          return this.mensaje = 'Recuerde rellenar todos los campos'
         }
         fetch('/ProductosDia/guardar', {
           method: 'POST',
-          body: JSON.stringify(this.productoDia),
+          body: JSON.stringify(this.UpdatePPDM),
           headers: {
             'Accept': 'application/json',
             'Content-type': 'application/json'
@@ -243,15 +219,9 @@ export default {
         .then(data => this.mensaje = data)
       }
       if (this.MenuDia) {
-        this.menuDia = {
-          nombre: this.nombre,
-          ingredientes: this.ingredientes,
-          precio: this.precio,
-          path: this.path
-        }
         fetch('/MenuDia/guardar', {
           method: 'POST',
-          body: JSON.stringify(this.menuDia),
+          body: JSON.stringify(this.UpdatePPDM),
           headers: {
             'Accept': 'application/json',
             'Content-type': 'application/json'
@@ -260,10 +230,11 @@ export default {
         .then(res => res.json())
         .then(data => this.mensaje = data)
       }
-      this.productoRe = {}
-      this.productoDia = {}
-      this.menuDia = {}
-    }
+      this.UpdatePPDM = {}
+      this.productoRe = false
+      this.productoDia = false
+      this.menuDia = false
+    },
   }
 }
 </script>
