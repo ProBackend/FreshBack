@@ -64,6 +64,9 @@ router.get('/', async (req, res) => {
   router.post('/MenuDia/guardar', async function(req, res) {
     res.json(await menuDia.guardar(req.body))
   })
+  router.post('/nosotros/consulta', async function(req, res) {
+    res.json(await informacion.guardar(req.body))
+  })
 
   /*Put rutas */
   router.put('/ProductosRegu/editar', async function(req, res) {

@@ -30,7 +30,7 @@
       :esContacto="Escontacto"
       :esGerente="Esgerente"
       :mostrarmodal="mostrar"
-      @cerrar="mostrar= false, Escontacto=false, Esgerente=false"
+      @cerrar="buscar(); mostrar= false, Escontacto=false, Esgerente=false"
     />
   </section>
 </template>

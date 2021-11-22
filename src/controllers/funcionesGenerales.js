@@ -1,3 +1,7 @@
+function validarTel(telefono) {
+  return parseFloat(telefono) && /^\d{7,13}$/.test(telefono);
+}
+
 const capitalizar = (string) => {
   const textotoLowerCase = string.toLowerCase();
   const textoCapitalize = textotoLowerCase.replace(/(^\w|\s\w)/g, (m) =>
@@ -8,4 +12,4 @@ const capitalizar = (string) => {
   return string;
 }
 
-module.exports= {capitalizar}
+module.exports= {capitalizar, validarTel}
