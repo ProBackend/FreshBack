@@ -9,6 +9,9 @@ let informacion = new info
 const clien = require("../controllers/clientes")
 let cliente = new clien
 
+const ge = require("../controllers/gerente")
+let gerente = new ge
+
 const pro = require("../controllers/Producto");
 let producto = new pro
 
@@ -76,6 +79,16 @@ router.get('/', async (req, res) => {
   router.post('/nosotros/guardar', async function(req, res) {
     res.json(await informacion.guardar(req.body))
   })
+  router.post('/gerente/registrar', async (req, res) => {
+    await gerente.guardar(req.body)
+      .then(registro => {
+        if(registro) {
+          res.json({ status: 'Se ha registrado correctamente'})
+        } else {
+          res.json({ status: 'El usuario ya está en uso'})
+        }
+      })
+  });
 
   /*Put rutas */
   router.put('/ProductosRegu/editar', async function(req, res) {
