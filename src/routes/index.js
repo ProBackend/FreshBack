@@ -64,7 +64,7 @@ router.get('/', async (req, res) => {
   router.post('/MenuDia/guardar', async function(req, res) {
     res.json(await menuDia.guardar(req.body))
   })
-  router.post('/nosotros/consulta', async function(req, res) {
+  router.post('/nosotros/guardar', async function(req, res) {
     res.json(await informacion.guardar(req.body))
   })
 
@@ -88,5 +88,8 @@ router.get('/', async (req, res) => {
   })
   router.delete('/MenuDia/eliminar', async function(req, res) {
     res.json(await menuDia.eliminar(req.body))
+  })
+  router.delete('/nosotros/eliminar', async function(req, res) {
+    res.json(await informacion.eliminar(req.body))
   })
   module.exports = router;

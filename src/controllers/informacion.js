@@ -10,6 +10,11 @@ class info{
     await info.save();
     const mensaje = `Se ha registrado ${req.nombre} como contacto correctamente`
     return mensaje
+  }  
+  async eliminar(req) {
+    await Infor.findByIdAndRemove({ _id: req.id });
+    const mensaje = `Se ha eliminado correctamente`
+    return mensaje
   }
 }
 

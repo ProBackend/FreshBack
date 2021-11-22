@@ -133,7 +133,7 @@ export default {
       this.contacto.apellido = capitalizar(this.contacto.apellido)
       this.contacto.descripcion = capitalizar(this.contacto.descripcion)
 
-      fetch('/nosotros/consulta', {
+      fetch('/nosotros/guardar', {
         method: 'POST',
         body: JSON.stringify(this.contacto),
         headers: {
