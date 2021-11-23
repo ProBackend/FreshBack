@@ -7,8 +7,8 @@ verify = require('../controllers/verify')
 /* Controladores Orientados a objetos */
 const info = require("../controllers/informacion")
 let informacion = new info
-const user = require("../controllers/usuario")
-let user = new user
+const User = require("../controllers/usuario")
+let user = new User
 const pro = require("../controllers/Producto");
 let producto = new pro
 const ge = require("../controllers/gerente")
@@ -50,8 +50,8 @@ router.get('/verificar', verify, async function(req, res, next) {
 })
 
 /* POST  rutas*/
-router.post('/Login/Registrarse', async (req, res) => {
-  await cliente.guardar(req.body)
+router.post('/Login/Registrarse', function (req, res) {
+  cliente.guardar(req.body)
     .then(registro => {
       if(registro.tokencont) {
         res.json({ status: 'Te has registrado correctamente', tokencont: true, token: registro.token, clientela: registro.clientela, tipo: "Cliente"})
@@ -83,8 +83,8 @@ router.post('/MenuDia/guardar', async function(req, res) {
 router.post('/nosotros/guardar', async function(req, res) {
   res.json(await informacion.guardar(req.body))
 })
-router.post('/gerente/registrar', async (req, res) => {
-  await gerente.guardar(req.body)
+router.post('/gerente/registrar', function (req, res) {
+  gerente.guardar(req.body)
     .then(registro => {
       if(registro) {
         res.json({ status: 'Se ha registrado correctamente'})
