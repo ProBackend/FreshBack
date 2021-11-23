@@ -14,10 +14,10 @@
     <ModalGC
       :esContacto="Escontacto"
       :mostrarmodal="mostrar"
-      @cerrar="buscar(); mostrar= false, Escontacto=false"
+      @cerrar="mostrar= false, Escontacto=false"
     />
     <Alertamensaje
-        :mensaje="this.mensaje"
+        :mensaje="mensaje"
       />
   </section>
 </template>

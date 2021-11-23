@@ -20,10 +20,11 @@
       :ProductoRe= proRe
       :esEditar= Editar
       :Actualizar= editar
-      @cerrar="buscar(); editar = false; Editar = {}; proRe = false"
+      @cerrar="editar = false; Editar = {}; proRe = false"
+      @actualizar="buscar()"
     />
     <Alertamensaje
-      :mensaje="this.mensaje"
+      :mensaje="mensaje"
     />
   </section>
 </template>
@@ -41,6 +42,9 @@ export default {
   data() {
     return {
       productos: [],
+      mostrar: false,
+      mostrard:false,
+      proRee: false,
       proRe: false,
       mensaje: '',
       Editar: {},

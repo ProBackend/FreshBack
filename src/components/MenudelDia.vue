@@ -20,6 +20,10 @@
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Siguiente</span>
             </button>
+            <div class="">
+              <button type="submit" @click="eliminar(item._id)" class="btn-terciario px-2">Eliminar</button>
+              <button @click="editar = true; Editar = item; MenuDia = true" class="btn-secundario px-2">Editar</button>
+            </div>
           </div>
         </div>
       </div>
@@ -34,22 +38,18 @@
           <p class="p-texto-oscuro">{{pro.oferta}}</p>
           <p><small class="text-muted">{{pro.nombre}}</small></p>
           <div class="contenedor-btn">
-            <button @click="editar = true; Editar = p; Prod = true" class="btn-terciario w-100 my-1 px-1">Editar</button>
-            <button type="submit" @click="eliminar(p._id)" class="btn-secundario w-100 my-1 px-1">Eliminar</button>
-          </div>
-        </div>
-      </div>
+        <button type="submit" @click="eliminar(pro._id, 1)" class="btn-terciario px-2">Eliminar</button>
     </div>
     <ModalPPDM
-      :ProductoDia= Prod
       :MenuDia= Me
       :esEditar= Editar
       :Actualizar= editar
-      @cerrar="buscarMenu(), buscarPD(), editar = false; Editar = {}; Prod = false, Me = false"
+      @cerrar="buscarMenu(), buscarPD(), editar = false; Editar = {}, Me = false"
+      @actualizar="buscar()"
     />
     <Alertamensaje
-      @limpio="this.mensaje"
-      :mensaje="this.mensaje"
+      @limpio="mensaje"
+      :mensaje="mensaje"
     />
   </section>
 </template>

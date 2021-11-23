@@ -43,15 +43,15 @@
           </div>
           <div class="d-flex justify-content-end mx-2 my-2">
             <div>
-              <button type="submit" class="btn-primario-modal" @click="Actualizar ? editar() : guardar()">Guardar</button>
-              <button type="submit" class="btn-secundario-modal" @click="$emit('cerrar', false), reinicioDeDatos()">Cerrar</button>
+              <button type="submit" class="btn-primario-modal" @click="Actualizar ? editar() : guardar(); $emit('cerrar')">Guardar</button>
+              <button class="btn-secundario-modal" @click="$emit('cerrar');$emit('actualizar');reinicioDeDatos()">Cerrar</button>
             </div>
           </div>
         </div>
       </div>
     </div>
     <Alertamensaje
-      :mensaje="this.mensaje"
+      :mensaje="mensaje"
     />
   </section>
 </template>
@@ -103,13 +103,8 @@ export default {
   },
   methods: {
     guardar() {
-      if (!this.nombre || !this.precio || !this.path) {
-        if (this.MenuDia && !this.productos) {
-          return this.mensaje= 'Recuerde rellenar todos los campos'
-        }
-        if (!this.MenuDia && !this.ingredientes) {
-          return this.mensaje= 'Recuerde rellenar todos los campos'
-        }
+      if (!this.nombre || !this.ingredientes && !this.productos || !this.precio || !this.path) {
+        return this.mensaje= 'Recuerde rellenar todos los campos'
       }
       this.nombre = capitalizar(this.nombre)
       this.ingredientes = capitalizar(this.ingredientes)
@@ -180,6 +175,8 @@ export default {
           this.mensaje = ''
         }, 2000)
       }
+      this.reinicioDeDatos()
+      this.$emit('actualizar')
     },
     editar() {
       if (!this.esEditar.nombre || !this.esEditar.ingredientes || !this.esEditar.precio || !this.esEditar.path) {
@@ -187,7 +184,8 @@ export default {
       }
       this.esEditar.nombre = capitalizar(this.esEditar.nombre)
       this.esEditar.ingredientes = capitalizar(this.esEditar.ingredientes)
-      this.UpdatePM = {
+      this.UpdatePPDM = {
+        id: this.esEditar._id,
         nombre: this.esEditar.nombre,
         ingredientes: this.esEditar.ingredientes,
         precio: this.esEditar.precio,
@@ -216,26 +214,8 @@ export default {
       ]
       if (this.ProductoRe) {
         fetch('/ProductosRegu/editar', {
-          method: 'POST',
-          body: JSON.stringify(this.UpdatePPDM[1]),
-          headers: {
-            'Accept': 'application/json',
-            'Content-type': 'application/json'
-          }
-        })
-        .then(res => res.json())
-        .then(data => this.mensaje = data)
-        setTimeout(() => {
-          this.mensaje = ''
-        }, 2000)
-      }
-      if (this.ProductoDia) {
-        if (!this.esEditar.oferta) {
-          return this.mensaje = 'Recuerde rellenar todos los campos'
-        }
-        fetch('/ProductosDia/editar', {
-          method: 'POST',
-          body: JSON.stringify(this.UpdatePM[2]),
+          method: 'PUT',
+          body: JSON.stringify(this.UpdatePPDM),
           headers: {
             'Accept': 'application/json',
             'Content-type': 'application/json'
@@ -249,8 +229,8 @@ export default {
       }
       if (this.MenuDia) {
         fetch('/MenuDia/editar', {
-          method: 'POST',
-          body: JSON.stringify(this.UpdatePPDM[3]),
+          method: 'PUT',
+          body: JSON.stringify(this.UpdatePPDM),
           headers: {
             'Accept': 'application/json',
             'Content-type': 'application/json'
