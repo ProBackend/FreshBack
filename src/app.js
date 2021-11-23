@@ -10,6 +10,7 @@ const app = express();
 require("./connection");
 require("./config/passport");
 
+
 // Ajustes
 app.use(express.json())
 app.set("views", path.join(__dirname, "views"));
@@ -28,11 +29,12 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(express.static(path.join(__dirname, "/public")));
-app.use('/public', express.static('public'));
-
 // rutas
 app.use(require("./routes/index"));
+
+// Middleware
+app.use(express.static(path.join(__dirname, "/public")));
+app.use('/public', express.static('public'));
 
 // start
 app.listen(3000, () => {

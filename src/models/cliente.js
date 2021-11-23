@@ -1,4 +1,6 @@
 const { Schema, model } = require("mongoose");
+const bcrypt = require('bcryptjs');
+
 const Clienteschema = new Schema({
   nombre: {
     type: String,
@@ -23,5 +25,10 @@ const Clienteschema = new Schema({
     sparce: true
   }
 });
+
+Clienteschema.methods.encryptPass = async (password) => {
+  const salt = await bcrypt.genSalt(10);
+  return bcrypt.hash(password, salt);
+};
 
 module.exports = model("Cliente", Clienteschema);

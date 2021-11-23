@@ -15,4 +15,4 @@ class info{
   }
 }
 
-module.exports = info
+module.exports = info;
