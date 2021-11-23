@@ -4,7 +4,7 @@
       <div class="modal-dialog modal-md">
         <div class="modal-content">
           <div class="card-header">
-            <h2 class="h2-tittle">{{MenuDia ? 'Agregar menú del día' : (ProductoDia ? 'Agregar producto del día': 'Agregar producto')}}</h2>
+            <h2 class="h2-tittle">{{ Actualizar ? (MenuDia ? 'Editar menú del día' : (ProductoDia ? 'Editar producto del día': 'Editar producto')) : (MenuDia ? 'Agregar menú del día' : (ProductoDia ? 'Agregar producto del día': 'Agregar producto'))}}</h2>
           </div>
           <div class="card-body">
             <form enctype="multipart/form-data">
@@ -43,15 +43,15 @@
           </div>
           <div class="d-flex justify-content-end mx-2 my-2">
             <div>
-              <button type="submit" class="btn-primario-modal" @click="Actualizar ? editar() : guardar()">Guardar</button>
-              <button class="btn-secundario-modal" @click="$emit('cerrar', false), reinicioDeDatos()">Cerrar</button>
+              <button type="submit" class="btn-primario-modal" @click="Actualizar ? editar() : guardar(); $emit('refrescar', true)">Guardar</button>
+              <button class="btn-secundario-modal" @click="$emit('cerrar'), reinicioDeDatos()">Cerrar</button>
             </div>
           </div>
         </div>
       </div>
     </div>
     <Alertamensaje
-      :mensaje="this.mensaje"
+      :mensaje="mensaje"
     />
   </section>
 </template>
@@ -61,7 +61,7 @@ import Alertamensaje from './Alertamensaje.vue';
 import { capitalizar } from "../controllers/funcionesGenerales";
 
 export default {
-  name: 'modalPro',
+  name: 'ModalPPDM',
   components: {
     Alertamensaje,
     capitalizar
@@ -80,9 +80,8 @@ export default {
       type: Object,
       default: {}
     },
-    Actualizar:{
+    Actualizar: {
       type: Boolean,
-      default: false
     }
   },
   data() {
@@ -96,43 +95,41 @@ export default {
       oferta : 0,
       path : '',
       mensaje : '',
-      PPDM: [],
-      UpdatePPDM : [],
-      menuDia : false,
+      P : {},
+      PD : {},
+      M : {},
     }
   },
   methods: {
     guardar() {
-      if (!this.nombre || !this.ingredientes || !this.precio || !this.path) {
+      if (!this.nombre || !this.ingredientes && !this.productos || !this.precio || !this.path) {
         return this.mensaje= 'Recuerde rellenar todos los campos'
       }
       this.nombre = capitalizar(this.nombre)
       this.ingredientes = capitalizar(this.ingredientes)
-      this.PPDM = [
-        {
+      this.P = {
           nombre: this.nombre,
           ingredientes: this.ingredientes,
           precio: this.precio,
           path: this.path
-        },
-        {
+        }
+      this.PD = {
           nombre: this.nombre,
           ingredientes: this.ingredientes,
           precio_r: this.precio_r,
           oferta: this.oferta,
           path: this.path
-        },
-        {
+        }
+      this.M = {
           nombre: this.nombre,
-          productos: this.ingredientes,
+          productos: this.productos,
           precio: this.precio,
           path: this.path
         }
-      ]
       if (this.ProductoRe) {
         fetch('/ProductosRegu/guardar', {
           method: 'POST',
-          body: JSON.stringify(this.PPDM[1]),
+          body: JSON.stringify(this.P),
           headers: {
             'Accept': 'application/json',
             'Content-type': 'application/json'
@@ -140,6 +137,9 @@ export default {
         })
         .then(res => res.json())
         .then(data => this.mensaje = data)
+        setTimeout(() => {
+          this.mensaje = ''
+        }, 2000)
       }
       if (this.ProductoDia) {
         if (!this.oferta) {
@@ -147,7 +147,7 @@ export default {
         }
         fetch('/ProductosDia/guardar', {
           method: 'POST',
-          body: JSON.stringify(this.PPDM[2]),
+          body: JSON.stringify(this.PD),
           headers: {
             'Accept': 'application/json',
             'Content-type': 'application/json'
@@ -155,11 +155,14 @@ export default {
         })
         .then(res => res.json())
         .then(data => this.mensaje = data)
+        setTimeout(() => {
+          this.mensaje = ''
+        }, 2000)
       }
       if (this.MenuDia) {
         fetch('/MenuDia/guardar', {
           method: 'POST',
-          body: JSON.stringify(this.PPDM[3]),
+          body: JSON.stringify(this.M),
           headers: {
             'Accept': 'application/json',
             'Content-type': 'application/json'
@@ -167,7 +170,11 @@ export default {
         })
         .then(res => res.json())
         .then(data => this.mensaje = data)
+        setTimeout(() => {
+          this.mensaje = ''
+        }, 2000)
       }
+      this.reinicioDeDatos()
     },
     editar() {
       if (!this.esEditar.nombre || !this.esEditar.ingredientes || !this.esEditar.precio || !this.esEditar.path) {
@@ -175,37 +182,33 @@ export default {
       }
       this.esEditar.nombre = capitalizar(this.esEditar.nombre)
       this.esEditar.ingredientes = capitalizar(this.esEditar.ingredientes)
-      this.UpdatePM = {
+
+      this.P = {
+        id: this.esEditar._id,
         nombre: this.esEditar.nombre,
         ingredientes: this.esEditar.ingredientes,
         precio: this.esEditar.precio,
         path: this.esEditar.path
       }
-      this.UpdatePD = [
-        {
-          nombre: this.esEditar.nombre,
-          ingredientes: this.esEditar.ingredientes,
-          precio: this.esEditar.precio,
-          path: this.esEditar.path,
-        },
-        {
-          nombre: this.esEditar.nombre,
-          ingredientes: this.esEditar.ingredientes,
-          precio_r: this.esEditar.precio_r,
-          oferta: this.esEditar.oferta,
-          path: this.esEditar.path,
-        },
-        {
-          nombre: this.esEditar.nombre,
-          productos: this.esEditar.ingredientes,
-          precio: this.esEditar.precio,
-          path: this.esEditar.path,
-        }
-      ]
+      this.PD = {
+        id: this.esEditar._id,
+        nombre: this.esEditar.nombre,
+        ingredientes: this.esEditar.ingredientes,
+        precio_r: this.esEditar.precio,
+        oferta: this.esEditar.oferta,
+        path: this.esEditar.path
+      }
+      this.M = {
+        id: this.esEditar._id,
+        nombre: this.esEditar.nombre,
+        productos: this.esEditar.productos,
+        precio: this.esEditar.precio,
+        path: this.esEditar.path
+      }
       if (this.ProductoRe) {
         fetch('/ProductosRegu/editar', {
-          method: 'POST',
-          body: JSON.stringify(this.UpdatePPDM[1]),
+          method: 'PUT',
+          body: JSON.stringify(this.P),
           headers: {
             'Accept': 'application/json',
             'Content-type': 'application/json'
@@ -213,14 +216,15 @@ export default {
         })
         .then(res => res.json())
         .then(data => this.mensaje = data)
+        setTimeout(() => {
+          this.mensaje = ''
+        }, 2000)
       }
       if (this.ProductoDia) {
-        if (!this.esEditar.oferta) {
-          return this.mensaje = 'Recuerde rellenar todos los campos'
-        }
+        console.log(this.PD)
         fetch('/ProductosDia/editar', {
-          method: 'POST',
-          body: JSON.stringify(this.UpdatePM[2]),
+          method: 'PUT',
+          body: JSON.stringify(this.PD),
           headers: {
             'Accept': 'application/json',
             'Content-type': 'application/json'
@@ -228,11 +232,14 @@ export default {
         })
         .then(res => res.json())
         .then(data => this.mensaje = data)
+        setTimeout(() => {
+          this.mensaje = ''
+        }, 2000)
       }
       if (this.MenuDia) {
         fetch('/MenuDia/editar', {
-          method: 'POST',
-          body: JSON.stringify(this.UpdatePPDM[3]),
+          method: 'PUT',
+          body: JSON.stringify(this.M),
           headers: {
             'Accept': 'application/json',
             'Content-type': 'application/json'
@@ -240,6 +247,9 @@ export default {
         })
         .then(res => res.json())
         .then(data => this.mensaje = data)
+        setTimeout(() => {
+          this.mensaje = ''
+        }, 2000)
       }
     },
     reinicioDeDatos() {
@@ -252,9 +262,9 @@ export default {
       this.oferta = 0
       this.path = ''
       this.mensaje = ''
-      this.PPDM= []
-      this.UpdatePPDM = []
-      this.menuDia = false
+      this.P = {}
+      this.PD = {}
+      this.M = {}
     }
   }
 }

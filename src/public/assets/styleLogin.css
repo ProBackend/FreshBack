@@ -7,7 +7,6 @@ body {
 .parteDelantera form{
   max-width: 20%;
   left: 29%;
-  top: 10rem;
   padding: 40px 20px;
   background: #e6d3c5;
   position: absolute;
@@ -20,7 +19,6 @@ body {
 
 .parteTrasera{
   width: 45%;
-  margin-top: 10rem;
   padding: 20px 50px;
   display: flex;
   background-color: #937563;

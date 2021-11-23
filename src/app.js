@@ -1,7 +1,5 @@
 const express = require("express");
 const morgan = require("morgan");
-const multer = require("multer");
-const { v4: uuidv4 } = require("uuid");
 const session = require("express-session");
 const passport = require("passport");
 
@@ -23,14 +21,6 @@ app.set("port", process.env.PORT || 3000);
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
-const storage = multer.diskStorage({
-  destination: path.join(__dirname, "public/uploads"),
-  filename: (req, file, cb, filename) => {
-
-    cb(null, uuidv4() + path.extname(file.originalname));
-  },
-});
-app.use(multer({ storage }).single("image"));
 app.use(session({
   secret: 'freshback',
   resave: true,
