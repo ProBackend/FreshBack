@@ -4,7 +4,7 @@
       <div class="modal-dialog modal-md">
         <div class="modal-content">
           <div class="card-header">
-            <h2 class="h2-tittle">{{MenuDia ? 'Agregar menú del día' : (ProductoDia ? 'Agregar producto del día': 'Agregar producto')}}</h2>
+            <h2 class="h2-tittle">{{ Actualizar ? (MenuDia ? 'Editar menú del día' : (ProductoDia ? 'Editar producto del día': 'Editar producto')) : (MenuDia ? 'Agregar menú del día' : (ProductoDia ? 'Agregar producto del día': 'Agregar producto'))}}</h2>
           </div>
           <div class="card-body">
             <form enctype="multipart/form-data">
@@ -43,8 +43,8 @@
           </div>
           <div class="d-flex justify-content-end mx-2 my-2">
             <div>
-              <button type="submit" class="btn-primario-modal" @click="Actualizar ? editar() : guardar(); $emit('cerrar')">Guardar</button>
-              <button class="btn-secundario-modal" @click="$emit('cerrar');$emit('actualizar');reinicioDeDatos()">Cerrar</button>
+              <button type="submit" class="btn-primario-modal" @click="Actualizar ? editar() : guardar(); $emit('refrescar', true)">Guardar</button>
+              <button class="btn-secundario-modal" @click="$emit('cerrar'), reinicioDeDatos()">Cerrar</button>
             </div>
           </div>
         </div>
@@ -80,9 +80,8 @@ export default {
       type: Object,
       default: {}
     },
-    Actualizar:{
+    Actualizar: {
       type: Boolean,
-      default: false
     }
   },
   data() {
@@ -176,7 +175,6 @@ export default {
         }, 2000)
       }
       this.reinicioDeDatos()
-      this.$emit('actualizar')
     },
     editar() {
       if (!this.esEditar.nombre || !this.esEditar.ingredientes || !this.esEditar.precio || !this.esEditar.path) {
@@ -184,38 +182,49 @@ export default {
       }
       this.esEditar.nombre = capitalizar(this.esEditar.nombre)
       this.esEditar.ingredientes = capitalizar(this.esEditar.ingredientes)
-      this.UpdatePPDM = {
+
+      this.P = {
         id: this.esEditar._id,
         nombre: this.esEditar.nombre,
         ingredientes: this.esEditar.ingredientes,
         precio: this.esEditar.precio,
         path: this.esEditar.path
       }
-      this.UpdatePD = [
-        {
-          nombre: this.esEditar.nombre,
-          ingredientes: this.esEditar.ingredientes,
-          precio: this.esEditar.precio,
-          path: this.esEditar.path,
-        },
-        {
-          nombre: this.esEditar.nombre,
-          ingredientes: this.esEditar.ingredientes,
-          precio_r: this.esEditar.precio_r,
-          oferta: this.esEditar.oferta,
-          path: this.esEditar.path,
-        },
-        {
-          nombre: this.esEditar.nombre,
-          productos: this.esEditar.ingredientes,
-          precio: this.esEditar.precio,
-          path: this.esEditar.path,
-        }
-      ]
+      this.PD = {
+        id: this.esEditar._id,
+        nombre: this.esEditar.nombre,
+        ingredientes: this.esEditar.ingredientes,
+        precio_r: this.esEditar.precio,
+        oferta: this.esEditar.oferta,
+        path: this.esEditar.path
+      }
+      this.M = {
+        id: this.esEditar._id,
+        nombre: this.esEditar.nombre,
+        productos: this.esEditar.productos,
+        precio: this.esEditar.precio,
+        path: this.esEditar.path
+      }
       if (this.ProductoRe) {
         fetch('/ProductosRegu/editar', {
           method: 'PUT',
-          body: JSON.stringify(this.UpdatePPDM),
+          body: JSON.stringify(this.P),
+          headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json'
+          }
+        })
+        .then(res => res.json())
+        .then(data => this.mensaje = data)
+        setTimeout(() => {
+          this.mensaje = ''
+        }, 2000)
+      }
+      if (this.ProductoDia) {
+        console.log(this.PD)
+        fetch('/ProductosDia/editar', {
+          method: 'PUT',
+          body: JSON.stringify(this.PD),
           headers: {
             'Accept': 'application/json',
             'Content-type': 'application/json'
@@ -230,7 +239,7 @@ export default {
       if (this.MenuDia) {
         fetch('/MenuDia/editar', {
           method: 'PUT',
-          body: JSON.stringify(this.UpdatePPDM),
+          body: JSON.stringify(this.M),
           headers: {
             'Accept': 'application/json',
             'Content-type': 'application/json'

@@ -214,6 +214,8 @@ nav.navbar {
 
 /* Cards */
 .card {
+  max-width: 15rem !important;
+  min-width: 11rem !important;
   background-color: #e6d3c5 !important;
   border-radius: 0.25rem;
 }

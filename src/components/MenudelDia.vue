@@ -12,7 +12,7 @@
                 <p class="mt-4 text-muted">{{item.precio}}</p>
               </div>
             </div>
-            <button class="carousel-control-prev" v-if="atras <= menuDia.length && atras != 0" type="submit" @click="carrusel(item), atras--">
+            <button class="carousel-control-prev" v-if="atras <= menuDia.length && atras != 0" @click="carrusel(item), atras--">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Atras</span>
             </button>
@@ -21,15 +21,15 @@
               <span class="visually-hidden">Siguiente</span>
             </button>
             <div class="">
-              <button type="submit" @click="eliminar(item._id)" class="btn-terciario px-2">Eliminar</button>
-              <button @click="editar = true; Editar = item; MenuDia = true" class="btn-secundario px-2">Editar</button>
+              <button @click="eliminar(item._id), buscarMenu()" class="btn-terciario px-2">Eliminar</button>
+              <button @click="editar = true; Editar = item; Me = true" class="btn-secundario px-2">Editar</button>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="row justify-content-around">
-      <div class="card col-1 m-3" v-for="pro in proDia" :key="pro._id">
+      <div class="card col m-3" v-for="pro in proDia" :key="pro._id">
         <div class="mt-2 d-flex justify-content-center">
           <img :src="pro.path" class="card-img">
         </div>
@@ -38,14 +38,19 @@
           <p class="p-texto-oscuro">{{pro.oferta}}</p>
           <p><small class="text-muted">{{pro.nombre}}</small></p>
           <div class="contenedor-btn">
-        <button type="submit" @click="eliminar(pro._id, 1)" class="btn-terciario px-2">Eliminar</button>
+            <button @click="editar = true; Editar = pro; Prod = true" class="btn-secundario w-100 my-1 px-1">Editar</button>
+            <button type="submit" @click="eliminar(pro._id, true), buscarPD()" class="btn-terciario w-100 px-1 my-1">Eliminar</button>
+          </div>
+        </div>
+      </div>
     </div>
     <ModalPPDM
       :MenuDia= Me
+      :ProductoDia= Prod
       :esEditar= Editar
       :Actualizar= editar
-      @cerrar="buscarMenu(), buscarPD(), editar = false; Editar = {}, Me = false"
-      @actualizar="buscar()"
+      @cerrar="buscarMenu(), buscarPD(), editar = false; Editar = {}, Me = false, Prod = false"
+      @refrescar="buscarMenu(), buscarPD()"
     />
     <Alertamensaje
       @limpio="mensaje"

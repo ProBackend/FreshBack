@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="row d-flex justify-content-around">
-      <div class="card col-1 m-3" v-for="p in productos" :key="p.ingredientes">
+      <div class="card col m-3" v-for="p in productos" :key="p.ingredientes">
         <div class="mt-2 d-flex justify-content-center">
           <img :src="p.path" class="card-img"/>
         </div>
