@@ -8,7 +8,6 @@ const path = require("path");
 // inicialización
 const app = express();
 require("./connection");
-require("./config/passport");
 
 
 // Ajustes

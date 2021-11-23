@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 require('../connection');
-verify = require('../controllers/verify')
+let verify = require('../controllers/verify')
 
 /* Controladores Orientados a objetos */
 const info = require("../controllers/informacion")
@@ -13,8 +13,6 @@ let users = new user
 
 const pro = require("../controllers/Producto");
 let producto = new pro
-const ge = require("../controllers/gerente")
-let gerente = new ge
 const proDia = require("../controllers/Pr_dia");
 let pr_dia = new proDia
 const menu = require("../controllers/menu_dia");
@@ -48,7 +46,7 @@ router.get('/verificar', verify, async function(req, res, next) {
   if (!userb) {
     return res.status(404).json({auth: false, message: 'Usuario inválido'});
   }
-  res.json({auth: true, tipo: req.tipo});
+  res.json({auth: true, rol: userb.rol});
 })
 
 /* POST  rutas*/
@@ -74,10 +72,10 @@ router.post('/Contacto/Registrarse', verify, async (req, res, next) => {
     const registro = await users.guardargere(nombre, apellido, usuario, clave, correo);
     if(registro.token) {
       res.json({ status: 'Te has registrado correctamente', token: registro.token, tipo: "Cliente"})
-      // res.redirect('/Clientes')
+      res.redirect('/Clientes')
     } else {
       res.json({ status: 'Su usuario y/o correo ya está en uso', tokencont: false})
-      // res.redirect('/Login')
+      res.redirect('/Login')
     }
   }
   catch(err) {
@@ -88,7 +86,6 @@ router.post('/Contacto/Registrarse', verify, async (req, res, next) => {
 router.post('/Login/Registrarse', async (req, res) => {
   try {
     const { nombre, apellido, usuario, clave, correo } = req.body;
-    console.log(nombre, apellido, usuario, clave, correo)
     const registro = await users.guardar(nombre, apellido, usuario, clave, correo);
     if(registro.token) {
       res.json({ status: 'Te has registrado correctamente', token: registro.token, tipo: "Cliente"})

@@ -10,19 +10,19 @@ class userclass{
     const adm = new Usuario({ nombre, apellido, usuario, clave, correo });
     adm.clave = await adm.encryptClave(adm.clave);
     await adm.save();
-    const token = jwt.sign({id: adm._id, tipo: 'Cliente'}, config.secret, {
+    const token = jwt.sign({id: adm._id}, config.secret, {
       expiresIn: 60 * 60 * 12
     });
-    return ({token});
+    return token;
   }
   async guardargere (nombre, apellido, usuario, clave, correo) {
     const adm = new Usuario({ nombre, apellido, usuario, clave, correo, rol: 'Gerente' });
     adm.clave = await adm.encryptClave(adm.clave);
     await adm.save();
-    const token = jwt.sign({id: adm._id, tipo: 'Gerente'}, config.secret, {
+    const token = jwt.sign({id: adm._id}, config.secret, {
       expiresIn: 60 * 60 * 12
     });
-    return ({token});
+    return token;
   }
   async entrar (s) {
     const h = await Gerente.findOne({usuario: s.usuario});
@@ -39,10 +39,10 @@ class userclass{
         status: 'Usuario o contrseña incorrecta'
       };
     }
-    const token = jwt.sign({id: h._id, tipo: 'Gerente'}, config.secret, {
+    const token = jwt.sign({id: h._id}, config.secret, {
       expiresIn: 60 * 60 * 12
     });
-    return {auth: true, token};
+    return token;
   }
 }
 
