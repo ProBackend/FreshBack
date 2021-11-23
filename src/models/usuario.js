@@ -19,8 +19,13 @@ const UsuarioSchema = new Schema({
     type: String,
     required: true,
   },
+  correo: {
+    type: String,
+    required: true,
+  },
   rol: {
     type: String,
+    default: 'Cliente',
     required: true,
   }
 });

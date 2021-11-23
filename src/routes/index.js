@@ -9,7 +9,7 @@ const info = require("../controllers/informacion")
 let informacion = new info
 
 const user = require("../controllers/usuario")
-let user = new user
+let users = new user
 
 const ge = require("../controllers/gerente")
 let gerente = new ge
@@ -22,7 +22,6 @@ let Pr_dia = new proDia
 
 const menu = require("../controllers/menu_dia");
 let menu_dia = new menu
-
 
 /* GET home */
 router.get('/', async (req, res) => {
@@ -44,25 +43,7 @@ router.get('/MenuDia/consulta', async function(req, res) {
 })
 
 /* POST  rutas*/
-router.post('/Login/Registrarse', async (req, res) => {
-  await cliente.guardar(req.body)
-    .then(registro => {
-      if(registro.tokencont) {
-        res.json({ status: 'Te has registrado correctamente', tokencont: true, token: registro.token, clientela: registro.clientela, tipo: "Cliente"})
-        res.redirect('/Clientes')
-      } else {
-        res.json({ status: 'Su usuario y/o correo ya está en uso', tokencont: false})
-        res.redirect('/Login')
-      }
-    })
-});
-/*
-router.post('/Login/Iniciar_sesion', Passport.authenticate('local', {
-  successRedirect: '/AcercadeNosotros',
-  failureRedirect: '/Login',
-  failureFlash: true
-}));
-*/
+
 router.post('/ProductosRegu/guardar', async function(req, res) {
   res.json(await producto.guardar(req.body))
 })
@@ -77,16 +58,6 @@ router.post('/MenuDia/guardar', async function(req, res) {
 router.post('/nosotros/guardar', async function(req, res) {
   res.json(await informacion.guardar(req.body))
 })
-router.post('/gerente/registrar', async (req, res) => {
-  await gerente.guardar(req.body)
-    .then(registro => {
-      if(registro) {
-        res.json({ status: 'Se ha registrado correctamente'})
-      } else {
-        res.json({ status: 'El usuario ya está en uso'})
-      }
-    })
-});
 
 /*Put rutas */
 router.put('/ProductosRegu/editar', async function(req, res) {
@@ -117,6 +88,8 @@ router.delete('/nosotros/eliminar', async function(req, res) {
   res.json(await informacion.eliminar(req.body))
 })
 
+/* Usuarios */
+
 // Verificar sesion
 router.get('/verificar', verify, async function(req, res, next) {
   const userb = await user.findOne(req.userid, {clave: 0})
@@ -125,5 +98,41 @@ router.get('/verificar', verify, async function(req, res, next) {
   }
   res.json({auth: true, tipo: req.tipo});
 })
+
+router.post('/Contacto/Registrarse', verify, async (req, res, next) => {
+  try {
+    const { nombre, apellido, usuario, clave, correo } = req.body;
+    console.log(nombre, apellido, usuario, clave, correo)
+    const registro = await users.guardargere(nombre, apellido, usuario, clave, correo);
+    if(registro.token) {
+      res.json({ status: 'Te has registrado correctamente', token: registro.token, tipo: "Cliente"})
+      // res.redirect('/Clientes')
+    } else {
+      res.json({ status: 'Su usuario y/o correo ya está en uso', tokencont: false})
+      // res.redirect('/Login')
+    }
+  }
+  catch(err) {
+    res.status(500).json({ status: 'Error al registrar', tokencont: false})
+  }
+})
+
+router.post('/Login/Registrarse', async (req, res) => {
+  try {
+    const { nombre, apellido, usuario, clave, correo } = req.body;
+    console.log(nombre, apellido, usuario, clave, correo)
+    const registro = await users.guardar(nombre, apellido, usuario, clave, correo);
+    if(registro.token) {
+      res.json({ status: 'Te has registrado correctamente', token: registro.token, tipo: "Cliente"})
+      res.redirect('/Clientes')
+    } else {
+      res.json({ status: 'Su usuario y/o correo ya está en uso', tokencont: false})
+      res.redirect('/Login')
+    }
+  }
+  catch(err) {
+    res.status(500).json({ status: 'Error al registrar', tokencont: false})
+  }
+});
 
 module.exports = router;
