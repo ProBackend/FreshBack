@@ -171,12 +171,10 @@ export default {
     guardar() {
       if (this.esContacto) {
         if (!this.contacto.nombre || !this.contacto.apellido || !this.contacto.direccion || !this.contacto.descripcion) {
-          this.mensaje = 'Recuerde rellenar todos los campos'
-          return
+          return this.mensaje = 'Recuerde rellenar todos los campos'
         }
         if (!this.contacto.telefono || !validarTel(this.contacto.telefono)) {
-          this.mensaje = 'Ingrese un número de teléfono válido en el formato: 58xxxxxxxxxx'
-          return
+          return this.mensaje = 'Ingrese un número de teléfono válido en el formato: 58xxxxxxxxxx'
         }
         this.contacto.nombre = capitalizar(this.contacto.nombre)
         this.contacto.apellido = capitalizar(this.contacto.apellido)
@@ -191,10 +189,12 @@ export default {
         })
         .then(res => res.json())
         .then(data => this.mensaje = data)
+        setTimeout(() => {
+          this.mensaje = ''
+        })
       } else {
         if (!this.gerente.nombre || !this.gerente.apellido || !this.gerente.usuario || !this.gerente.clave) {
-          this.mensaje = 'Recuerde rellenar todos los campos'
-          return
+          return this.mensaje = 'Recuerde rellenar todos los campos'
         }
         this.gerente.nombre = capitalizar(this.gerente.nombre)
         this.gerente.apellido = capitalizar(this.gerente.apellido)
@@ -208,6 +208,9 @@ export default {
         })
         .then(res => res.json())
         .then(data => this.mensaje = data.status)
+        setTimeout(() => {
+          this.mensaje = ''
+        })
       }
     },
     reinicioDeDatos() {

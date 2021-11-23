@@ -1,29 +1,13 @@
 <template>
   <section>
-    <div class="d-flex justify-content-center">
-      <button
-        type="button"
-        class="btn-secundario mx-4 mb-4"
-        @click="mostrar = !mostrar, Escontacto = true"
-      >
-        Agregar contacto
-      </button>
-      <button
-        type="button"
-        class="btn-secundario mx-4 mb-4"
-        @click="mostrar = !mostrar"
-      >
-        Agregar gerente
-      </button>
-    </div>
-    <div class="d-flex justify-content-around">
-      <div class="card mx-3" style="width: 18rem;" v-for="contacto in contactos" :key="contacto.id">
+    <div class="row d-flex justify-content-around">
+      <div class="card col-2 mx-3" v-for="contacto in contactos" :key="contacto.id">
         <div class="card-body">
           <h5 class="card-title">{{ contacto.nombre }} {{ contacto.apellido }}</h5>
           <h6 class="card-subtitle mb-2 text-muted">{{ contacto.direccion }}</h6>
           <p class="card-text">{{ contacto.descripcion }}</p>
-          <a href="#" class="card-link">{{ contacto.telefono }}</a>
-          <button @click="eliminar(contacto._id)" class="btn btn-danger btn-block">Delete</button>
+          <a href="#" class="p-tel">{{ contacto.telefono }}</a>
+          <button @click="eliminar(contacto._id)" class="btn-terciario w-100 m px-1">Delete</button>
         </div>
       </div>
     </div>

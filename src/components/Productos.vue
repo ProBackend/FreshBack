@@ -1,30 +1,7 @@
 <template>
   <section>
-    <div class="d-flex justify-content-around">
-      <button
-        type="button"
-        class="btn-secundario"
-        @click="proRe = !proRe"
-      >
-        Agregar producto regular
-      </button>
-      <button
-        type="button"
-        class="btn-secundario"
-        @click="proDia = !proDia"
-      >
-        Agregar producto del día
-      </button>
-      <button
-        type="button"
-        class="btn-secundario"
-        @click="menuDia = !menuDia"
-      >
-        Agregar menú del día
-      </button>
-    </div>
     <div class="row d-flex justify-content-around">
-      <div class="card col-2 m-3" v-for="p in productos" :key="p.ingredientes">
+      <div class="card col-1 m-3" v-for="p in productos" :key="p.ingredientes">
         <div class="mt-2 d-flex justify-content-center">
           <img :src="p.path" class="card-img"/>
         </div>
@@ -32,18 +9,18 @@
           <h5 class="card-title h5-tittle">{{p.nombre}}</h5>
           <p class="p-texto-oscuro">{{p.ingredientes}}</p>
           <p><small class="text-muted">{{p.precio}}</small></p>
-          <button @click="editar = true; Editar = p; proRe = true" class="btn-terciario px-2">Editar</button>
-          <button type="submit" @click="eliminar(p._id)" class="btn-secundario px-2">Eliminar</button>
+          <div class="contenedor-btn">
+            <button @click="editar = true; Editar = p; proRe = true" class="btn-secundario w-100 my-1 px-1">Editar</button>
+            <button type="submit" @click="eliminar(p._id)" class="btn-terciario w-100 my-1 px-1">Eliminar</button>
+          </div>
         </div>
       </div>
     </div>
-    <ModalProducto
+    <ModalPPDM
       :ProductoRe= proRe
-      :ProductoDia = proDia
-      :MenuDia = menuDia
       :esEditar= Editar
       :Actualizar= editar
-      @cerrar="buscar(); editar = false; Editar = {}; proRe = false; proDia = false; menuDia = false"
+      @cerrar="buscar(); editar = false; Editar = {}; proRe = false"
     />
     <Alertamensaje
       :mensaje="this.mensaje"
@@ -53,20 +30,18 @@
 
 <script>
 import Alertamensaje from './Alertamensaje.vue';
-import ModalProducto from './ModalPPDM.vue'
+import ModalPPDM from './ModalPPDM.vue'
 
 export default {
   name: 'Productos',
   components: {
-    ModalProducto,
+    ModalPPDM,
     Alertamensaje
   },
   data() {
     return {
       productos: [],
       proRe: false,
-      proDia: false,
-      menuDia: false,
       mensaje: '',
       Editar: {},
       editar: false
@@ -95,8 +70,9 @@ export default {
       })
         .then(res => res.json())
         .then(data => this.mensaje = data)
-
-      this.buscar()
+        setTimeout(() => {
+          this.mensaje = ''
+        })
     }
   }
 }

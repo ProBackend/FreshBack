@@ -14,6 +14,10 @@ const Menuschema = new Schema({
   },
   path: {
     type: String,
+  },
+  activo: {
+    type: Boolean,
+    default: false,
   }
 });
 

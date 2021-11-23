@@ -44,7 +44,7 @@
           <div class="d-flex justify-content-end mx-2 my-2">
             <div>
               <button type="submit" class="btn-primario-modal" @click="Actualizar ? editar() : guardar()">Guardar</button>
-              <button class="btn-secundario-modal" @click="$emit('cerrar', false), reinicioDeDatos()">Cerrar</button>
+              <button type="submit" class="btn-secundario-modal" @click="$emit('cerrar', false), reinicioDeDatos()">Cerrar</button>
             </div>
           </div>
         </div>
@@ -61,7 +61,7 @@ import Alertamensaje from './Alertamensaje.vue';
 import { capitalizar } from "../controllers/funcionesGenerales";
 
 export default {
-  name: 'modalPro',
+  name: 'ModalPPDM',
   components: {
     Alertamensaje,
     capitalizar
@@ -99,13 +99,17 @@ export default {
       P : {},
       PD : {},
       M : {},
-      menuDia : false,
     }
   },
   methods: {
     guardar() {
-      if (!this.nombre || !this.ingredientes || !this.precio || !this.path) {
-        return this.mensaje= 'Recuerde rellenar todos los campos'
+      if (!this.nombre || !this.precio || !this.path) {
+        if (this.MenuDia && !this.productos) {
+          return this.mensaje= 'Recuerde rellenar todos los campos'
+        }
+        if (!this.MenuDia && !this.ingredientes) {
+          return this.mensaje= 'Recuerde rellenar todos los campos'
+        }
       }
       this.nombre = capitalizar(this.nombre)
       this.ingredientes = capitalizar(this.ingredientes)
@@ -124,7 +128,7 @@ export default {
         }
       this.M = {
           nombre: this.nombre,
-          productos: this.ingredientes,
+          productos: this.productos,
           precio: this.precio,
           path: this.path
         }
@@ -139,6 +143,9 @@ export default {
         })
         .then(res => res.json())
         .then(data => this.mensaje = data)
+        setTimeout(() => {
+          this.mensaje = ''
+        }, 2000)
       }
       if (this.ProductoDia) {
         if (!this.oferta) {
@@ -154,6 +161,9 @@ export default {
         })
         .then(res => res.json())
         .then(data => this.mensaje = data)
+        setTimeout(() => {
+          this.mensaje = ''
+        }, 2000)
       }
       if (this.MenuDia) {
         fetch('/MenuDia/guardar', {
@@ -166,6 +176,9 @@ export default {
         })
         .then(res => res.json())
         .then(data => this.mensaje = data)
+        setTimeout(() => {
+          this.mensaje = ''
+        }, 2000)
       }
     },
     editar() {
@@ -212,6 +225,9 @@ export default {
         })
         .then(res => res.json())
         .then(data => this.mensaje = data)
+        setTimeout(() => {
+          this.mensaje = ''
+        }, 2000)
       }
       if (this.ProductoDia) {
         if (!this.esEditar.oferta) {
@@ -227,6 +243,9 @@ export default {
         })
         .then(res => res.json())
         .then(data => this.mensaje = data)
+        setTimeout(() => {
+          this.mensaje = ''
+        }, 2000)
       }
       if (this.MenuDia) {
         fetch('/MenuDia/editar', {
@@ -239,6 +258,9 @@ export default {
         })
         .then(res => res.json())
         .then(data => this.mensaje = data)
+        setTimeout(() => {
+          this.mensaje = ''
+        }, 2000)
       }
     },
     reinicioDeDatos() {

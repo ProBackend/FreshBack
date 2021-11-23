@@ -1,51 +1,51 @@
 <template>
   <section>
-    <div class="mb-4">
-      <div class="card imagenAncha">
-        <img src="/assets/prueba.jpg" alt="prueba.jpg" class="card-img imagenAncha">
-        <div class="card-img-overlay">
-          <h5 class="card-title h5-tittle">Menú del día</h5>
-          <p class="card-text p-texto-oscuro">Descripción</p>
-          <p class="mt-5"><small class="p-texto-oscuro">Precio idk</small></p>
-        </div>
-      </div>
-    </div>
-    <div class="card col-2 m-3" v-for="pro in proDia" :key="pro.nombre">
-      <div class="mt-2 d-flex justify-content-center">
-        <img :src="pro.path" class="card-img">
-      </div>
-      <div class="mt-2">
-        <h5 class="card-title h5-tittle">{{pro.nombre}}</h5>
-        <p class="p-texto-oscuro">{{pro.oferta}}</p>
-        <p><small class="text-muted">{{pro.nombre}}</small></p>
-      </div>
-    </div>
-    <div class="contenedor"  v-for="menu in menuDia" :key="menu.nombre">
-      <div class="card mb-3" style="max-width: 540px;">
-        <div class="row g-0">
-          <div class="col-md-4">
-            <img :src="menu.path" class="card-img">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">{{menu.nombre}}</h5>
-              <p class="card-text">{{menu.ingredientes}}</p>
-              <p class="card-text"><small class="text-muted">{{menu.precio}}</small></p>
+    <div class="carousel slide">
+      <div class="carousel-inner">
+        <div v-for="item in menuDia" :key="item.url">
+          <div :class="['carousel-item', {'active' : item.activo} ]">
+            <img :src="item.path" :alt="item.nombre" class="d-block imagenAncha">
+            <div class="textoImagen">
+              <div class="carrusel-fondo">
+                <h5 class="h5-tittle">{{item.nombre}}</h5>
+                <p class="p-texto-oscuro">{{item.productos}}</p>
+                <p class="mt-4 text-muted">{{item.precio}}</p>
+              </div>
             </div>
-            <div class="card-body">
-              <button @click="eliminar(menu._id)" class="btn btn-danger btn-block">Delete</button>
-              <a href="/<%=p %>/editar/<%= mostrart.id%>" class="btn btn-primary">Editar</a>
-            </div>
+            <button class="carousel-control-prev" v-if="atras <= menuDia.length && atras != 0" type="submit" @click="carrusel(item), atras--">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Atras</span>
+            </button>
+            <button class="carousel-control-next" v-if="atras < menuDia.length-1" type="submit" @click="carrusel(item, true), atras++">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Siguiente</span>
+            </button>
           </div>
         </div>
       </div>
     </div>
-    <ModalProducto
-      :ProductoDia = ProDia
-      :MenuDia = MenuDia
-      :mostrarmodal= mostrar
-      :esEditar = esEditar
-      @cerrar="buscar(); mostrar= false; ProDia = false; MenuDia = false; esEditar = {}"
+    <div class="row justify-content-around">
+      <div class="card col-1 m-3" v-for="pro in proDia" :key="pro._id">
+        <div class="mt-2 d-flex justify-content-center">
+          <img :src="pro.path" class="card-img">
+        </div>
+        <div class="mt-2">
+          <h5 class="card-title h5-tittle">{{pro.nombre}}</h5>
+          <p class="p-texto-oscuro">{{pro.oferta}}</p>
+          <p><small class="text-muted">{{pro.nombre}}</small></p>
+          <div class="contenedor-btn">
+            <button @click="editar = true; Editar = p; Prod = true" class="btn-terciario w-100 my-1 px-1">Editar</button>
+            <button type="submit" @click="eliminar(p._id)" class="btn-secundario w-100 my-1 px-1">Eliminar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ModalPPDM
+      :ProductoDia= Prod
+      :MenuDia= Me
+      :esEditar= Editar
+      :Actualizar= editar
+      @cerrar="buscarMenu(), buscarPD(), editar = false; Editar = {}; Prod = false, Me = false"
     />
     <Alertamensaje
       @limpio="this.mensaje"
@@ -55,35 +55,45 @@
 </template>
 
 <script>
+import ModalPPDM from './ModalPPDM.vue'
 import Alertamensaje from './Alertamensaje.vue';
-import ModalProducto from './ModalPPDM.vue'
 
 export default {
   name: 'MenudelDia',
   components: {
-    ModalProducto,
+    ModalPPDM,
     Alertamensaje
   },
   data() {
     return {
       proDia: [],
+      Prod: false,
       menuDia: [],
-      esEditar: {},
+      Me: false,
+      Editar: {},
+      editar: false,
       mensaje: '',
-      mostrar: false,
-      ProDia: false,
-      MenuDia: false
+      atras: 0,
+      One: true
     }
   },
   created(){
-    this.buscar()
+    this.buscarMenu()
+    this.buscarPD()
   },
   methods: {
-    buscar(){
+    buscarMenu(){
       fetch('/MenuDia/consulta')
         .then(res => res.json())
-        .then(data => this.menuDia= data)
-
+        .then(data => {
+          if (data[0].activo == false && this.One == true) {
+              data[0].activo = true
+              this.menuDia = data
+              this.One = false
+            }
+          })
+    },
+    buscarPD(){
       fetch('/ProductoDia/consulta')
         .then(res => res.json())
         .then(data => this.proDia= data)
@@ -92,7 +102,6 @@ export default {
       const eliminar = {
         id: id
       }
-
       if (acc) {
         fetch('/ProductosDia/eliminar', {
           method: 'DELETE',
@@ -104,6 +113,9 @@ export default {
         })
           .then(res => res.json())
           .then(data => this.mensaje = data)
+          setTimeout(() => {
+            this.mensaje = ''
+          })
       } else {
         fetch('/MenuDia/eliminar', {
           method: 'DELETE',
@@ -115,9 +127,22 @@ export default {
         })
           .then(res => res.json())
           .then(data => this.mensaje = data)
+          setTimeout(() => {
+            this.mensaje = ''
+          })
       }
-
-      this.buscar()
+    },
+    carrusel(item, next){
+      for (let poss = 0; poss < this.menuDia.length; poss++) {
+        if (this.menuDia[poss]._id == item._id) {
+          this.menuDia[poss].activo = false
+            if (next) {
+              this.menuDia[poss+1].activo = true
+            }else {
+              this.menuDia[poss-1].activo = true
+            }
+        }
+      }
     }
   }
 }
