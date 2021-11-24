@@ -81,7 +81,10 @@ export default {
   },
   props: {
     usuario: {
-      type: Object
+      type: Object,
+      default() {
+        return {}
+      }
     },
     Ofertas: {
       type: Boolean,

@@ -201,9 +201,6 @@ export default {
         })
         .then(res => res.json())
         .then(data => this.mensaje = data)
-        setTimeout(() => {
-          this.mensaje = ''
-        })
       } else {
         if (!this.gerente.nombre || !this.gerente.apellido || !this.gerente.usuario || !this.gerente.clave || !this.gerente.correo) {
           return this.mensaje = 'Recuerde rellenar todos los campos'
@@ -221,9 +218,6 @@ export default {
         })
         .then(res => res.json())
         .then(data => this.mensaje = data.status)
-        setTimeout(() => {
-          this.mensaje = ''
-        })
       }
       this.reinicioDeDatos()
       this.$emit('cerrar', false)
