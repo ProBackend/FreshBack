@@ -60,7 +60,7 @@
   <div v-else>
     <Login
       @token="sesion = $event"
-      @back="registro = false, Menu = true"
+      @back="registro = false, Ofertas = true"
       @usuario= user
       :Nuevo= login
     />

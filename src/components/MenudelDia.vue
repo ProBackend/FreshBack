@@ -12,8 +12,8 @@
                 <p class="text-muted">{{item.precio}}</p>
               </div>
               <div class="contenedor-carrusel-btn">
-                <div>
-                  <button @click="eliminar(item._id), buscarMenu()" class="btn-terciario px-2 mx-2">Eliminar</button>
+                <div v-if="permiso">
+                  <button  @click="eliminar(item._id), buscarMenu()" class="btn-terciario px-2 mx-2">Eliminar</button>
                   <button @click="editar = true; Editar = item; Me = true" class="btn-secundario px-2 mx-2">Editar</button>
                 </div>
               </div>
@@ -31,21 +31,19 @@
       </div>
     </div>
     <div class="row justify-content-around">
-      <div class="card col m-3 d-flex justify-content-between" v-for="pro in proDia" :key="pro._id">
+      <div class="card col m-3 justify-content-between" v-for="pro in proDia" :key="pro._id">
         <div>
-          <div class="my-2 d-flex justify-content-center">
+          <div class="mt-2 d-flex justify-content-center ">
             <img :src="pro.path" class="card-img">
           </div>
-          <div class="">
-            <div>
-              <h5 class="card-title h5-tittle">{{pro.nombre}}</h5>
-              <p class="p-texto-oscuro">{{pro.oferta}}</p>
-              <p><small class="text-muted">{{pro.nombre}}</small></p>
-            </div>
+          <div class="mt-2">
+            <h5 class="card-title h5-tittle">{{pro.nombre}}</h5>
+            <p class="p-texto-oscuro">{{pro.ingredientes}}</p>
+            <p><small class="text-muted">{{pro.oferta}}</small></p>
           </div>
         </div>
-        <div class="d-flex justify-content-between mb-2">
-          <button @click="editar = true; Editar = pro; Prod = true" class="btn-secundario px-2">Editar</button>
+        <div v-if="permiso" class="d-flex justify-content-between mb-2">
+          <button  @click="editar = true; Editar = pro; Prod = true" class="btn-secundario px-2">Editar</button>
           <button type="submit" @click="eliminar(pro._id, true), buscarPD()" class="btn-terciario px-2">Eliminar</button>
         </div>
       </div>
@@ -78,7 +76,7 @@ export default {
   props: {
     permiso: {
       type: Boolean,
-      required: true
+      default: false
     }
   },
   data() {
@@ -103,10 +101,10 @@ export default {
         .then(res => res.json())
         .then(data => {
           if (data[0].activo == false) {
-              data[0].activo = true
-              this.menuDia = data
-            }
-          })
+            data[0].activo = true
+          }
+          this.menuDia = data
+        })
     },
     buscarPD(){
       fetch('/ProductoDia/consulta')

@@ -29,10 +29,15 @@
                   <textarea v-else v-model="datosEditar.ingredientes" type="text" class="input" id="inputIngredientes" placeholder="Ingredientes"></textarea>
                 </div>
               </div>
-              <div>
+              <div v-if="!ProductoDia" >
                 <label for="inputPrecio" class="input-label">Precio</label>
                 <input v-if="!Actualizar" v-model="precio" type="number" class="input" id="inputPrecio" placeholder="Precio">
                 <input v-else v-model="datosEditar.precio" type="number" class="input" id="inputPrecio" placeholder="Precio">
+              </div>
+              <div v-if="ProductoDia">
+                <label for="inputPrecio" class="input-label">Precio</label>
+                <input v-if="!Actualizar" v-model="precio_r" type="number" class="input" id="inputPrecio_r" placeholder="Precio_r">
+                <input v-else v-model="datosEditar.precio_r" type="number" class="input" id="inputPrecio_r" placeholder="Precio_r">
               </div>
               <div v-if="ProductoDia">
                 <label for="inputPrecio" class="input-label">Oferta</label>
@@ -43,7 +48,7 @@
           </div>
           <div class="d-flex justify-content-end mx-2 my-2">
             <div>
-              <button type="submit" class="btn-primario-modal" @click="Actualizar ? editar() : guardar(); $emit('refrescar', true)">Guardar</button>
+              <button type="submit" class="btn-primario-modal" @click="Actualizar ? editar() : guardar(); $emit('cerrar');$emit('refrescar', true)">Guardar</button>
               <button class="btn-secundario-modal" @click="$emit('cerrar'), reinicioDeDatos()">Cerrar</button>
             </div>
           </div>
@@ -112,11 +117,7 @@ export default {
   },
   methods: {
     guardar() {
-      if (!this.nombre || !this.ingredientes && !this.productos || !this.precio || !this.path) {
-        return this.mensaje= 'Recuerde rellenar todos los campos'
-      }
-      this.nombre = capitalizar(this.nombre)
-      this.ingredientes = capitalizar(this.ingredientes)
+     
       this.P = {
           nombre: this.nombre,
           ingredientes: this.ingredientes,
@@ -136,7 +137,25 @@ export default {
           precio: this.precio,
           path: this.path
         }
+
+        if(this.ProductoDia){
+ if (!this.nombre || !this.ingredientes && !this.productos || !this.precio_r || !this.path) {
+        return this.mensaje= 'Recuerde rellenar todos los campos'
+      }
+
+        }
+
+        if(this.ProductoRe || this.MenuDia){
+ if (!this.nombre || !this.ingredientes && !this.productos || !this.precio || !this.path) {
+        return this.mensaje= 'Recuerde rellenar todos los campos'
+      }
+        }
+this.nombre = capitalizar(this.nombre)
+      this.ingredientes = capitalizar(this.ingredientes)
+
+
       if (this.ProductoRe) {
+        
         fetch('/ProductosRegu/guardar', {
           method: 'POST',
           body: JSON.stringify(this.P),
@@ -152,6 +171,7 @@ export default {
         }, 2000)
       }
       if (this.ProductoDia) {
+        
         if (!this.oferta) {
           return this.mensaje = 'Recuerde rellenar todos los campos'
         }
@@ -170,6 +190,7 @@ export default {
         }, 2000)
       }
       if (this.MenuDia) {
+        
         fetch('/MenuDia/guardar', {
           method: 'POST',
           body: JSON.stringify(this.M),
@@ -187,12 +208,7 @@ export default {
       this.reinicioDeDatos()
     },
     editar() {
-      if (!this.datosEditar.nombre || !this.datosEditar.ingredientes || !this.datosEditar.precio || !this.datosEditar.path) {
-        return this.mensaje = 'Recuerde rellenar todos los campos'
-      }
-      this.datosEditar.nombre = capitalizar(this.datosEditar.nombre)
-      this.datosEditar.ingredientes = capitalizar(this.datosEditar.ingredientes)
-
+      
       this.P = {
         id: this.datosEditar._id,
         nombre: this.datosEditar.nombre,
@@ -204,7 +220,7 @@ export default {
         id: this.datosEditar._id,
         nombre: this.datosEditar.nombre,
         ingredientes: this.datosEditar.ingredientes,
-        precio_r: this.datosEditar.precio,
+        precio_r: this.datosEditar.precio_r,
         oferta: this.datosEditar.oferta,
         path: this.datosEditar.path
       }
@@ -215,7 +231,38 @@ export default {
         precio: this.datosEditar.precio,
         path: this.datosEditar.path
       }
+
+      if(this.ProductoRe){
+        
+     if (!this.datosEditar.nombre || !this.datosEditar.ingredientes || !this.datosEditar.precio || !this.datosEditar.path) {
+        return this.mensaje = 'Recuerde rellenar todos los campos'
+      }
+      this.datosEditar.nombre = capitalizar(this.datosEditar.nombre)
+      this.datosEditar.ingredientes = capitalizar(this.datosEditar.ingredientes)
+
+      }
+
+      if(this.ProductoDia){
+        if (!this.datosEditar.nombre || !this.datosEditar.ingredientes || !this.datosEditar.precio_r || !this.datosEditar.path) {
+        return this.mensaje = 'Recuerde rellenar todos los campos'
+      }
+      this.datosEditar.nombre = capitalizar(this.datosEditar.nombre)
+      this.datosEditar.ingredientes = capitalizar(this.datosEditar.ingredientes)
+
+      }
+
+
+      if(this.MenuDia){
+
+if (!this.datosEditar.nombre || !this.datosEditar.productos||!this.datosEditar.precio || !this.datosEditar.path) {
+        return this.mensaje = 'Recuerde rellenar todos los campos'
+      }
+      this.datosEditar.nombre = capitalizar(this.datosEditar.nombre)
+      
+
+      }
       if (this.ProductoRe) {
+        
         fetch('/ProductosRegu/editar', {
           method: 'PUT',
           body: JSON.stringify(this.P),
@@ -231,7 +278,7 @@ export default {
         }, 2000)
       }
       if (this.ProductoDia) {
-        console.log(this.PD)
+        
         fetch('/ProductosDia/editar', {
           method: 'PUT',
           body: JSON.stringify(this.PD),
@@ -247,6 +294,7 @@ export default {
         }, 2000)
       }
       if (this.MenuDia) {
+        
         fetch('/MenuDia/editar', {
           method: 'PUT',
           body: JSON.stringify(this.M),
@@ -278,4 +326,5 @@ export default {
     }
   }
 }
+
 </script>

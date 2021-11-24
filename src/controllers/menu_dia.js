@@ -1,43 +1,35 @@
 const MenuDia = require("../models/menu_dia");
-class menuDia{
+class menuDia {
     constructor(req) {}
     async consultar() {
-      const consulta = await MenuDia.find()
-      return consulta
+        const consulta = await MenuDia.find()
+        return consulta
     }
-    // pruebassa(token) {
-    //   if(token){
-    //     token = false
-    //   } else{
-    //     token = true;
-    //   }
-    //   console.log('asdasdasAAA')
-    //   return token
-    // }
     async guardar(req) {
-      const menu = new MenuDia(req);
-      await menu.save();
-      const mensaje = `Se ha registrado ${req.nombre} como menú del día correctamente`
-      return mensaje
+        const menu = new MenuDia(req);
+        await menu.save();
+        const mensaje = `Se ha registrado ${req.nombre} como menú del día correctamente`
+        return mensaje
     }
-    
+
     async eliminar(req) {
         await MenuDia.findByIdAndRemove({ _id: req.id });
         const mensaje = `Se ha eliminado correctamente`
         return mensaje
     }
-    
-  async editar(req) {
-    await MenuDia.updateOne({ _id: req.id }, {
-      nombre: req.nombre,
-      ingredientes: req.ingredientes,
-      precio: req.precio,
-      path: req.path,
-    })
-    
-    const mensaje = `Se ha actualizado ${req.nombre} correctamente`
-    return mensaje
-  }
-  }
+
+    async editar(req) {
+
+        await MenuDia.updateOne({ _id: req.id }, {
+            nombre: req.nombre,
+            productos: req.productos,
+            precio: req.precio,
+            path: req.path,
+        })
+
+        const mensaje = `Se ha actualizado ${req.nombre} correctamente`
+        return mensaje
+    }
+}
 
 module.exports = menuDia

@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="row d-flex justify-content-around">
-      <div class="card col m-3" v-for="p in productos" :key="p.ingredientes">
+      <div class="card col m-3 justify-content-between" v-for="p in productos" :key="p.ingredientes">
         <div>
           <div class="mt-2 d-flex justify-content-center">
             <img :src="p.path" class="card-img"/>
@@ -12,7 +12,7 @@
             <p><small class="text-muted">{{p.precio}}</small></p>
           </div>
         </div>
-          <div class="d-flex justify-content-between mb-2">
+          <div v-if="permiso" class="d-flex justify-content-between mb-2">
             <button @click="editar = true; Editar = p; proRe = true" class="btn-secundario px-2">Editar</button>
             <button type="submit" @click="eliminar(p._id)" class="btn-terciario px-2">Eliminar</button>
           </div>
@@ -23,7 +23,7 @@
       :esEditar= Editar
       :Actualizar= editar
       @cerrar="editar = false; Editar = {}; proRe = false"
-      @actualizar="buscar()"
+      @refrescar="buscar()"
     />
     <Alertamensaje
       @msj="mensaje = ''"
@@ -45,7 +45,7 @@ export default {
   props: {
     permiso: {
       type: Boolean,
-      required: true
+      default: false
     }
   },
   data() {

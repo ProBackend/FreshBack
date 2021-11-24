@@ -7,7 +7,7 @@
           <h6 class="card-subtitle mb-2 text-muted">{{ contacto.direccion }}</h6>
           <p class="card-text">{{ contacto.descripcion }}</p>
           <a href="#" class="p-tel">{{ contacto.telefono }}</a>
-          <button @click="eliminar(contacto._id)" class="btn-terciario w-100 m px-1">Delete</button>
+          <button v-if="permiso" @click="eliminar(contacto._id)" class="btn-terciario w-100 m px-1">Delete</button>
         </div>
       </div>
     </div>
@@ -34,7 +34,7 @@ export default {
   props: {
     permiso: {
       type: Boolean,
-      required: true
+      default: false
     }
   },
   data() {
