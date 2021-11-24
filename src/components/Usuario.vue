@@ -79,7 +79,10 @@ export default {
   },
   props: {
     usuario: {
-      type: Object
+      type: Object,
+      default() {
+        return {}
+      }
     },
     Ofertas: {
       type: Boolean,
@@ -101,7 +104,7 @@ export default {
       menuDia: false,
       mostrar: false,
       esContacto: false,
-      mensaje: '',
+      mensaje: ''
     }
   }
 }

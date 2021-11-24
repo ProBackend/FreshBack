@@ -11,10 +11,6 @@
         </div>
       </div>
     </div>
-    <ModalGC
-      :esContacto="Escontacto"
-      @cerrar="mostrar= false, Escontacto=false"
-    />
     <Alertamensaje
       @msj="mensaje = ''"
       :mensaje="mensaje"
@@ -24,11 +20,10 @@
 
 <script>
 import Alertamensaje from "./Alertamensaje.vue";
-import ModalGC from "./ModalGC.vue";
+
 export default {
   name: 'Nosotros',
   components: {
-    ModalGC,
     Alertamensaje
   },
   props: {
@@ -39,9 +34,8 @@ export default {
   },
   data() {
     return {
-      Escontacto: false,
       contactos: [],
-      mensaje: ''
+      mensaje: '',
     }
   },
   created(){
