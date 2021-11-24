@@ -31,9 +31,6 @@ router.get('/verificar', verify, async function(req, res, next) {
     res.json({auth: true, rol: user.rol, nombre: user.nombre});
   }
 });
-router.get('/Clientes', async(req, res) => {
-  res.json(await cliente.consultar(req.body));
-});
 router.get('/nosotros/consulta', async function(req, res) {
   res.json(await informacion.consultar())
 });

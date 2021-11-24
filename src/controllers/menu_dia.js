@@ -5,15 +5,6 @@ class menuDia{
       const consulta = await MenuDia.find()
       return consulta
     }
-    // pruebassa(token) {
-    //   if(token){
-    //     token = false
-    //   } else{
-    //     token = true;
-    //   }
-    //   console.log('asdasdasAAA')
-    //   return token
-    // }
     async guardar(req) {
       const menu = new MenuDia(req);
       await menu.save();

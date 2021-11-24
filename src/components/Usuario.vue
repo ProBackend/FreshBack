@@ -79,20 +79,19 @@ export default {
   },
   props: {
     usuario: {
-      type: Object,
-      //required: true
+      type: Object
     },
     Ofertas: {
       type: Boolean,
-      required: true
+      default: false
     },
     Productos: {
       type: Boolean,
-      required: true
+      default: false
     },
     Nosotros: {
       type: Boolean,
-      required: true
+      default: false
     }
   },
   data() {

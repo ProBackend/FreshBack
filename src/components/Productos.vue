@@ -10,8 +10,8 @@
           <p class="p-texto-oscuro">{{p.ingredientes}}</p>
           <p><small class="text-muted">{{p.precio}}</small></p>
           <div class="contenedor-btn">
-            <button @click="editar = true; Editar = p; proRe = true" class="btn-secundario w-100 my-1 px-1">Editar</button>
-            <button type="submit" @click="eliminar(p._id)" class="btn-terciario w-100 my-1 px-1">Eliminar</button>
+            <button v-if="permiso" @click="editar = true; Editar = p; proRe = true" class="btn-secundario w-100 my-1 px-1">Editar</button>
+            <button v-if="permiso" type="submit" @click="eliminar(p._id)" class="btn-terciario w-100 my-1 px-1">Eliminar</button>
           </div>
         </div>
       </div>
@@ -42,7 +42,7 @@ export default {
   props: {
     permiso: {
       type: Boolean,
-      required: true
+      default: false
     }
   },
   data() {

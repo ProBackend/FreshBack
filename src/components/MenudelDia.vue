@@ -21,8 +21,8 @@
               <span class="visually-hidden">Siguiente</span>
             </button>
             <div class="">
-              <button @click="eliminar(item._id), buscarMenu()" class="btn-terciario px-2">Eliminar</button>
-              <button @click="editar = true; Editar = item; Me = true" class="btn-secundario px-2">Editar</button>
+              <button v-if="permiso" @click="eliminar(item._id), buscarMenu()" class="btn-terciario px-2">Eliminar</button>
+              <button v-if="permiso" @click="editar = true; Editar = item; Me = true" class="btn-secundario px-2">Editar</button>
             </div>
           </div>
         </div>
@@ -38,8 +38,8 @@
           <p class="p-texto-oscuro">{{pro.oferta}}</p>
           <p><small class="text-muted">{{pro.nombre}}</small></p>
           <div class="contenedor-btn">
-            <button @click="editar = true; Editar = pro; Prod = true" class="btn-secundario w-100 my-1 px-1">Editar</button>
-            <button type="submit" @click="eliminar(pro._id, true), buscarPD()" class="btn-terciario w-100 px-1 my-1">Eliminar</button>
+            <button v-if="permiso" @click="editar = true; Editar = pro; Prod = true" class="btn-secundario w-100 my-1 px-1">Editar</button>
+            <button v-if="permiso" type="submit" @click="eliminar(pro._id, true), buscarPD()" class="btn-terciario w-100 px-1 my-1">Eliminar</button>
           </div>
         </div>
       </div>
@@ -72,7 +72,7 @@ export default {
   props: {
     permiso: {
       type: Boolean,
-      required: true
+      default: false
     }
   },
   data() {
@@ -96,13 +96,7 @@ export default {
     buscarMenu(){
       fetch('/MenuDia/consulta')
         .then(res => res.json())
-        .then(data => {
-          if (data[0].activo == false && this.One == true) {
-              data[0].activo = true
-              this.menuDia = data
-              this.One = false
-            }
-          })
+        .then(data => this.menuDia = data)
     },
     buscarPD(){
       fetch('/ProductoDia/consulta')
