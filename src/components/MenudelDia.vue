@@ -99,12 +99,7 @@ export default {
     buscarMenu(){
       fetch('/MenuDia/consulta')
         .then(res => res.json())
-        .then(data => {
-          if (data[0].activo == false) {
-            data[0].activo = true
-          }
-          this.menuDia = data
-        })
+        .then(data => this.menuDia = data)
     },
     buscarPD(){
       fetch('/ProductoDia/consulta')

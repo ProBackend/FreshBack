@@ -20,7 +20,7 @@
           <button class="btn-secundario mx-2" @click.prevent="registro = true, login = false, Menu = false, Pro = false, Nosotros = false">Registrarse</button>
         </form>
         <form class="d-flex" v-else>
-          <button class="btn-primario mx-2" @click.prevent="sesion = ''">Cerrar sesión</button>
+          <button class="btn-primario mx-2" @click.prevent="sesion = ''; verificar()">Cerrar sesión</button>
         </form>
       </div>
     </nav>
@@ -59,7 +59,7 @@
   </div>
   <div v-else>
     <Login
-      @token="sesion = $event"
+      @token="sesion = $event; verificar()"
       @back="registro = false, Ofertas = true"
       @usuario= user
       :Nuevo= login
@@ -97,9 +97,8 @@ export default {
       sesion: ''
     }
   },
-  computed: {
+  methods: {
     verificar() {
-      console.log('aaaa')
       fetch('/verificar', {
         method: 'GET',
         headers: {
