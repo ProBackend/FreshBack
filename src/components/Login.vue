@@ -4,7 +4,7 @@
       <button class="btn-cerrar" @click="$emit('back')">X</button>
     </div>
     <div class="parteDelantera">
-      <form v-if="Nuevo" class="log">
+      <form v-if="nuevo" class="log">
         <h2 class="h2-tittle">Iniciar sesión</h2>
         <label for="userIngre" class="input-label">Usuario</label>
         <input
@@ -97,9 +97,8 @@
           <h3>¿Aún no tienes una cuenta?</h3>
           <p>Registrate para hacer ver nuestros productos</p>
           <button
-            id="btn_iniSe"
             class="btn-primario"
-            @click="Nuevo = false"
+            @click="nuevo = false"
           >
             Registrarse
           </button>
@@ -108,9 +107,8 @@
           <h3>¿Ya tienes una cuenta?</h3>
           <p>Inicia sesión para ver nuestros productos</p>
           <button
-            id="btn_iniSe"
             class="btn-primario"
-            @click="Nuevo = true"
+            @click="nuevo = true"
           >
             Iniciar sesión
           </button>
@@ -136,7 +134,7 @@ export default {
   props: {
     Nuevo:{
       type: Boolean,
-      required: true
+      default: false
     }
   },
   data(){
@@ -153,8 +151,12 @@ export default {
         clave: ''
       },
       mensaje: '',
-      token: ''
+      token: '',
+      nuevo: false
     }
+  },
+  created(){
+    this.nuevo = this.Nuevo
   },
   methods: {
     iniciarSesion() {
