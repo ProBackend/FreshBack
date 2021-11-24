@@ -178,6 +178,9 @@ export default {
           this.mensaje = data.status
           this.token = data.token
           this.$emit('token', this.token)
+          if (this.token.length) {
+            this.$emit('back')
+          }
         })
     },
     registrarse() {
@@ -203,6 +206,9 @@ export default {
           this.mensaje = data.status
           this.token = data.token
           this.$emit('token', this.token)
+          if (this.token.length) {
+            this.$emit('back')
+          }
         })
     }
   }
