@@ -55,4 +55,22 @@ class Usuarios{
   }
 }
 
+iniciar();
+
+async function iniciar() {
+  const adm = await Usuario.findOne({usuario: 'Administrador'});
+  if (!adm) {
+    admnew = new Usuario ({
+      nombre: 'Gerente',
+      apellido: 'Gerente',
+      usuario: 'Administrador',
+      clave: 'clave',
+      correo: 'correo@gmail.com',
+      rol: 'Gerente'
+    })
+    admnew.clave = await admnew.encryptClave(admnew.clave);
+    await admnew.save();
+  }
+}
+
 module.exports = Usuarios;
