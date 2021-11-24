@@ -5,11 +5,17 @@
         <div v-for="item in menuDia" :key="item.url">
           <div :class="['carousel-item', {'active' : item.activo} ]">
             <img :src="item.path" :alt="item.nombre" class="d-block imagenAncha">
-            <div class="textoImagen">
+            <div class="contenedor-carrusel-Menu">
               <div class="carrusel-fondo">
                 <h5 class="h5-tittle">{{item.nombre}}</h5>
                 <p class="p-texto-oscuro">{{item.productos}}</p>
-                <p class="mt-4 text-muted">{{item.precio}}</p>
+                <p class="text-muted">{{item.precio}}</p>
+              </div>
+              <div class="contenedor-carrusel-btn">
+                <div>
+                  <button v-if="permiso" @click="eliminar(item._id), buscarMenu()" class="btn-terciario px-2 mx-2">Eliminar</button>
+                  <button v-if="permiso" @click="editar = true; Editar = item; Me = true" class="btn-secundario px-2 mx-2">Editar</button>
+                </div>
               </div>
             </div>
             <button class="carousel-control-prev" v-if="atras <= menuDia.length && atras != 0" @click="carrusel(item), atras--">
@@ -20,27 +26,27 @@
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Siguiente</span>
             </button>
-            <div class="">
-              <button v-if="permiso" @click="eliminar(item._id), buscarMenu()" class="btn-terciario px-2">Eliminar</button>
-              <button v-if="permiso" @click="editar = true; Editar = item; Me = true" class="btn-secundario px-2">Editar</button>
-            </div>
           </div>
         </div>
       </div>
     </div>
     <div class="row justify-content-around">
-      <div class="card col m-3" v-for="pro in proDia" :key="pro._id">
-        <div class="mt-2 d-flex justify-content-center">
-          <img :src="pro.path" class="card-img">
-        </div>
-        <div class="mt-2">
-          <h5 class="card-title h5-tittle">{{pro.nombre}}</h5>
-          <p class="p-texto-oscuro">{{pro.oferta}}</p>
-          <p><small class="text-muted">{{pro.nombre}}</small></p>
-          <div class="contenedor-btn">
-            <button v-if="permiso" @click="editar = true; Editar = pro; Prod = true" class="btn-secundario w-100 my-1 px-1">Editar</button>
-            <button v-if="permiso" type="submit" @click="eliminar(pro._id, true), buscarPD()" class="btn-terciario w-100 px-1 my-1">Eliminar</button>
+      <div class="card col m-3 d-flex justify-content-between" v-for="pro in proDia" :key="pro._id">
+        <div>
+          <div class="my-2 d-flex justify-content-center">
+            <img :src="pro.path" class="card-img">
           </div>
+          <div class="">
+            <div>
+              <h5 class="card-title h5-tittle">{{pro.nombre}}</h5>
+              <p class="p-texto-oscuro">{{pro.oferta}}</p>
+              <p><small class="text-muted">{{pro.nombre}}</small></p>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between mb-2">
+          <button v-if="permiso" @click="editar = true; Editar = pro; Prod = true" class="btn-secundario px-2">Editar</button>
+          <button v-if="permiso" type="submit" @click="eliminar(pro._id, true), buscarPD()" class="btn-terciario px-2">Eliminar</button>
         </div>
       </div>
     </div>
@@ -85,7 +91,6 @@ export default {
       editar: false,
       mensaje: '',
       atras: 0,
-      One: true
     }
   },
   created(){
