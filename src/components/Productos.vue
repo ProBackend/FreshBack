@@ -21,7 +21,7 @@
       :esEditar= Editar
       :Actualizar= editar
       @cerrar="editar = false; Editar = {}; proRe = false"
-      @actualizar="buscar()"
+      @refrescar="buscar()"
     />
     <Alertamensaje
       :mensaje="mensaje"
