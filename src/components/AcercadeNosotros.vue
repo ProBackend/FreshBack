@@ -16,8 +16,9 @@
       @cerrar="mostrar= false, Escontacto=false"
     />
     <Alertamensaje
-        :mensaje="mensaje"
-      />
+      @msj="mensaje = ''"
+      :mensaje="mensaje"
+    />
   </section>
 </template>
 

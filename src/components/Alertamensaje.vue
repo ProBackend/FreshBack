@@ -13,9 +13,11 @@ export default {
       required: true,
     }
   },
-  watch: {
-    mensaje: () => {
-      setTimeout( () => '', 5000 )
+  computed: {
+    limpiars() {
+      setTimeout( () => {
+        this.mensaje = '', this.$emit('msj')}, 2000
+      )
     }
   }
 }

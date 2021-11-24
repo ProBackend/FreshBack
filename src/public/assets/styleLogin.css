@@ -4,20 +4,33 @@ body {
   background-repeat: no-repeat;
 }
 
-.parteDelantera form{
-  max-width: 20%;
-  left: 29%;
+.contenedorLogin {
+  position: absolute;
+  height: 40%;
+  top: 10rem;
+  width: 100%;
+}
+
+.partedelanteraRegistrarse {
+  position:absolute;
+  left: 30%;
+  top: 13%;
+  width: 20%;
+}
+.parteDelanteraIniciar {
+  position:absolute;
+  left: 50%;
+  top: 13%;
+  width: 20%;
+}
+.logs{
   padding: 40px 20px;
   background: #e6d3c5;
-  position: absolute;
   border-radius: 20px;
 }
 
-.parteDelantera .log{
-  left: 51%;
-}
-
 .parteTrasera{
+  position: relative;
   width: 45%;
   padding: 20px 50px;
   display: flex;

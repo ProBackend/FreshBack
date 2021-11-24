@@ -26,6 +26,7 @@
       @actualizar="buscar()"
     />
     <Alertamensaje
+      @msj="mensaje = ''"
       :mensaje="mensaje"
     />
   </section>

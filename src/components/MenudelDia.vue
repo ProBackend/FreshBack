@@ -59,7 +59,7 @@
       @refrescar="buscarMenu(), buscarPD()"
     />
     <Alertamensaje
-      @limpio="mensaje"
+      @msj="mensaje = ''"
       :mensaje="mensaje"
     />
   </section>

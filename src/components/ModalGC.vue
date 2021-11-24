@@ -1,8 +1,5 @@
 <template>
   <section v-if="mostrarmodal" >
-    <Alertamensaje
-      :mensaje="mensaje"
-    />
     <div class="modal fade show" v-if="mostrarmodal">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -136,6 +133,10 @@
         </div>
       </div>
     </div>
+    <Alertamensaje
+      @msj="mensaje = ''"
+      :mensaje="mensaje"
+    />
   </section>
 </template>
 

@@ -51,6 +51,7 @@
       </div>
     </div>
     <Alertamensaje
+      @msj="mensaje = ''"
       :mensaje="mensaje"
     />
   </section>

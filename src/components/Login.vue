@@ -3,8 +3,32 @@
     <div class="d-flex justify-content-end">
       <button class="btn-cerrar" @click="$emit('back')">X</button>
     </div>
-    <div class="parteDelantera">
-      <form v-if="nuevo" class="log">
+    <div class="d-flex justify-content-center contenedorLogin">
+      <div class="parteTrasera">
+        <div>
+          <h3>¿Aún no tienes una cuenta?</h3>
+          <p>Registrate para hacer ver nuestros productos</p>
+          <button
+            class="btn-primario"
+            @click="nuevo = false"
+          >
+            Registrarse
+          </button>
+        </div>
+        <div>
+          <h3>¿Ya tienes una cuenta?</h3>
+          <p>Inicia sesión para ver nuestros productos</p>
+          <button
+            class="btn-primario"
+            @click="nuevo = true"
+          >
+            Iniciar sesión
+          </button>
+        </div>
+      </div>
+    </div>
+    <div v-if="nuevo" class="parteDelanteraIniciar">
+      <form class="logs">
         <h2 class="h2-tittle">Iniciar sesión</h2>
         <label for="userIngre" class="input-label">Usuario</label>
         <input
@@ -32,7 +56,9 @@
           </button>
         </div>
       </form>
-      <form v-else>
+    </div>
+    <div v-else class="partedelanteraRegistrarse">
+      <form class="logs">
         <h2 class="h2-tittle">Registrarse</h2>
         <label for="nombreRegis" class="input-label">Nombre</label>
         <input
@@ -91,32 +117,8 @@
         </div>
       </form>
     </div>
-    <div class="d-flex justify-content-center">
-      <div class="parteTrasera">
-        <div>
-          <h3>¿Aún no tienes una cuenta?</h3>
-          <p>Registrate para hacer ver nuestros productos</p>
-          <button
-            class="btn-primario"
-            @click="nuevo = false"
-          >
-            Registrarse
-          </button>
-        </div>
-        <div>
-          <h3>¿Ya tienes una cuenta?</h3>
-          <p>Inicia sesión para ver nuestros productos</p>
-          <button
-            class="btn-primario"
-            @click="nuevo = true"
-          >
-            Iniciar sesión
-          </button>
-        </div>
-      </div>
-    </div>
     <Alertamensaje
-      @limpio="mensaje"
+      @msj="mensaje = ''"
       :mensaje="mensaje"
     />
   </div>
@@ -135,7 +137,7 @@ export default {
     Nuevo:{
       type: Boolean,
       default: false
-    }
+    },
   },
   data(){
     return {
