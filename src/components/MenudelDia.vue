@@ -54,7 +54,7 @@
       :esEditar= Editar
       :Actualizar= editar
       @cerrar="buscarMenu(), buscarPD(), editar = false; Editar = {}, Me = false, Prod = false"
-      @refrescar="buscarMenu(), buscarPD()"
+      @actualizar="buscarMenu(), buscarPD(), actualizar=true"
     />
     <Alertamensaje
       @msj="mensaje = ''"
@@ -77,6 +77,9 @@ export default {
     permiso: {
       type: Boolean,
       default: false
+    },
+    actualizarVista: {
+      type: Boolean
     }
   },
   data() {
@@ -89,6 +92,7 @@ export default {
       editar: false,
       mensaje: '',
       atras: 0,
+      actualizar: false
     }
   },
   created(){
@@ -99,7 +103,12 @@ export default {
     buscarMenu(){
       fetch('/MenuDia/consulta')
         .then(res => res.json())
-        .then(data => this.menuDia = data)
+        .then(data => {
+          if (data[0].activo == false) {
+            data[0].activo = true
+            this.menuDia = data
+          }
+        })
     },
     buscarPD(){
       fetch('/ProductoDia/consulta')

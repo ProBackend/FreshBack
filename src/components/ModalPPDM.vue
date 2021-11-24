@@ -48,7 +48,7 @@
           </div>
           <div class="d-flex justify-content-end mx-2 my-2">
             <div>
-              <button type="submit" class="btn-primario-modal" @click="Actualizar ? editar() : guardar(); $emit('cerrar');$emit('refrescar', true)">Guardar</button>
+              <button type="submit" class="btn-primario-modal" @click="Actualizar ? editar() : guardar(); $emit('actualizar')">Guardar</button>
               <button class="btn-secundario-modal" @click="$emit('cerrar'), reinicioDeDatos()">Cerrar</button>
             </div>
           </div>
@@ -117,7 +117,6 @@ export default {
   },
   methods: {
     guardar() {
-     
       this.P = {
           nombre: this.nombre,
           ingredientes: this.ingredientes,
@@ -137,25 +136,19 @@ export default {
           precio: this.precio,
           path: this.path
         }
-
-        if(this.ProductoDia){
- if (!this.nombre || !this.ingredientes && !this.productos || !this.precio_r || !this.path) {
-        return this.mensaje= 'Recuerde rellenar todos los campos'
-      }
-
+      if(this.ProductoDia){
+        if (!this.nombre || !this.ingredientes && !this.productos || !this.precio_r || !this.path) {
+          return this.mensaje= 'Recuerde rellenar todos los campos'
         }
-
-        if(this.ProductoRe || this.MenuDia){
- if (!this.nombre || !this.ingredientes && !this.productos || !this.precio || !this.path) {
-        return this.mensaje= 'Recuerde rellenar todos los campos'
       }
+      if(this.ProductoRe || this.MenuDia){
+        if (!this.nombre || !this.ingredientes && !this.productos || !this.precio || !this.path) {
+          return this.mensaje= 'Recuerde rellenar todos los campos'
         }
-this.nombre = capitalizar(this.nombre)
+      }
+      this.nombre = capitalizar(this.nombre)
       this.ingredientes = capitalizar(this.ingredientes)
-
-
       if (this.ProductoRe) {
-        
         fetch('/ProductosRegu/guardar', {
           method: 'POST',
           body: JSON.stringify(this.P),
@@ -171,7 +164,6 @@ this.nombre = capitalizar(this.nombre)
         }, 2000)
       }
       if (this.ProductoDia) {
-        
         if (!this.oferta) {
           return this.mensaje = 'Recuerde rellenar todos los campos'
         }
@@ -190,7 +182,6 @@ this.nombre = capitalizar(this.nombre)
         }, 2000)
       }
       if (this.MenuDia) {
-        
         fetch('/MenuDia/guardar', {
           method: 'POST',
           body: JSON.stringify(this.M),
@@ -208,7 +199,6 @@ this.nombre = capitalizar(this.nombre)
       this.reinicioDeDatos()
     },
     editar() {
-      
       this.P = {
         id: this.datosEditar._id,
         nombre: this.datosEditar.nombre,
@@ -233,36 +223,27 @@ this.nombre = capitalizar(this.nombre)
       }
 
       if(this.ProductoRe){
-        
-     if (!this.datosEditar.nombre || !this.datosEditar.ingredientes || !this.datosEditar.precio || !this.datosEditar.path) {
-        return this.mensaje = 'Recuerde rellenar todos los campos'
-      }
-      this.datosEditar.nombre = capitalizar(this.datosEditar.nombre)
-      this.datosEditar.ingredientes = capitalizar(this.datosEditar.ingredientes)
-
+        if (!this.datosEditar.nombre || !this.datosEditar.ingredientes || !this.datosEditar.precio || !this.datosEditar.path) {
+          return this.mensaje = 'Recuerde rellenar todos los campos'
+        }
+        this.datosEditar.nombre = capitalizar(this.datosEditar.nombre)
+        this.datosEditar.ingredientes = capitalizar(this.datosEditar.ingredientes)
       }
 
       if(this.ProductoDia){
         if (!this.datosEditar.nombre || !this.datosEditar.ingredientes || !this.datosEditar.precio_r || !this.datosEditar.path) {
-        return this.mensaje = 'Recuerde rellenar todos los campos'
+          return this.mensaje = 'Recuerde rellenar todos los campos'
+        }
+        this.datosEditar.nombre = capitalizar(this.datosEditar.nombre)
+        this.datosEditar.ingredientes = capitalizar(this.datosEditar.ingredientes)
       }
-      this.datosEditar.nombre = capitalizar(this.datosEditar.nombre)
-      this.datosEditar.ingredientes = capitalizar(this.datosEditar.ingredientes)
-
-      }
-
-
       if(this.MenuDia){
-
-if (!this.datosEditar.nombre || !this.datosEditar.productos||!this.datosEditar.precio || !this.datosEditar.path) {
-        return this.mensaje = 'Recuerde rellenar todos los campos'
-      }
-      this.datosEditar.nombre = capitalizar(this.datosEditar.nombre)
-      
-
+        if (!this.datosEditar.nombre || !this.datosEditar.productos||!this.datosEditar.precio || !this.datosEditar.path) {
+          return this.mensaje = 'Recuerde rellenar todos los campos'
+        }
+        this.datosEditar.nombre = capitalizar(this.datosEditar.nombre)
       }
       if (this.ProductoRe) {
-        
         fetch('/ProductosRegu/editar', {
           method: 'PUT',
           body: JSON.stringify(this.P),
@@ -278,7 +259,6 @@ if (!this.datosEditar.nombre || !this.datosEditar.productos||!this.datosEditar.p
         }, 2000)
       }
       if (this.ProductoDia) {
-        
         fetch('/ProductosDia/editar', {
           method: 'PUT',
           body: JSON.stringify(this.PD),
@@ -294,7 +274,6 @@ if (!this.datosEditar.nombre || !this.datosEditar.productos||!this.datosEditar.p
         }, 2000)
       }
       if (this.MenuDia) {
-        
         fetch('/MenuDia/editar', {
           method: 'PUT',
           body: JSON.stringify(this.M),

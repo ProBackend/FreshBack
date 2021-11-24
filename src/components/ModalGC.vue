@@ -126,8 +126,8 @@
           </div>
           <div class="d-flex justify-content-end mx-2 my-2">
             <div>
-              <button type="submit" class="btn-primario-modal" @click="guardar()">Guardar</button>
-              <button class="btn-secundario-modal" @click="$emit('cerrar', false); reinicioDeDatos()">Cerrar</button>
+              <button type="submit" class="btn-primario-modal" @click="guardar(), $emit('actualizar')">Guardar</button>
+              <button class="btn-secundario-modal" @click="$emit('cerrar'); reinicioDeDatos()">Cerrar</button>
             </div>
           </div>
         </div>

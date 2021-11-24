@@ -29,13 +29,15 @@
           <div class="contenedor-carrusel">
             <Carrusel/>
           </div>
-          <div class="">
+          <div>
             <div class="contenedor m-0 mt-2">
               <Usuario
                 :usuario="user"
                 :Productos= Pro
                 :Nosotros= Nosotros
                 :Ofertas= Ofertas
+                @actualizarVista="actualizarOfertas = true"
+
               />
             </div>
           </div>
@@ -43,11 +45,13 @@
       <div v-if="Ofertas" class="col contenedor">
         <MenudelDia
           :permiso="user.auth"
+          :actualizarVista="actualizarOfertas"
         />
       </div>
       <div v-if="Pro" class="col contenedor">
         <Productos
           :permiso="user.auth"
+          :actualizarVista="actualizarOfertas"
         />
       </div>
       <div v-if="Nosotros" class="col contenedor">
@@ -94,7 +98,8 @@ export default {
       Pro: false,
       Nosotros: false,
       user: {},
-      sesion: ''
+      sesion: '',
+      actualizarOfertas: false
     }
   },
   methods: {

@@ -57,12 +57,14 @@
       :ProductoRe= proRe
       :ProductoDia = proDia
       :MenuDia = menuDia
-      @cerrar="proDia = false; proRe = false; menuDia = false"
+      @cerrar="proDia = false; proRe = false; menuDia = false, $emit('actualizarVista'), actualizar = false"
+      @actualizar="$emit('actualizarVista'), actualizar = true"
     />
     <ModalGC
       :esContacto="esContacto"
       :mostrarmodal="mostrar"
-      @cerrar="mostrar= false, esContacto=false"
+      @cerrar="mostrar= false, esContacto = false, $emit('actualizarVista'), actualizar = false"
+      @actualizar="$emit('actualizarVista'), actualizar = true"
     />
   </section>
 </template>
@@ -102,6 +104,8 @@ export default {
       mostrar: false,
       esContacto: false,
       mensaje: '',
+      //esta variable es de prueba
+      actualizar: false
     }
   }
 }
