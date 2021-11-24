@@ -69,6 +69,12 @@ export default {
     ModalPPDM,
     Alertamensaje
   },
+  props: {
+    permiso: {
+      type: Boolean,
+      required: true
+    }
+  },
   data() {
     return {
       proDia: [],

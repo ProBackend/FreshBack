@@ -30,6 +30,12 @@ export default {
     ModalGC,
     Alertamensaje
   },
+  props: {
+    permiso: {
+      type: Boolean,
+      required: true
+    }
+  },
   data() {
     return {
       Escontacto: false,

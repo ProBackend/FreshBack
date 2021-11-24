@@ -41,13 +41,19 @@
           </div>
       </div>
       <div v-if="Ofertas" class="col contenedor">
-        <MenudelDia/>
+        <MenudelDia
+          :permiso="user.auth"
+        />
       </div>
       <div v-if="Pro" class="col contenedor">
-        <Productos/>
+        <Productos
+          :permiso="user.auth"
+        />
       </div>
       <div v-if="Nosotros" class="col contenedor">
-        <AcercadeNosotros/>
+        <AcercadeNosotros
+          :permiso="user.auth"
+        />
       </div>
     </div>
   </div>
