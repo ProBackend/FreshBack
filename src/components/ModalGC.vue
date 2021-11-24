@@ -3,12 +3,11 @@
     <Alertamensaje
       :mensaje="mensaje"
     />
-    <div class="modal fade show">
+    <div class="modal fade show" v-if="mostrarmodal">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h2 v-if="esContacto" class="h2-tittle">Agregar un contacto</h2>
-            <h2 v-else class="h2-tittle">Agregar un Gerente</h2>
+            <h2 class="h2-tittle">{{esContacto ? 'Agregar un contacto' : 'Agregar gerente'}}</h2>
           </div>
           <div class="modal-body" v-if="esContacto">
             <form class="row">
@@ -105,6 +104,17 @@
                 >
               </div>
               <div class="col-4">
+                <label for="correoGe" class="input-label">Correo</label>
+                <input
+                  type="text"
+                  id="correoGe"
+                  placeholder="Usuario"
+                  name="usuario"
+                  class="input"
+                  v-model="gerente.correo"
+                >
+              </div>
+              <div class="col-4">
                 <label for="claveGe" class="input-label">Contraseña</label>
                 <input
                   type="password"
@@ -162,7 +172,8 @@ export default {
         nombre:'',
         apellido:'',
         usuario:'',
-        clave:'',
+        correo: '',
+        clave:''
       },
       mensaje: ''
     }
@@ -193,7 +204,7 @@ export default {
           this.mensaje = ''
         })
       } else {
-        if (!this.gerente.nombre || !this.gerente.apellido || !this.gerente.usuario || !this.gerente.clave) {
+        if (!this.gerente.nombre || !this.gerente.apellido || !this.gerente.usuario || !this.gerente.clave || !this.gerente.correo) {
           return this.mensaje = 'Recuerde rellenar todos los campos'
         }
         this.gerente.nombre = capitalizar(this.gerente.nombre)
@@ -203,7 +214,8 @@ export default {
           body: JSON.stringify(this.gerente),
           headers: {
             'Accept': 'application/json',
-            'Content-type': 'application/json'
+            'Content-type': 'application/json',
+            'x-access-token': token
           }
         })
         .then(res => res.json())

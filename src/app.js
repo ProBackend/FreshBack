@@ -1,15 +1,11 @@
 const express = require("express");
 const morgan = require("morgan");
 const session = require("express-session");
-const passport = require("passport");
-
 const path = require("path");
 
 // inicialización
 const app = express();
 require("./connection");
-require("./config/passport");
-
 
 // Ajustes
 app.use(express.json())
@@ -26,9 +22,6 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }))
-app.use(passport.initialize());
-app.use(passport.session());
-
 // rutas
 app.use(require("./routes/index"));
 

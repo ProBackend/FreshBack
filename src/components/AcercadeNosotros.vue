@@ -13,7 +13,6 @@
     </div>
     <ModalGC
       :esContacto="Escontacto"
-      :mostrarmodal="mostrar"
       @cerrar="mostrar= false, Escontacto=false"
     />
     <Alertamensaje
@@ -34,7 +33,6 @@ export default {
   data() {
     return {
       Escontacto: false,
-      mostrar: false,
       contactos: [],
       mensaje: ''
     }
