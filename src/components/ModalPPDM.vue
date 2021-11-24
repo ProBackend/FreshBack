@@ -11,33 +11,33 @@
               <div>
                 <label for="inputNombre" class="input-label">Nombre</label>
                 <input v-if="!Actualizar" v-model="nombre" type="text" class="input" id="inputNombre" placeholder="Nombre">
-                <input v-else v-model="esEditar.nombre" type="text" class="input" id="inputNombre" placeholder="Nombre">
+                <input v-else v-model="datosEditar.nombre" type="text" class="input" id="inputNombre" placeholder="Nombre">
               </div>
               <div>
                 <label for="inputImagen" class="input-label">Imagen de referencia</label>
                 <input v-if="!Actualizar" v-model="path" type="text" class="input" id="inputImagen" placeholder="Link de la imagen">
-                <input v-else v-model="esEditar.path" type="text" class="input" id="inputImagen" placeholder="Link de la imagen">
+                <input v-else v-model="datosEditar.path" type="text" class="input" id="inputImagen" placeholder="Link de la imagen">
               </div>
               <div>
                 <label for="inputIngredientes" class="input-label">{{MenuDia ? 'Productos' : 'Ingredientes'}}</label>
                 <div v-if="MenuDia">
                   <textarea v-if="!Actualizar" v-model="productos" type="text" class="input" id="inputIngredientes" placeholder="Productos"></textarea>
-                  <textarea v-else v-model="esEditar.productos" type="text" class="input" id="inputIngredientes" placeholder="Productos"></textarea>
+                  <textarea v-else v-model="datosEditar.productos" type="text" class="input" id="inputIngredientes" placeholder="Productos"></textarea>
                 </div>
                 <div v-else>
                   <textarea v-if="!Actualizar" v-model="ingredientes" type="text" class="input" id="inputIngredientes" placeholder="Ingredientes"></textarea>
-                  <textarea v-else v-model="esEditar.ingredientes" type="text" class="input" id="inputIngredientes" placeholder="Ingredientes"></textarea>
+                  <textarea v-else v-model="datosEditar.ingredientes" type="text" class="input" id="inputIngredientes" placeholder="Ingredientes"></textarea>
                 </div>
               </div>
               <div>
                 <label for="inputPrecio" class="input-label">Precio</label>
                 <input v-if="!Actualizar" v-model="precio" type="number" class="input" id="inputPrecio" placeholder="Precio">
-                <input v-else v-model="esEditar.precio" type="number" class="input" id="inputPrecio" placeholder="Precio">
+                <input v-else v-model="datosEditar.precio" type="number" class="input" id="inputPrecio" placeholder="Precio">
               </div>
               <div v-if="ProductoDia">
                 <label for="inputPrecio" class="input-label">Oferta</label>
                 <input v-if="!Actualizar" v-model="oferta" type="number" class="input" id="inputPrecio" placeholder="Oferta">
-                <input v-else v-model="esEditar.oferta" type="number" class="input" id="inputPrecio" placeholder="Oferta">
+                <input v-else v-model="datosEditar.oferta" type="number" class="input" id="inputPrecio" placeholder="Oferta">
               </div>
             </form>
           </div>
@@ -78,10 +78,19 @@ export default {
     },
     esEditar:{
       type: Object,
-      default: {}
+      default() {
+        return {}
+      }
     },
     Actualizar: {
       type: Boolean,
+    }
+  },
+  computed: {
+    datosEditar() {
+      if (this.esEditar) {
+        return this.esEditar
+      }
     }
   },
   data() {
@@ -177,33 +186,33 @@ export default {
       this.reinicioDeDatos()
     },
     editar() {
-      if (!this.esEditar.nombre || !this.esEditar.ingredientes || !this.esEditar.precio || !this.esEditar.path) {
+      if (!this.datosEditar.nombre || !this.datosEditar.ingredientes || !this.datosEditar.precio || !this.datosEditar.path) {
         return this.mensaje = 'Recuerde rellenar todos los campos'
       }
-      this.esEditar.nombre = capitalizar(this.esEditar.nombre)
-      this.esEditar.ingredientes = capitalizar(this.esEditar.ingredientes)
+      this.datosEditar.nombre = capitalizar(this.datosEditar.nombre)
+      this.datosEditar.ingredientes = capitalizar(this.datosEditar.ingredientes)
 
       this.P = {
-        id: this.esEditar._id,
-        nombre: this.esEditar.nombre,
-        ingredientes: this.esEditar.ingredientes,
-        precio: this.esEditar.precio,
-        path: this.esEditar.path
+        id: this.datosEditar._id,
+        nombre: this.datosEditar.nombre,
+        ingredientes: this.datosEditar.ingredientes,
+        precio: this.datosEditar.precio,
+        path: this.datosEditar.path
       }
       this.PD = {
-        id: this.esEditar._id,
-        nombre: this.esEditar.nombre,
-        ingredientes: this.esEditar.ingredientes,
-        precio_r: this.esEditar.precio,
-        oferta: this.esEditar.oferta,
-        path: this.esEditar.path
+        id: this.datosEditar._id,
+        nombre: this.datosEditar.nombre,
+        ingredientes: this.datosEditar.ingredientes,
+        precio_r: this.datosEditar.precio,
+        oferta: this.datosEditar.oferta,
+        path: this.datosEditar.path
       }
       this.M = {
-        id: this.esEditar._id,
-        nombre: this.esEditar.nombre,
-        productos: this.esEditar.productos,
-        precio: this.esEditar.precio,
-        path: this.esEditar.path
+        id: this.datosEditar._id,
+        nombre: this.datosEditar.nombre,
+        productos: this.datosEditar.productos,
+        precio: this.datosEditar.precio,
+        path: this.datosEditar.path
       }
       if (this.ProductoRe) {
         fetch('/ProductosRegu/editar', {
