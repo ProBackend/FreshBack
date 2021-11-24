@@ -20,7 +20,7 @@
           <button class="btn-secundario mx-2" @click.prevent="registro = true, login = false, Menu = false, Pro = false, Nosotros = false">Registrarse</button>
         </form>
         <form class="d-flex" v-else>
-          <button class="btn-primario mx-2" @click.prevent="sesion = ''; verificar()">Cerrar sesión</button>
+          <button class="btn-primario mx-2" @click.prevent="sesion = ''; user = {}">Cerrar sesión</button>
         </form>
       </div>
     </nav>

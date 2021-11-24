@@ -38,7 +38,7 @@ router.get('/ProductoRegu/consulta', async function(req, res) {
   res.json(await producto.consultar())
 });
 router.get('/ProductoDia/consulta', async function(req, res) {
-  res.json(await pr_dia.consultar())
+  res.json(await Pr_dia.consultar())
 });
 router.get('/MenuDia/consulta', async function(req, res) {
   res.json(await menu_dia.consultar())
