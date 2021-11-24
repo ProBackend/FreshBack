@@ -31,17 +31,17 @@
       </div>
     </div>
     <div class="row justify-content-around">
-      <div class="card col m-3 d-flex justify-content-between" v-for="pro in proDia" :key="pro._id">
-        <div>
-          <div class="my-2 d-flex justify-content-center">
-            <img :src="pro.path" class="card-img">
-          </div>
-          <div class="">
-            <div>
-              <h5 class="card-title h5-tittle">{{pro.nombre}}</h5>
-              <p class="p-texto-oscuro">{{pro.oferta}}</p>
-              <p><small class="text-muted">{{pro.nombre}}</small></p>
-            </div>
+      <div class="card col m-3" v-for="pro in proDia" :key="pro._id">
+        <div class="mt-2 d-flex justify-content-center">
+          <img :src="pro.path" class="card-img">
+        </div>
+        <div class="mt-2">
+          <h5 class="card-title h5-tittle">{{pro.nombre}}</h5>
+          <p class="p-texto-oscuro">{{pro.ingredientes}}</p>
+          <p><small class="text-muted">{{pro.oferta}}</small></p>
+          <div class="contenedor-btn">
+            <button @click="editar = true; Editar = pro; Prod = true" class="btn-secundario w-100 my-1 px-1">Editar</button>
+            <button type="submit" @click="eliminar(pro._id, true), buscarPD()" class="btn-terciario w-100 px-1 my-1">Eliminar</button>
           </div>
         </div>
         <div class="d-flex justify-content-between mb-2">
