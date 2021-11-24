@@ -1,49 +1,76 @@
 require('../connection')
 const Usuario = require("../models/usuario");
-
 const jwt = require('jsonwebtoken');
 const config = require('../config')
 
-class userclass{
-  constructor() {}
-  async guardar (nombre, apellido, usuario, clave, correo) {
-    const adm = new Usuario({ nombre, apellido, usuario, clave, correo });
-    adm.clave = await adm.encryptClave(adm.clave);
-    await adm.save();
-    const token = jwt.sign({id: adm._id, tipo: 'Cliente'}, config.secret, {
+class Usuarios{
+  async guardar(req) {
+    const cliente = new Usuario(
+      {
+        nombre: req.nombre,
+        apellido: req.apellido,
+        usuario: req.usuario,
+        clave: req.clave,
+        correo: req.correo
+      }
+    );
+    cliente.clave = await cliente.encryptClave(cliente.clave);
+    await cliente.save();
+    const token = jwt.sign({id: cliente._id}, config.secret, {
       expiresIn: 60 * 60 * 12
     });
-    return ({token});
+    return token
   }
-  async guardargere (nombre, apellido, usuario, clave, correo) {
-    const adm = new Usuario({ nombre, apellido, usuario, clave, correo, rol: 'Gerente' });
-    adm.clave = await adm.encryptClave(adm.clave);
-    await adm.save();
-    const token = jwt.sign({id: adm._id, tipo: 'Gerente'}, config.secret, {
+  async guardargere (req) {
+    const gerente = new Usuario(
+      {
+        nombre: req.nombre,
+        apellido: req.apellido,
+        usuario: req.usuario,
+        clave: req.clave,
+        correo: req.correo,
+        rol: 'Gerente'
+      }
+    );
+    gerente.clave = await gerente.encryptClave(gerente.clave);
+    await gerente.save();
+    const token = jwt.sign({id: gerente._id}, config.secret, {
       expiresIn: 60 * 60 * 12
     });
-    return ({token});
+    return token
   }
-  async entrar (s) {
-    const h = await Gerente.findOne({usuario: s.usuario});
-    if (!h) {
-      return {
-        auth: false,
-        status: 'No existe este usuario'
-      };
-    };
-    const clavecom = await h.verifyClave(s.clave);
-    if (!clavecom) {
-      return {
-        auth: false,
-        status: 'Usuario o contrseña incorrecta'
-      };
+  async login (req) {
+    const usuario = await Usuario.findOne({usuario: req.usuario})
+    if (!usuario) {
+      return false
     }
-    const token = jwt.sign({id: h._id, tipo: 'Gerente'}, config.secret, {
+    let veri = await usuario.verifyClave(req.clave)
+    if (!veri) {
+      return false
+    }
+    const token = jwt.sign({id: usuario._id}, config.secret, {
       expiresIn: 60 * 60 * 12
     });
-    return {auth: true, token};
+    return token
   }
 }
 
-module.exports = userclass;
+iniciar();
+
+async function iniciar() {
+  const adm = await Usuario.findOne({usuario: 'Administrador'});
+  if (!adm) {
+    admnew = new Usuario ({
+      nombre: 'Gerente',
+      apellido: 'Gerente',
+      usuario: 'Administrador',
+      clave: 'clave',
+      correo: 'correo@gmail.com',
+      rol: 'Gerente'
+    })
+    admnew.clave = await admnew.encryptClave(admnew.clave);
+    await admnew.save();
+  }
+}
+
+module.exports = Usuarios;

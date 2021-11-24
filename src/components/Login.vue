@@ -1,10 +1,10 @@
 <template>
   <div class="Registrarse-IniciarSesion">
     <div class="d-flex justify-content-end">
-      <button class="btn-cerrar" @click="$emit('back', false)">X</button>
+      <button class="btn-cerrar" @click="$emit('back')">X</button>
     </div>
     <div class="parteDelantera">
-      <form v-if="Nuevo" class="log">
+      <form v-if="nuevo" class="log">
         <h2 class="h2-tittle">Iniciar sesión</h2>
         <label for="userIngre" class="input-label">Usuario</label>
         <input
@@ -13,7 +13,7 @@
           placeholder="Usuario"
           name="usuario"
           class="input"
-          v-model="usuario.user"
+          v-model="usuario.usuario"
         >
         <label for="contraIngre" class="input-label">Contraseña</label>
         <input
@@ -22,7 +22,7 @@
           placeholder="Contraseña"
           name="contraseña"
           class="input"
-          v-model="usuario.password"
+          v-model="usuario.clave"
         >
         <div class="d-flex justify-content-center">
           <button
@@ -69,7 +69,7 @@
           placeholder="Usuario"
           name="usuario"
           class="input"
-          v-model="registro.user"
+          v-model="registro.usuario"
         >
         <label for="contraRegis" class="input-label">Contraseña</label>
         <input
@@ -78,7 +78,7 @@
           placeholder="Contraseña"
           name="contraseña"
           class="input"
-          v-model="registro.password"
+          v-model="registro.clave"
         >
         <div class="d-flex justify-content-center">
           <button
@@ -97,9 +97,8 @@
           <h3>¿Aún no tienes una cuenta?</h3>
           <p>Registrate para hacer ver nuestros productos</p>
           <button
-            id="btn_iniSe"
             class="btn-primario"
-            @click="Nuevo = false"
+            @click="nuevo = false"
           >
             Registrarse
           </button>
@@ -108,9 +107,8 @@
           <h3>¿Ya tienes una cuenta?</h3>
           <p>Inicia sesión para ver nuestros productos</p>
           <button
-            id="btn_iniSe"
             class="btn-primario"
-            @click="Nuevo = true"
+            @click="nuevo = true"
           >
             Iniciar sesión
           </button>
@@ -131,38 +129,40 @@ export default {
   name: 'Login',
   components: {
     Alertamensaje,
-    capitalizar
+    capitalizar,
   },
   props: {
     Nuevo:{
       type: Boolean,
-      required: true
+      default: false
     }
   },
   data(){
     return {
       usuario: {
-        user: '',
-        password: ''
+        usuario: '',
+        clave: ''
       },
       registro: {
         nombre: '',
         apellido: '',
-        user: '',
+        usuario: '',
         correo: '',
-        password: ''
+        clave: ''
       },
       mensaje: '',
-      token: ''
+      token: '',
+      nuevo: false
     }
+  },
+  created(){
+    this.nuevo = this.Nuevo
   },
   methods: {
     iniciarSesion() {
-      if (!this.usuario.user ||!this.usuario.password) {
-        this.mensaje = 'Recuerda rellenar todos los campos'
-        return
+      if (!this.usuario.usuario ||!this.usuario.clave) {
+        return this.mensaje = 'Recuerda rellenar todos los campos'
       };
-
       fetch('/Login/Iniciar_sesion', {
         method: 'POST',
         body: JSON.stringify(this.usuario),
@@ -172,37 +172,36 @@ export default {
         }
       })
       .then(res => res.json())
-      .then(data => this.mensaje = data.status)
+      .then(data => {
+          this.mensaje = data.status
+          this.token = data.token
+          this.$emit('token', this.token)
+        })
     },
     registrarse() {
       const emailVa = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
-      if (!this.registro.nombre || !this.registro.apellido || !this.registro.correo ||!this.registro.user ||!this.registro.password) {
-        this.mensaje = 'Recuerda rellenar todos los campos'
-        return
+      if (!this.registro.nombre || !this.registro.apellido || !this.registro.correo ||!this.registro.usuario ||!this.registro.clave) {
+        return this.mensaje = 'Recuerda rellenar todos los campos'
       }
       if (!emailVa.test(this.registro.correo)) {
-        this.mensaje = 'Recuerda ingresar un correo electrónico válido'
-        return
+        return this.mensaje = 'Recuerda ingresar un correo electrónico válido'
       }
-
       this.registro.nombre = capitalizar(this.registro.nombre);
       this.registro.apellido = capitalizar(this.registro.apellido);
-      fetch('/Login/Registrarse', {
-        method: 'POST',
-        body: JSON.stringify(this.registro),
-        headers: {
-          'Accept': 'application/json',
-          'Content-type': 'application/json'
-        }
-      })
-      .then(res => res.json())
-      .then(data => {
-        this.mensaje = data.status
-        if (data.tokencont) {
-          this.token = data
-          $emit('token', this.token)
-        }
-      })
+        fetch('/Login/Registrarse', {
+          method: 'POST',
+          body: JSON.stringify(this.registro),
+          headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json'
+          }
+        })
+        .then(res => res.json())
+        .then(data => {
+          this.mensaje = data.status
+          this.token = data.token
+          this.$emit('token', this.token)
+        })
     }
   }
 }

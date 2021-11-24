@@ -15,12 +15,12 @@
             <button class="btn-secundario" @click="Ofertas = false, Pro = false, Nosotros = true"><span class="p-texto link">Acerca de nosotros</span></button>
           </li>
         </ul>
-        <form class="d-flex" v-if="Usuario == {}">
+        <form class="d-flex" v-if="!sesion">
           <button class="btn-primario mx-2" @click.prevent="registro = true, login = true, Menu = false, Pro = false, Nosotros = false">Iniciar sesión</button>
           <button class="btn-secundario mx-2" @click.prevent="registro = true, login = false, Menu = false, Pro = false, Nosotros = false">Registrarse</button>
         </form>
         <form class="d-flex" v-else>
-          <button class="btn-primario mx-2" @click.prevent="registro = true, login = true, Menu = false, Pro = false, Nosotros = false">Cerrar sesión</button>
+          <button class="btn-primario mx-2" @click.prevent="sesion = ''">Cerrar sesión</button>
         </form>
       </div>
     </nav>
@@ -32,6 +32,7 @@
           <div class="">
             <div class="contenedor m-0 mt-2">
               <Usuario
+                :usuario="user"
                 :Productos= Pro
                 :Nosotros= Nosotros
                 :Ofertas= Ofertas
@@ -40,21 +41,28 @@
           </div>
       </div>
       <div v-if="Ofertas" class="col contenedor">
-        <MenudelDia/>
+        <MenudelDia
+          :permiso="user.auth"
+        />
       </div>
       <div v-if="Pro" class="col contenedor">
-        <Productos/>
+        <Productos
+          :permiso="user.auth"
+        />
       </div>
       <div v-if="Nosotros" class="col contenedor">
-        <AcercadeNosotros/>
+        <AcercadeNosotros
+          :permiso="user.auth"
+        />
       </div>
     </div>
   </div>
   <div v-else>
     <Login
+      @token="sesion = $event"
       @back="registro = false, Menu = true"
-      @token="usuario = token"
-      :Nuevo="login"
+      @usuario= user
+      :Nuevo= login
     />
   </div>
 </section>
@@ -85,7 +93,23 @@ export default {
       Ofertas: true,
       Pro: false,
       Nosotros: false,
-      token: {}
+      user: {},
+      sesion: ''
+    }
+  },
+  computed: {
+    verificar() {
+      console.log('aaaa')
+      fetch('/verificar', {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'x-access-token': this.sesion
+        }
+      })
+      .then(res => res.json())
+      .then(data => {this.user= data})
     }
   }
 }

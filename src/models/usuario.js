@@ -36,7 +36,7 @@ UsuarioSchema.methods.encryptClave = async (clave) => {
 };
 
 UsuarioSchema.methods.verifyClave = function (clave) {
-  return bcrypt.compare(clave, this.password);
+  return bcrypt.compare(clave, this.clave);
 };
 
 module.exports = model("Usuario", UsuarioSchema);

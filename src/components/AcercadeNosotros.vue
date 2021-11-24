@@ -13,7 +13,6 @@
     </div>
     <ModalGC
       :esContacto="Escontacto"
-      :mostrarmodal="mostrar"
       @cerrar="mostrar= false, Escontacto=false"
     />
     <Alertamensaje
@@ -31,10 +30,15 @@ export default {
     ModalGC,
     Alertamensaje
   },
+  props: {
+    permiso: {
+      type: Boolean,
+      required: true
+    }
+  },
   data() {
     return {
       Escontacto: false,
-      mostrar: false,
       contactos: [],
       mensaje: ''
     }
