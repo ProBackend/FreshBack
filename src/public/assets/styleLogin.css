@@ -1,12 +1,12 @@
 body {
   background-image: url(/assets/loginBack.jpg);
-  background-size: cover;
   background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .contenedorLogin {
-  position: absolute;
   height: 40%;
+  position: absolute;
   top: 10rem;
   width: 100%;
 }
@@ -24,22 +24,21 @@ body {
   width: 20%;
 }
 .logs{
-  padding: 40px 20px;
   background: #e6d3c5;
   border-radius: 20px;
+  padding: 40px 20px;
 }
 
 .parteTrasera{
+  align-items: center;
+  background-color: #937563;
+  display: flex;
+  justify-content: space-between;
   position: relative;
   width: 45%;
-  padding: 20px 50px;
-  display: flex;
-  background-color: #937563;
 }
 
-.parteTrasera div{
-  padding-left: 2rem;
-  margin: 100px 40px;
+.parteTraseraInf{
   color: #e6d3c5;
-  transition: all 500ms;
+  width: 40%;
 }

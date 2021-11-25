@@ -1,6 +1,8 @@
 <template>
   <div class="alerta-mensaje" v-if="mensaje">
-    {{mensaje}}
+    <div class="mensaje">
+      {{mensaje}}
+    </div>
   </div>
 </template>
 
@@ -11,13 +13,6 @@ export default {
     mensaje:{
       type: String,
       required: true,
-    }
-  },
-  computed: {
-    limpiars() {
-      setTimeout( () => {
-        this.mensaje = '', this.$emit('msj')}, 2000
-      )
     }
   }
 }

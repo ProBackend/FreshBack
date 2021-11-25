@@ -5,7 +5,7 @@
     </div>
     <div class="d-flex justify-content-center contenedorLogin">
       <div class="parteTrasera">
-        <div>
+        <div class="parteTraseraInf mx-4 px-4 w-80">
           <h3>¿Aún no tienes una cuenta?</h3>
           <p>Registrate para hacer ver nuestros productos</p>
           <button
@@ -15,7 +15,7 @@
             Registrarse
           </button>
         </div>
-        <div>
+        <div class="parteTraseraInf mx-4 px-4 text-end">
           <h3>¿Ya tienes una cuenta?</h3>
           <p>Inicia sesión para ver nuestros productos</p>
           <button
