@@ -12,7 +12,7 @@
                 <p class="text-muted">{{item.precio}}</p>
               </div>
               <div class="contenedor-carrusel-btn">
-                <div v-if="permiso">
+                <div v-if="permiso === 'Gerente'">
                   <button  @click="eliminar(item._id), buscarMenu()" class="btn-terciario px-2 mx-2">Eliminar</button>
                   <button @click="editar = true; Editar = item; Me = true" class="btn-secundario px-2 mx-2">Editar</button>
                 </div>
@@ -43,7 +43,7 @@
             <p><small class="text-muted">{{pro.oferta}}</small></p>
           </div>
         </div>
-        <div v-if="permiso" class="d-flex justify-content-between mb-2">
+        <div v-if="permiso === 'Gerente'" class="d-flex justify-content-between mb-2">
           <button  @click="editar = true; Editar = pro; Prod = true" class="btn-secundario px-2">Editar</button>
           <button type="submit" @click="eliminar(pro._id, true), buscarPD()" class="btn-terciario px-2">Eliminar</button>
         </div>
@@ -76,8 +76,7 @@ export default {
   },
   props: {
     permiso: {
-      type: Boolean,
-      default: false
+      type: String
     },
     actualizarVista: {
       type: Boolean

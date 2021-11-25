@@ -45,19 +45,19 @@
       </div>
       <div v-if="Ofertas" class="col contenedor">
         <MenudelDia
-          :permiso="user.auth"
+          :permiso="user.rol"
           :actualizarVista="actualizarOfertas"
         />
       </div>
       <div v-if="Pro" class="col contenedor">
         <Productos
-          :permiso="user.auth"
+          :permiso="user.rol"
           :actualizarVista="actualizarOfertas"
         />
       </div>
       <div v-if="Nosotros" class="col contenedor">
         <AcercadeNosotros
-          :permiso="user.auth"
+          :permiso="user.rol"
         />
       </div>
     </div>

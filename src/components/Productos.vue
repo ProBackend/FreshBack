@@ -12,7 +12,7 @@
             <p><small class="text-muted">{{p.precio}}</small></p>
           </div>
         </div>
-          <div v-if="permiso" class="d-flex justify-content-between mb-2">
+          <div v-if="permiso === 'Gerente'" class="d-flex justify-content-between mb-2">
             <button @click="editar = true; Editar = p; proRe = true" class="btn-secundario px-2">Editar</button>
             <button type="submit" @click="eliminar(p._id)" class="btn-terciario px-2">Eliminar</button>
           </div>
@@ -44,8 +44,7 @@ export default {
   },
   props: {
     permiso: {
-      type: Boolean,
-      default: false
+      type: String
     }
   },
   data() {
