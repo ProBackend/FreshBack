@@ -63,6 +63,13 @@ export default {
   created(){
     this.buscar()
   },
+  watch: {
+    mensaje: function () {
+      setTimeout(() => {
+        this.mensaje = ''
+      }, 3000)
+    }
+  },
   methods: {
     buscar(){
       fetch('/ProductoRegu/consulta')
@@ -83,9 +90,6 @@ export default {
       })
         .then(res => res.json())
         .then(data => this.mensaje = data)
-        setTimeout(() => {
-          this.mensaje = ''
-        })
     }
   }
 }

@@ -39,6 +39,7 @@
           <div class="mt-2">
             <h5 class="card-title h5-tittle">{{pro.nombre}}</h5>
             <p class="p-texto-oscuro">{{pro.ingredientes}}</p>
+            <p><small class="text-muted">{{pro.precio_r}}</small></p>
             <p><small class="text-muted">{{pro.oferta}}</small></p>
           </div>
         </div>
@@ -99,12 +100,19 @@ export default {
     this.buscarMenu()
     this.buscarPD()
   },
+  watch: {
+    mensaje: function () {
+      setTimeout(() => {
+        this.mensaje = ''
+      }, 3000)
+    }
+  },
   methods: {
     buscarMenu(){
       fetch('/MenuDia/consulta')
         .then(res => res.json())
         .then(data => {
-          if (data[0].activo == false) {
+          if (data.length && data[0].activo == false) {
             data[0].activo = true
             this.menuDia = data
           }
@@ -130,9 +138,6 @@ export default {
         })
           .then(res => res.json())
           .then(data => this.mensaje = data)
-          setTimeout(() => {
-            this.mensaje = ''
-          })
       } else {
         fetch('/MenuDia/eliminar', {
           method: 'DELETE',
@@ -144,9 +149,6 @@ export default {
         })
           .then(res => res.json())
           .then(data => this.mensaje = data)
-          setTimeout(() => {
-            this.mensaje = ''
-          })
       }
     },
     carrusel(item, next){

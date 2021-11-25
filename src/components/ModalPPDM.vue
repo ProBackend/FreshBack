@@ -36,8 +36,8 @@
               </div>
               <div v-if="ProductoDia">
                 <label for="inputPrecio" class="input-label">Precio</label>
-                <input v-if="!Actualizar" v-model="precio_r" type="number" class="input" id="inputPrecio_r" placeholder="Precio_r">
-                <input v-else v-model="datosEditar.precio_r" type="number" class="input" id="inputPrecio_r" placeholder="Precio_r">
+                <input v-if="!Actualizar" v-model="precio_r" type="number" class="input" id="inputPrecio_r" placeholder="Precio regular">
+                <input v-else v-model="datosEditar.precio_r" type="number" class="input" id="inputPrecio_r" placeholder="Precio regular">
               </div>
               <div v-if="ProductoDia">
                 <label for="inputPrecio" class="input-label">Oferta</label>
@@ -115,6 +115,13 @@ export default {
       M : {},
     }
   },
+  watch: {
+    mensaje: function () {
+      setTimeout(() => {
+        this.mensaje = ''
+      }, 3000)
+    }
+  },
   methods: {
     guardar() {
       this.P = {
@@ -159,9 +166,6 @@ export default {
         })
         .then(res => res.json())
         .then(data => this.mensaje = data)
-        setTimeout(() => {
-          this.mensaje = ''
-        }, 2000)
       }
       if (this.ProductoDia) {
         if (!this.oferta) {
@@ -177,9 +181,6 @@ export default {
         })
         .then(res => res.json())
         .then(data => this.mensaje = data)
-        setTimeout(() => {
-          this.mensaje = ''
-        }, 2000)
       }
       if (this.MenuDia) {
         fetch('/MenuDia/guardar', {
@@ -192,9 +193,6 @@ export default {
         })
         .then(res => res.json())
         .then(data => this.mensaje = data)
-        setTimeout(() => {
-          this.mensaje = ''
-        }, 2000)
       }
       this.reinicioDeDatos()
     },

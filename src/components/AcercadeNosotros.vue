@@ -41,6 +41,13 @@ export default {
   created(){
     this.buscar()
   },
+  watch: {
+    mensaje: function () {
+      setTimeout(() => {
+        this.mensaje = ''
+      }, 3000)
+    }
+  },
   methods: {
     buscar(){
       fetch('/nosotros/consulta')

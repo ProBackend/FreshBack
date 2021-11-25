@@ -158,6 +158,9 @@ export default {
     },
     esContacto:{
       type: Boolean,
+    },
+    Token:{
+      type: String
     }
   },
   data() {
@@ -177,6 +180,13 @@ export default {
         clave:''
       },
       mensaje: ''
+    }
+  },
+  watch: {
+    mensaje: function () {
+      setTimeout(() => {
+        this.mensaje = ''
+      }, 3000)
     }
   },
   methods: {
@@ -213,7 +223,7 @@ export default {
           headers: {
             'Accept': 'application/json',
             'Content-type': 'application/json',
-            'x-access-token': token
+            'x-access-token': this.Token
           }
         })
         .then(res => res.json())

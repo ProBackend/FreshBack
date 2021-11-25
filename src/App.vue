@@ -36,6 +36,7 @@
                 :Productos= Pro
                 :Nosotros= Nosotros
                 :Ofertas= Ofertas
+                :token="sesion"
                 @actualizarVista="actualizarOfertas = true"
 
               />

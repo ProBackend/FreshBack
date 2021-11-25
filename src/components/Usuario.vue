@@ -46,7 +46,7 @@
           <button
             type="button"
             class="btn-primario m-2 px-2"
-            @click="mostrar = !mostrar"
+            @click="mostrar = !mostrar; Gtoken = token"
           >
             Agregar gerente
           </button>
@@ -63,6 +63,7 @@
     <ModalGC
       :esContacto="esContacto"
       :mostrarmodal="mostrar"
+      :Token="Gtoken"
       @cerrar="mostrar= false, esContacto = false, $emit('actualizarVista'), actualizar = false"
       @actualizar="$emit('actualizarVista'), actualizar = true"
     />
@@ -97,6 +98,9 @@ export default {
     Nosotros: {
       type: Boolean,
       default: false
+    },
+    token: {
+      type: String
     }
   },
   data() {
@@ -107,6 +111,7 @@ export default {
       mostrar: false,
       esContacto: false,
       mensaje: '',
+      Gtoken: '',
       //esta variable es de prueba
       actualizar: false
     }
