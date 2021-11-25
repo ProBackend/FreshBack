@@ -126,7 +126,7 @@
           </div>
           <div class="d-flex justify-content-end mx-2 my-2">
             <div>
-              <button type="submit" class="btn-primario-modal" @click="guardar(), $emit('actualizar')">Guardar</button>
+              <button type="submit" class="btn-primario-modal" @click="guardar(); $emit('cerrar')">Guardar</button>
               <button class="btn-secundario-modal" @click="$emit('cerrar'); reinicioDeDatos()">Cerrar</button>
             </div>
           </div>
@@ -230,7 +230,7 @@ export default {
         .then(data => this.mensaje = data.status)
       }
       this.reinicioDeDatos()
-      this.$emit('cerrar', false)
+      this.$emit('actualizar')
     },
     reinicioDeDatos() {
       this.contacto = {

@@ -48,7 +48,7 @@
           </div>
           <div class="d-flex justify-content-end mx-2 my-2">
             <div>
-              <button type="submit" class="btn-primario-modal" @click="Actualizar ? editar() : guardar(); $emit('actualizar')">Guardar</button>
+              <button type="submit" class="btn-primario-modal" @click="Actualizar ? editar() : guardar(); $emit('cerrar')">Guardar</button>
               <button class="btn-secundario-modal" @click="$emit('cerrar'), reinicioDeDatos()">Cerrar</button>
             </div>
           </div>
@@ -194,6 +194,7 @@ export default {
         .then(res => res.json())
         .then(data => this.mensaje = data)
       }
+      this.$emit('actualizar')
       this.reinicioDeDatos()
     },
     editar() {
@@ -226,22 +227,7 @@ export default {
         }
         this.datosEditar.nombre = capitalizar(this.datosEditar.nombre)
         this.datosEditar.ingredientes = capitalizar(this.datosEditar.ingredientes)
-      }
-
-      if(this.ProductoDia){
-        if (!this.datosEditar.nombre || !this.datosEditar.ingredientes || !this.datosEditar.precio_r || !this.datosEditar.path) {
-          return this.mensaje = 'Recuerde rellenar todos los campos'
-        }
-        this.datosEditar.nombre = capitalizar(this.datosEditar.nombre)
-        this.datosEditar.ingredientes = capitalizar(this.datosEditar.ingredientes)
-      }
-      if(this.MenuDia){
-        if (!this.datosEditar.nombre || !this.datosEditar.productos||!this.datosEditar.precio || !this.datosEditar.path) {
-          return this.mensaje = 'Recuerde rellenar todos los campos'
-        }
-        this.datosEditar.nombre = capitalizar(this.datosEditar.nombre)
-      }
-      if (this.ProductoRe) {
+        
         fetch('/ProductosRegu/editar', {
           method: 'PUT',
           body: JSON.stringify(this.P),
@@ -252,11 +238,15 @@ export default {
         })
         .then(res => res.json())
         .then(data => this.mensaje = data)
-        setTimeout(() => {
-          this.mensaje = ''
-        }, 2000)
       }
-      if (this.ProductoDia) {
+
+      if(this.ProductoDia){
+        if (!this.datosEditar.nombre || !this.datosEditar.ingredientes || !this.datosEditar.precio_r || !this.datosEditar.path) {
+          return this.mensaje = 'Recuerde rellenar todos los campos'
+        }
+        this.datosEditar.nombre = capitalizar(this.datosEditar.nombre)
+        this.datosEditar.ingredientes = capitalizar(this.datosEditar.ingredientes)
+        
         fetch('/ProductosDia/editar', {
           method: 'PUT',
           body: JSON.stringify(this.PD),
@@ -267,11 +257,13 @@ export default {
         })
         .then(res => res.json())
         .then(data => this.mensaje = data)
-        setTimeout(() => {
-          this.mensaje = ''
-        }, 2000)
       }
-      if (this.MenuDia) {
+      if(this.MenuDia){
+        if (!this.datosEditar.nombre || !this.datosEditar.productos||!this.datosEditar.precio || !this.datosEditar.path) {
+          return this.mensaje = 'Recuerde rellenar todos los campos'
+        }
+        this.datosEditar.nombre = capitalizar(this.datosEditar.nombre)
+        
         fetch('/MenuDia/editar', {
           method: 'PUT',
           body: JSON.stringify(this.M),
@@ -282,9 +274,6 @@ export default {
         })
         .then(res => res.json())
         .then(data => this.mensaje = data)
-        setTimeout(() => {
-          this.mensaje = ''
-        }, 2000)
       }
     },
     reinicioDeDatos() {

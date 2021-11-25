@@ -54,8 +54,8 @@
       :ProductoDia= Prod
       :esEditar= Editar
       :Actualizar= editar
-      @cerrar="buscarMenu(), buscarPD(), editar = false; Editar = {}, Me = false, Prod = false"
-      @actualizar="buscarMenu(), buscarPD(), actualizar=true"
+      @cerrar="buscarMenu(); buscarPD(); editar = false; Editar = {}; Me = false; Prod = false;  atras = 0"
+      @actualizar="buscarMenu(); buscarPD(); atras = 0"
     />
     <Alertamensaje
       @msj="mensaje = ''"
@@ -91,8 +91,7 @@ export default {
       Editar: {},
       editar: false,
       mensaje: '',
-      atras: 0,
-      actualizar: false
+      atras: 0
     }
   },
   created(){
@@ -104,6 +103,11 @@ export default {
       setTimeout(() => {
         this.mensaje = ''
       }, 3000)
+    },
+    actualizarVista: function () {
+      this.buscarPD()
+      this.buscarMenu()
+      this.atras = 0
     }
   },
   methods: {
@@ -148,6 +152,7 @@ export default {
         })
           .then(res => res.json())
           .then(data => this.mensaje = data)
+          this.atras = 0
       }
     },
     carrusel(item, next){

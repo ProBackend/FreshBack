@@ -25,7 +25,6 @@ class proDia {
             oferta: req.oferta,
             path: req.path,
         })
-        console.log("funciona")
         return `Se ha actualizado ${req.nombre} correctamente`
     }
 }

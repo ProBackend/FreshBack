@@ -29,6 +29,9 @@ export default {
   props: {
     permiso: {
       type: String
+    },
+    actualizarVista: {
+      type: Boolean
     }
   },
   data() {
@@ -45,6 +48,9 @@ export default {
       setTimeout(() => {
         this.mensaje = ''
       }, 3000)
+    },
+    actualizarVista: function () {
+      this.buscar()
     }
   },
   methods: {

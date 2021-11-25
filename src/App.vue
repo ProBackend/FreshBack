@@ -37,7 +37,7 @@
                 :Nosotros= Nosotros
                 :Ofertas= Ofertas
                 :token="sesion"
-                @actualizarVista="actualizarOfertas = true"
+                @actualizarVista="actualizarOfertas = !actualizarOfertas"
 
               />
             </div>
@@ -58,6 +58,7 @@
       <div v-if="Nosotros" class="col contenedor">
         <AcercadeNosotros
           :permiso="user.rol"
+          :actualizarVista="actualizarOfertas"
         />
       </div>
     </div>

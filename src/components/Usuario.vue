@@ -57,15 +57,15 @@
       :ProductoRe= proRe
       :ProductoDia = proDia
       :MenuDia = menuDia
-      @cerrar="proDia = false; proRe = false; menuDia = false, $emit('actualizarVista'), actualizar = false"
-      @actualizar="$emit('actualizarVista'), actualizar = true"
+      @cerrar="proDia = false; proRe = false; menuDia = false"
+      @actualizar="$emit('actualizarVista')"
     />
     <ModalGC
       :esContacto="esContacto"
       :mostrarmodal="mostrar"
       :Token="Gtoken"
-      @cerrar="mostrar= false, esContacto = false, $emit('actualizarVista'), actualizar = false"
-      @actualizar="$emit('actualizarVista'), actualizar = true"
+      @cerrar="mostrar= false, esContacto = false"
+      @actualizar="$emit('actualizarVista')"
     />
   </section>
 </template>
@@ -111,9 +111,7 @@ export default {
       mostrar: false,
       esContacto: false,
       mensaje: '',
-      Gtoken: '',
-      //esta variable es de prueba
-      actualizar: false
+      Gtoken: ''
     }
   }
 }

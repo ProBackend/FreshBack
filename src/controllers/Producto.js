@@ -20,7 +20,6 @@ class pro {
             precio: req.precio,
             path: req.path,
         })
-        console.log("funciona")
         return `Se ha actualizado ${req.nombre} correctamente`
     }
 }
