@@ -1,6 +1,6 @@
 const MenuDia = require("../models/menu_dia");
 class menuDia {
-    constructor(req) {}
+    constructor(req) { }
     async consultar() {
         const consulta = await MenuDia.find()
         return consulta

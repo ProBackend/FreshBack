@@ -1,7 +1,7 @@
 const Infor = require("../models/infor")
 
-class info{
-  constructor() {}
+class info {
+  constructor() { }
   async consultar() {
     return await Infor.find()
   }

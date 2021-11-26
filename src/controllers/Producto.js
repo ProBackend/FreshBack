@@ -1,6 +1,6 @@
 const Producto = require("../models/productos");
 class pro {
-    constructor(req) {}
+    constructor(req) { }
     async consultar() {
         return await Producto.find()
     }

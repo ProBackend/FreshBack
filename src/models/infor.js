@@ -10,7 +10,6 @@ const Infoschema = new Schema({
     },
     direccion: {
         type: String,
-
         required: true,
     },
     descripcion: {

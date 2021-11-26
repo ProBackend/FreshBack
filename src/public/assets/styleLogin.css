@@ -12,24 +12,24 @@ body {
 }
 
 .partedelanteraRegistrarse {
-  position:absolute;
+  position: absolute;
   left: 30%;
   top: 13%;
   width: 20%;
 }
 .parteDelanteraIniciar {
-  position:absolute;
+  position: absolute;
   left: 50%;
   top: 13%;
   width: 20%;
 }
-.logs{
+.logs {
   background: #e6d3c5;
   border-radius: 20px;
   padding: 40px 20px;
 }
 
-.parteTrasera{
+.parteTrasera {
   align-items: center;
   background-color: #937563;
   display: flex;
@@ -38,7 +38,7 @@ body {
   width: 45%;
 }
 
-.parteTraseraInf{
+.parteTraseraInf {
   color: #e6d3c5;
   width: 40%;
 }

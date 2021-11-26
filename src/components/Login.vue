@@ -8,20 +8,14 @@
         <div class="parteTraseraInf mx-4 px-4 w-80">
           <h3>¿Aún no tienes una cuenta?</h3>
           <p>Registrate para hacer ver nuestros productos</p>
-          <button
-            class="btn-primario"
-            @click="nuevo = false"
-          >
+          <button class="btn-primario" @click="nuevo = false">
             Registrarse
           </button>
         </div>
         <div class="parteTraseraInf mx-4 px-4 text-end">
           <h3>¿Ya tienes una cuenta?</h3>
           <p>Inicia sesión para ver nuestros productos</p>
-          <button
-            class="btn-primario"
-            @click="nuevo = true"
-          >
+          <button class="btn-primario" @click="nuevo = true">
             Iniciar sesión
           </button>
         </div>
@@ -38,7 +32,7 @@
           name="usuario"
           class="input"
           v-model="usuario.usuario"
-        >
+        />
         <label for="contraIngre" class="input-label">Contraseña</label>
         <input
           type="password"
@@ -47,12 +41,14 @@
           name="contraseña"
           class="input"
           v-model="usuario.clave"
-        >
+        />
         <div class="d-flex justify-content-center">
           <button
             type="button"
             @click="iniciarSesion()"
-            class="btn-secundario mt-4">Iniciar
+            class="btn-secundario mt-4"
+          >
+            Iniciar
           </button>
         </div>
       </form>
@@ -68,7 +64,7 @@
           name="nombre"
           class="input"
           v-model="registro.nombre"
-        >
+        />
         <label for="apellidoRegis" class="input-label">Apellido</label>
         <input
           type="text"
@@ -77,7 +73,7 @@
           name="apellido"
           class="input"
           v-model="registro.apellido"
-        >
+        />
         <label for="correoRegis" class="input-label">Correo</label>
         <input
           type="email"
@@ -87,7 +83,7 @@
           required
           class="input"
           v-model="registro.correo"
-        >
+        />
         <label for="userRegis" class="input-label">Usuario</label>
         <input
           type="text"
@@ -96,7 +92,7 @@
           name="usuario"
           class="input"
           v-model="registro.usuario"
-        >
+        />
         <label for="contraRegis" class="input-label">Contraseña</label>
         <input
           type="password"
@@ -105,7 +101,7 @@
           name="contraseña"
           class="input"
           v-model="registro.clave"
-        >
+        />
         <div class="d-flex justify-content-center">
           <button
             type="button"
@@ -117,100 +113,105 @@
         </div>
       </form>
     </div>
-    <Alertamensaje
-      @msj="mensaje = ''"
-      :mensaje="mensaje"
-    />
+    <Alertamensaje @msj="mensaje = ''" :mensaje="mensaje" />
   </div>
 </template>
 
 <script>
-import Alertamensaje from './Alertamensaje.vue';
+import Alertamensaje from "./Alertamensaje.vue";
 import { capitalizar } from "../controllers/funcionesGenerales";
 export default {
-  name: 'Login',
+  name: "Login",
   components: {
     Alertamensaje,
     capitalizar,
   },
   props: {
-    Nuevo:{
+    Nuevo: {
       type: Boolean,
-      default: false
+      default: false,
     },
   },
-  data(){
+  data() {
     return {
       usuario: {
-        usuario: '',
-        clave: ''
+        usuario: "",
+        clave: "",
       },
       registro: {
-        nombre: '',
-        apellido: '',
-        usuario: '',
-        correo: '',
-        clave: ''
+        nombre: "",
+        apellido: "",
+        usuario: "",
+        correo: "",
+        clave: "",
       },
-      mensaje: '',
-      token: '',
-      nuevo: false
-    }
+      mensaje: "",
+      token: "",
+      nuevo: false,
+    };
   },
-  created(){
-    this.nuevo = this.Nuevo
+  created() {
+    this.nuevo = this.Nuevo;
   },
   methods: {
     iniciarSesion() {
-      if (!this.usuario.usuario ||!this.usuario.clave) {
-        return this.mensaje = 'Recuerda rellenar todos los campos'
-      };
-      fetch('/Login/Iniciar_sesion', {
-        method: 'POST',
+      if (!this.usuario.usuario || !this.usuario.clave) {
+        return (this.mensaje = "Recuerda rellenar todos los campos");
+      }
+      fetch("/Login/Iniciar_sesion", {
+        method: "POST",
         body: JSON.stringify(this.usuario),
         headers: {
-          'Accept': 'application/json',
-          'Content-type': 'application/json'
-        }
+          Accept: "application/json",
+          "Content-type": "application/json",
+        },
       })
-      .then(res => res.json())
-      .then(data => {
-          this.mensaje = data.status
-          this.token = data.token
-          this.$emit('token', this.token)
+        .then((res) => res.json())
+        .then((data) => {
+          this.mensaje = data.status;
+          this.token = data.token;
+          this.$emit("token", this.token);
           if (this.token.length) {
-            this.$emit('back')
+            this.$emit("back");
           }
-        })
+        });
     },
     registrarse() {
-      const emailVa = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
-      if (!this.registro.nombre || !this.registro.apellido || !this.registro.correo ||!this.registro.usuario ||!this.registro.clave) {
-        return this.mensaje = 'Recuerda rellenar todos los campos'
+      const emailVa =
+        /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+      if (
+        !this.registro.nombre ||
+        !this.registro.apellido ||
+        !this.registro.correo ||
+        !this.registro.usuario ||
+        !this.registro.clave
+      ) {
+        return (this.mensaje = "Recuerda rellenar todos los campos");
       }
       if (!emailVa.test(this.registro.correo)) {
-        return this.mensaje = 'Recuerda ingresar un correo electrónico válido'
+        return (this.mensaje =
+          "Recuerda ingresar un correo electrónico válido");
       }
       this.registro.nombre = capitalizar(this.registro.nombre);
       this.registro.apellido = capitalizar(this.registro.apellido);
-        fetch('/Login/Registrarse', {
-          method: 'POST',
-          body: JSON.stringify(this.registro),
-          headers: {
-            'Accept': 'application/json',
-            'Content-type': 'application/json'
-          }
-        })
-        .then(res => res.json())
-        .then(data => {
-          this.mensaje = data.status
-          this.token = data.token
-          this.$emit('token', this.token)
+      fetch("/Login/Registrarse", {
+        method: "POST",
+        body: JSON.stringify(this.registro),
+        headers: {
+          Accept: "application/json",
+          "Content-type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          this.mensaje = data.status;
+          this.token = data.token;
+          this.$emit("token", this.token);
           if (this.token.length) {
-            this.$emit('back')
+            this.$emit("back");
           }
-        })
-    }
-  }
-}
+        });
+    },
+  },
+};
 </script>

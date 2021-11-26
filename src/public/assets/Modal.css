@@ -28,7 +28,7 @@
   transition: all 300ms;
 }
 
-.btn-primario-modal:hover{
+.btn-primario-modal:hover {
   background: #937563;
   color: #e6d3c5;
 }
@@ -42,4 +42,3 @@
   cursor: pointer;
   outline: none;
 }
-

@@ -1,17 +1,19 @@
 <template>
   <section>
-    <h2 class="usuario">{{usuario.auth ? usuario.nombre : 'No has iniciado sesion'}}</h2>
-    <h2 class="p-texto">{{usuario.rol}}</h2>
+    <h2 class="usuario">
+      {{ usuario.auth ? usuario.nombre : "No has iniciado sesion" }}
+    </h2>
+    <h2 class="p-texto">{{ usuario.rol }}</h2>
     <div v-if="usuario.rol == 'Gerente'">
       <div v-if="Ofertas">
         <div class="d-flex justify-content-center">
-        <button
-          type="button"
-          class="btn-primario m-2 px-1"
-          @click="proDia = !proDia"
-        >
-          Agregar producto del día
-        </button>
+          <button
+            type="button"
+            class="btn-primario m-2 px-1"
+            @click="proDia = !proDia"
+          >
+            Agregar producto del día
+          </button>
         </div>
         <div class="d-flex justify-content-center">
           <button
@@ -37,7 +39,7 @@
           <button
             type="button"
             class="btn-primario m-2 px-2"
-            @click="mostrar = !mostrar, esContacto = true"
+            @click="(mostrar = !mostrar), (esContacto = true)"
           >
             Agregar contacto
           </button>
@@ -46,7 +48,10 @@
           <button
             type="button"
             class="btn-primario m-2 px-2"
-            @click="mostrar = !mostrar; Gtoken = token"
+            @click="
+              mostrar = !mostrar;
+              Gtoken = token;
+            "
           >
             Agregar gerente
           </button>
@@ -54,54 +59,58 @@
       </div>
     </div>
     <ModalPPDM
-      :ProductoRe= proRe
-      :ProductoDia = proDia
-      :MenuDia = menuDia
-      @cerrar="proDia = false; proRe = false; menuDia = false"
+      :ProductoRe="proRe"
+      :ProductoDia="proDia"
+      :MenuDia="menuDia"
+      @cerrar="
+        proDia = false;
+        proRe = false;
+        menuDia = false;
+      "
       @actualizar="$emit('actualizarVista')"
     />
     <ModalGC
       :esContacto="esContacto"
       :mostrarmodal="mostrar"
       :Token="Gtoken"
-      @cerrar="mostrar= false, esContacto = false"
+      @cerrar="(mostrar = false), (esContacto = false)"
       @actualizar="$emit('actualizarVista')"
     />
   </section>
 </template>
 
 <script>
-import ModalPPDM from './ModalPPDM.vue'
-import ModalGC from './ModalGC.vue'
+import ModalPPDM from "./ModalPPDM.vue";
+import ModalGC from "./ModalGC.vue";
 
 export default {
-  name: 'Usuario',
+  name: "Usuario",
   components: {
     ModalPPDM,
-    ModalGC
+    ModalGC,
   },
   props: {
     usuario: {
       type: Object,
       default() {
-        return {}
-      }
+        return {};
+      },
     },
     Ofertas: {
       type: Boolean,
-      default: false
+      default: false,
     },
     Productos: {
       type: Boolean,
-      default: false
+      default: false,
     },
     Nosotros: {
       type: Boolean,
-      default: false
+      default: false,
     },
     token: {
-      type: String
-    }
+      type: String,
+    },
   },
   data() {
     return {
@@ -110,9 +119,9 @@ export default {
       menuDia: false,
       mostrar: false,
       esContacto: false,
-      mensaje: '',
-      Gtoken: ''
-    }
-  }
-}
+      mensaje: "",
+      Gtoken: "",
+    };
+  },
+};
 </script>

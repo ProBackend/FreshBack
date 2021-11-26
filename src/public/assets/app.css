@@ -1,4 +1,4 @@
-*{
+* {
   box-sizing: border-box;
   font-family: sans-serif !important;
   margin: 0;
@@ -13,7 +13,7 @@
   animation-direction: alternate;
   background-color: #788f76;
   border-radius: 0.25rem;
-  color: #553F25;
+  color: #553f25;
   padding: 20px 50px;
   width: 35%;
   left: 66%;
@@ -22,9 +22,15 @@
 }
 
 @keyframes alerta {
-  0% {top: 0}
-  20% {top: 25px}
-  100% {top: 25px}
+  0% {
+    top: 0;
+  }
+  20% {
+    top: 25px;
+  }
+  100% {
+    top: 25px;
+  }
 }
 
 .mensaje {
@@ -54,7 +60,7 @@ nav.navbar {
   flex-direction: row;
 }
 .nav-item {
-  margin: .5rem;
+  margin: 0.5rem;
 }
 
 /* Titulos y textos */
@@ -62,11 +68,11 @@ nav.navbar {
   color: #e6d3c5;
   font-size: 1.5rem;
   font-weight: bold;
-  margin: .5rem;
+  margin: 0.5rem;
 }
 .h1-tittle {
   color: #e6d3c5;
-  font-size: 1.80rem;
+  font-size: 1.8rem;
   font-weight: bold;
   margin: 0;
 }
@@ -79,7 +85,7 @@ nav.navbar {
 }
 
 .h5-tittle {
-  color: #553F25;
+  color: #553f25;
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 20px;
@@ -89,7 +95,7 @@ nav.navbar {
   color: #e6d3c5;
 }
 .p-texto-oscuro {
-  color: #553F25;
+  color: #553f25;
 }
 
 .p-texto.link:hover {
@@ -97,8 +103,8 @@ nav.navbar {
   font-weight: bold;
 }
 
-.p-tel{
-  color: #553F25 !important;
+.p-tel {
+  color: #553f25 !important;
   font-weight: bold;
 }
 
@@ -115,7 +121,7 @@ nav.navbar {
   background-color: #937563b7;
   border-radius: 0.25rem;
   position: sticky;
-  padding: .5rem;
+  padding: 0.5rem;
 }
 
 .contenedor-btn {
@@ -168,13 +174,13 @@ nav.navbar {
   width: 100%;
 }
 .input-label {
-  color: #553F25;
+  color: #553f25;
   font-weight: bold;
   margin: 10px;
 }
 
 .input-file {
-  color: #553F25 !important;
+  color: #553f25 !important;
   background: #788f7663;
   border: none;
   font-size: 15px;
@@ -185,7 +191,7 @@ nav.navbar {
 }
 
 /* Buttons */
-.btn-cerrar{
+.btn-cerrar {
   background-color: #e6d3c56b;
   border: transparent;
   border-radius: 3rem;
@@ -206,7 +212,7 @@ nav.navbar {
   padding: 10px 40px;
   transition: all 300ms;
 }
-.btn-primario:hover{
+.btn-primario:hover {
   background: #e6d3c5;
   color: #937563;
 }

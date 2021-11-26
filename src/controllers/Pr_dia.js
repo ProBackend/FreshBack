@@ -1,6 +1,6 @@
 const ProDia = require("../models/producto_dia");
 class proDia {
-    constructor(req) {}
+    constructor(req) { }
     async consultar() {
         const consulta = await ProDia.find()
         return consulta
