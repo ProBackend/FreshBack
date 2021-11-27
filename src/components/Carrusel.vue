@@ -53,8 +53,8 @@ export default {
           activo: false,
         },
         {
-          url: "/assets/prueba.jpg",
-          name: "prueba.jpg",
+          url: "/assets/carrusel-3.jpg",
+          name: "carrusel-3.jpg",
           activo: false,
         },
       ],

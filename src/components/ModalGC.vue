@@ -1,6 +1,6 @@
 <template>
-  <section v-if="mostrarmodal">
-    <div class="modal fade show">
+  <section>
+    <div class="modal fade show" v-if="mostrarmodal">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
