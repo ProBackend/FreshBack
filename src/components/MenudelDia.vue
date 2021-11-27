@@ -77,10 +77,10 @@
             <h5 class="card-title h5-tittle">{{ pro.nombre }}</h5>
             <p class="p-texto-oscuro">{{ pro.ingredientes }}</p>
             <p>
-              <small class="text-muted">{{ pro.precio_r }}</small>
+              <small class="text-muted">Precio regular: {{ pro.precio_r }}</small>
             </p>
             <p>
-              <small class="text-muted">{{ pro.oferta }}</small>
+              <small class="text-muted">Oferta: {{ pro.oferta }}</small>
             </p>
           </div>
         </div>
