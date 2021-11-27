@@ -325,8 +325,8 @@ export default {
     },
     editar() {
       this.datosEditar.nombre = capitalizar(this.datosEditar.nombre);
-      this.datosEditar.ingredientes = capitalizar(this.datosEditar.ingredientes);
-      this.datosEditar.productos = capitalizar(this.datosEditar.productos);
+      this.datosEditar.ingredientes = this.datosEditar.ingredientes ? capitalizar(this.datosEditar.ingredientes) : '';
+      this.datosEditar.productos = this.datosEditar.productos ? capitalizar(this.datosEditar.productos) : '';
       this.P = {
         id: this.datosEditar._id,
         nombre: this.datosEditar.nombre,
@@ -350,10 +350,10 @@ export default {
         path: this.datosEditar.path,
       };
       if (
-        !this.nombre ||
-        (!this.ingredientes && !this.productos) ||
-        (!this.precio_r && !this.precio) ||
-        !this.path
+        !this.datosEditar.nombre ||
+        (!this.datosEditar.ingredientes && !this.datosEditar.productos) ||
+        (!this.datosEditar.precio_r && !this.datosEditar.precio) ||
+        !this.datosEditar.path
       ) {
         return (this.mensaje = "Recuerde rellenar todos los campos");
       };

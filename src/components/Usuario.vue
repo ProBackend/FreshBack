@@ -73,7 +73,7 @@
       :esContacto="esContacto"
       :mostrarmodal="mostrar"
       :Token="Gtoken"
-      @cerrar="(mostrar = false), (esContacto = false)"
+      @cerrar="mostrar = false; esContacto = false"
       @actualizar="$emit('actualizarVista')"
     />
   </section>
