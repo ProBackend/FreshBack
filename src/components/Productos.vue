@@ -14,7 +14,7 @@
             <h5 class="card-title h5-tittle">{{ p.nombre }}</h5>
             <p class="p-texto-oscuro">{{ p.ingredientes }}</p>
             <p>
-              <small class="text-muted">{{ p.precio }}</small>
+              <small class="text-muted">Precio {{ p.precio }}</small>
             </p>
           </div>
         </div>

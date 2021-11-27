@@ -56,7 +56,6 @@ class Usuarios {
 }
 
 iniciar();
-
 async function iniciar() {
   const adm = await Usuario.findOne({ usuario: 'Administrador' });
   if (!adm) {

@@ -13,7 +13,7 @@ export default {
     mensaje: {
       type: String,
       required: true,
-    },
-  },
+    }
+  }
 };
 </script>

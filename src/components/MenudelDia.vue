@@ -13,7 +13,7 @@
               <div class="carrusel-fondo">
                 <h5 class="h5-tittle">{{ item.nombre }}</h5>
                 <p class="p-texto-oscuro">{{ item.productos }}</p>
-                <p class="text-muted">{{ item.precio }}</p>
+                <p class="p-texto-oscuro">Precio del menú {{ item.precio }}</p>
               </div>
               <div class="contenedor-carrusel-btn">
                 <div v-if="permiso === 'Gerente'">

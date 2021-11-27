@@ -231,8 +231,7 @@ export default {
           return (this.mensaje = "Recuerde rellenar todos los campos");
         }
         if (!this.contacto.telefono || !validarTel(this.contacto.telefono)) {
-          return (this.mensaje =
-            "Ingrese un número de teléfono válido en el formato: 58xxxxxxxxxx");
+          return (this.mensaje = "Ingrese un número de teléfono válido en el formato: 58xxxxxxxxxx");
         }
         this.contacto.nombre = capitalizar(this.contacto.nombre);
         this.contacto.apellido = capitalizar(this.contacto.apellido);

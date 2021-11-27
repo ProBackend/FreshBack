@@ -84,7 +84,6 @@ export default {
       })
         .then((res) => res.json())
         .then((data) => (this.mensaje = data));
-
       this.buscar();
     },
   },
